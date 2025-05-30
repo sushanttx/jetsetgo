@@ -116,7 +116,7 @@ const MainMenu = ({ style = "" }) => {
         </li>
         {/* End pages items */}
 
-        <li
+        {/* <li
           className={`${
             pathname.split("/")[1] == "dashboard" ||
             pathname.split("/")[1] == "vendor-dashboard"
@@ -140,7 +140,7 @@ const MainMenu = ({ style = "" }) => {
               </li>
             ))}
           </ul>
-        </li>
+        </li> */}
 
         <li className={pathname === "/contact" ? "current" : ""}>
           <Link to="/contact">Contact</Link>

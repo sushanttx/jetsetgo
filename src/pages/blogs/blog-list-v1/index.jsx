@@ -30,7 +30,7 @@ const BlogListV1 = () => {
           <div className="row justify-center text-center">
             <div className="col-auto">
               <div className="sectionTitle -md">
-                <h2 className="sectionTitle__title">Travel articles</h2>
+                <h2 className="sectionTitle__title">Blogs</h2>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
                   Lorem ipsum is placeholder text commonly used in site.
                 </p>
