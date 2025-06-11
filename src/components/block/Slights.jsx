@@ -20,7 +20,7 @@ const Slights = () => {
     },
     {
       id: 3,
-      img: "/img/backgrounds/3.png",
+      img: "/img/backgrounds/1.png",
       title: "Tower of London",
       text: ` Learn about British history at the Tower of London, a medieval
             castle that was first built in 1066 by William the Conqueror.`,
@@ -28,7 +28,7 @@ const Slights = () => {
     },
     {
       id: 4,
-      img: "/img/backgrounds/4.png",
+      img: "/img/backgrounds/2.png",
       title: "Tower Bridge",
       text: ` Learn about British history at the Tower of London, a medieval
             castle that was first built in 1066 by William the Conqueror.`,

@@ -1,7 +1,7 @@
 const blogs = [
   {
     id: 1,
-    img: "/img/blog/12.png",
+    img: "/img/blog/1.png",
     title: "10 European ski destinations you should visit this winter",
     date: "Jan 06, 2023",
     delayAnimation: "100",
@@ -11,7 +11,7 @@ const blogs = [
   },
   {
     id: 2,
-    img: "/img/blog/15.png",
+    img: "/img/blog/2.png",
     title: "Booking travel during Corona: good advice in an uncertain time",
     date: "April 06, 2022",
     delayAnimation: "200",
@@ -21,7 +21,7 @@ const blogs = [
   },
   {
     id: 3,
-    img: "/img/blog/3.png",
+    img: "/img/blog/5.png",
     title: "Where can I go? 5 amazing countries that open right now",
     date: "Jan 06, 2023",
     delayAnimation: "300",
@@ -31,7 +31,7 @@ const blogs = [
   },
   {
     id: 4,
-    img: "/img/blog/4.png",
+    img: "/img/blog/1.png",
     title: "10 European ski destinations you should visit this winter",
     date: "April 06, 2022",
     delayAnimation: "400",
@@ -51,7 +51,7 @@ const blogs = [
   },
   {
     id: 6,
-    img: "/img/blog/6.png",
+    img: "/img/blog/2.png",
     title: "Where can I go? 5 amazing countries that are open right now",
     date: "April 06, 2022",
     delayAnimation: "200",
@@ -61,7 +61,7 @@ const blogs = [
   },
   {
     id: 7,
-    img: "/img/blog/7.png",
+    img: "/img/blog/1.png",
     title: "10 European ski destinations you should visit this winter",
     date: "Jan 06, 2023",
     delayAnimation: "300",
@@ -71,7 +71,7 @@ const blogs = [
   },
   {
     id: 8,
-    img: "/img/blog/8.png",
+    img: "/img/blog/2.png",
     title: "Booking travel during Corona: good advice in an uncertain time",
     date: "April 06, 2022",
     delayAnimation: "200",

@@ -18,12 +18,12 @@ const Copyright = () => {
               </a>
               All rights reserved. By 
               <a
-                href="https://admsoft.in"
+                href="https://createntropy.com/"
                 className="mx-2"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                ADMsoft
+                Createntropy
               </a>
             </div>
           </div>

@@ -4,10 +4,10 @@ const footercontent = [
     title: "Company",
     menuList: [
       { name: "About Us", routerPath: "/" },
-      { name: "Careers", routerPath: "/" },
+      // { name: "Careers", routerPath: "/" },
       { name: "Blog", routerPath: "/" },
-      { name: "Press", routerPath: "/" },
-      { name: "Gift Cards", routerPath: "/" },
+      // { name: "Press", routerPath: "/" },
+      // { name: "Gift Cards", routerPath: "/" },
     ],
   },
   {

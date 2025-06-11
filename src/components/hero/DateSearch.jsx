@@ -1,31 +1,129 @@
 import React, { useState } from "react";
-import DatePicker, { DateObject } from "react-multi-date-picker";
 
 const DateSearch = () => {
-  // const [dates, setDates] = useState([
-  //   new DateObject({ year: 2023, month: 1, day: 22 }),
-  //   "December 09 2020",
-  //   1597994736000, //unix time in milliseconds (August 21 2020)
-  // ]);
-  const [dates, setDates] = useState([
-    new DateObject().setDay(5),
-    new DateObject().setDay(14).add(1, "month"),
-  ]);
+  const [searchValue, setSearchValue] = useState("");
 
+  const [form, setForm] = useState({
+    from: "",
+    to: "",
+    date: "",
+    time: "",
+    adult: 1,
+    child: 0,
+    lapInfant: 0,
+    seatInfant: 0,
+    cabinClass: "All Class Cabin",
+    airline1: "",
+    airline2: "",
+    flexibleDates: false,
+    directFlights: false,
+    noPenalties: false,
+    nearbyAirports: false,
+  });
+
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
   return (
-    <div className="text-15 text-light-1 ls-2 lh-16 custom_dual_datepicker">
-      <DatePicker
-        inputClass="custom_input-picker"
-        containerClassName="custom_container-picker"
-        value={dates}
-        onChange={setDates}
-        numberOfMonths={2}
-        offsetY={10}
-        range
-        rangeHover
-        format="MMMM DD"
-      />
-    </div>
+    <>
+      <div className="searchMenu-loc px-30 lg:py-20 lg:px-0 js-form-dd js-liverSearch">
+        <div data-bs-toggle="dropdown" data-bs-auto-close="true" data-bs-offset="0,22">
+          <h4 className="text-15 fw-500 ls-2 lh-16">Round Trip</h4>
+          <div className="text-15 text-light-1 ls-2 lh-16">
+            <input autoComplete="off" type="search" placeholder="Where are you going?" className="js-search js-dd-focus" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+          </div>
+        </div>
+        {/* End location Field */}
+
+        <div className="min-width-800 shadow-2 dropdown-menu w-full ">
+          <div className="flight-search-container">
+            <form className="flight-form">
+              <div className="rowflight">
+                <input type="text" placeholder="From" />
+                <input type="text" placeholder="To" />
+                <select>
+                  <option>1 Adult</option>
+                  <option>2 Adults</option>
+                  <option>3 Adults</option>
+                </select>
+                <select>
+                  <option>0 Child</option>
+                  <option>1 Child</option>
+                  <option>2 Children</option>
+                </select>
+              </div>
+
+              <div className="rowflight">
+                <input type="date" placeholder="DD/MM/YYYY" />
+                <select>
+                  <option>Anytime</option>
+                  <option>Morning</option>
+                  <option>Evening</option>
+                </select>
+                <input type="date" placeholder="DD/MM/YYYY" />
+                <select>
+                  <option>Anytime</option>
+                  <option>Morning</option>
+                  <option>Evening</option>
+                </select>
+                <select>
+                  <option>All Class Cabin</option>
+                  <option>Economy</option>
+                  <option>Business</option>
+                </select>
+              </div>
+
+              <div className="rowflight">
+                <input type="text" placeholder="Preferred Airline 1" />
+                <input type="text" placeholder="Preferred Airline 2" />
+
+                <select>
+                  <option>0 Lap Infant</option>
+                  <option>1 Lap Infant</option>
+                </select>
+                <select>
+                  <option>0 Seat Infant</option>
+                  <option>1 Seat Infant</option>
+                </select>
+              </div>
+             <div
+  className="rowflight"
+  style={{ display: 'flex', justifyContent: 'center', }}
+>
+  <div>
+    <label style={{ alignItems: 'center' }}>
+      <input type="checkbox" />
+      Flexible dates
+    </label>
+    <label style={{  alignItems: 'center', cursor: 'pointer' }}>
+      <input type="checkbox" />
+      Direct flights
+    </label>
+    <label style={{  alignItems: 'center', cursor: 'pointer' }}>
+      <input type="checkbox" />
+      Fares with no penalties
+    </label>
+    <label style={{  alignItems: 'center', cursor: 'pointer' }}>
+      <input type="checkbox" />
+      Nearby airports
+    </label>
+  </div>
+</div>
+
+              <div className="rowflight">
+                <button type="submit" className="search-btn">
+                  Search Flights
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </>
   );
 };
 

@@ -74,10 +74,11 @@ const Header1 = () => {
                     Become An Expert
                   </Link> */}
                   <Link
-                    to="/signup"
+                    // to="/signup"
                     className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
                   >
-                    Sign In / Register
+                    +(91) 123 456 7890
+                    {/* Sign In / Register */}
                   </Link>
                 </div>
                 {/* End btn-group */}

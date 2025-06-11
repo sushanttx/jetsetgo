@@ -4,6 +4,7 @@ const Social2 = () => {
     { id: 2, icon: "icon-twitter", link: "http://twitter.com/" },
     { id: 3, icon: "icon-instagram", link: "http://instagram.com/" },
     { id: 4, icon: "icon-linkedin", link: "http://linkedin.com/" },
+    { id: 5, icon: "icon-whatsapp", link: "https://whatsapp.com/" },
   ];
   return (
     <>

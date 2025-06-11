@@ -59,13 +59,10 @@ const Counter = ({ name, defaultValue, onCounterChange }) => {
 };
 
 const GuestSearch = () => {
-  const [guestCounts, setGuestCounts] = useState({
-    Adults: 2,
-    Children: 1,
-    Rooms: 1,
-  });
-  const handleCounterChange = (name, value) => {
-    setGuestCounts((prevState) => ({ ...prevState, [name]: value }));
+ 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    // handle form submission logic here
   };
   return (
     <div className="searchMenu-guests px-30 lg:py-20 lg:px-0 js-form-dd js-form-counters position-relative">
@@ -77,24 +74,59 @@ const GuestSearch = () => {
       >
         <h4 className="text-15 fw-500 ls-2 lh-16">Multi City</h4>
         <div className="text-15 text-light-1 ls-2 lh-16">
-          <span className="js-count-adult">{guestCounts.Adults}</span> adults -{" "}
+          <span className="js-count-adult">form</span>
+           {/* adults -{" "}
           <span className="js-count-child">{guestCounts.Children}</span>{" "}
           childeren - <span className="js-count-room">{guestCounts.Rooms}</span>{" "}
-          room
+          room */}
         </div>
       </div>
       {/* End guest */}
 
       <div className="shadow-2 dropdown-menu min-width-400">
         <div className="bg-white px-30 py-30 rounded-4 counter-box">
-          {counters.map((counter) => (
-            <Counter
-              key={counter.name}
-              name={counter.name}
-              defaultValue={counter.defaultValue}
-              onCounterChange={handleCounterChange}
-            />
-          ))}
+           <form className="row y-gap-20 pt-20" onSubmit={handleSubmit}>
+      <div className="col-12">
+        <div className="form-input">
+          <input type="text" id="name" required />
+          <label htmlFor="name" className="lh-1 text-16 text-light-1">
+            Full Name
+          </label>
+        </div>
+      </div>
+      <div className="col-12">
+        <div className="form-input">
+          <input type="email" id="email" required />
+          <label htmlFor="email" className="lh-1 text-16 text-light-1">
+            Email
+          </label>
+        </div>
+      </div>
+      <div className="col-12">
+        <div className="form-input">
+          <input type="text" id="subject" required />
+          <label htmlFor="subject" className="lh-1 text-16 text-light-1">
+            Subject
+          </label>
+        </div>
+      </div>
+      <div className="col-12">
+        <div className="form-input">
+          <textarea id="message" required rows="4"></textarea>
+          <label htmlFor="message" className="lh-1 text-16 text-light-1">
+            Your Message
+          </label>
+        </div>
+      </div>
+      <div className="col-auto">
+        <button
+          type="submit"
+          className="button px-24 h-50 -dark-1 bg-blue-1 text-white"
+        >
+          Send Message <div className="icon-arrow-top-right ml-15"></div>
+        </button>
+      </div>
+    </form>
         </div>
       </div>
     </div>
