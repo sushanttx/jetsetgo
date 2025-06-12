@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { FiPhone, FiMail } from "react-icons/fi"; // ✅ Import icons
 import MainMenu from "../MainMenu";
 import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 import LanguageMegaMenu from "../LanguageMegaMenu";
-
 import MobileMenu from "../MobileMenu";
 
 const Header1 = () => {
@@ -35,55 +35,50 @@ const Header1 = () => {
                   <img src="/img/general/logo-dark.svg" alt="logo icon" />
                   <img src="/img/general/logo-dark.svg" alt="logo icon" />
                 </Link>
-                {/* End logo */}
 
                 <div className="header-menu">
                   <div className="header-menu__content">
                     <MainMenu style="text-white" />
                   </div>
                 </div>
-                {/* End header-menu */}
               </div>
-              {/* End d-flex */}
             </div>
-            {/* End col */}
 
             <div className="col-auto">
               <div className="d-flex items-center">
                 <div className="row x-gap-20 items-center xxl:d-none">
                   <CurrenctyMegaMenu textClass="text-white" />
-                  {/* End Megamenu for Currencty */}
-
-                  {/* Start vertical devider*/}
                   <div className="col-auto">
                     <div className="w-1 h-20 bg-white-20" />
                   </div>
-                  {/* End vertical devider*/}
-
                   <LanguageMegaMenu textClass="text-white" />
-                  {/* End Megamenu for Language */}
                 </div>
-                {/* End language and currency selector */}
 
-                {/* Start btn-group */}
+                {/* Phone and Mail Icons */}
+                <div className="d-flex items-center ml-20 text-white text-18">
+                  <div className="mr-15">
+                    <a href="tel:+918882817640" className="text-white" aria-label="Call us">
+                      <FiPhone />
+                    </a>
+                  </div>
+                  <div>
+                    <a href="mailto:flightbooking@gmail.com" className="text-white" aria-label="Send an email">
+                      <FiMail />
+                    </a>
+                  </div>
+                </div>
+
+                {/* ✅ Sign In / Register Button */}
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
-                  {/* <Link
-                    to="/login"
-                    className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
-                  >
-                    Become An Expert
-                  </Link> */}
                   <Link
-                    // to="/signup"
+                    to="/signup"
                     className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
                   >
-                    +(91) 123 456 7890
-                    {/* Sign In / Register */}
+                    Sign In / Register
                   </Link>
                 </div>
-                {/* End btn-group */}
 
-                {/* Start mobile menu icon */}
+                {/* Mobile menu icon */}
                 <div className="d-none xl:d-flex x-gap-20 items-center pl-30 text-white">
                   <div>
                     <Link
@@ -98,27 +93,21 @@ const Header1 = () => {
                       aria-controls="mobile-sidebar_menu"
                       data-bs-target="#mobile-sidebar_menu"
                     />
-
                     <div
-                      className="offcanvas offcanvas-start  mobile_menu-contnet"
+                      className="offcanvas offcanvas-start mobile_menu-contnet"
                       tabIndex="-1"
                       id="mobile-sidebar_menu"
                       aria-labelledby="offcanvasMenuLabel"
                       data-bs-scroll="true"
                     >
                       <MobileMenu />
-                      {/* End MobileMenu */}
                     </div>
                   </div>
                 </div>
-                {/* End mobile menu icon */}
               </div>
             </div>
-            {/* End col-auto */}
           </div>
-          {/* End .row */}
         </div>
-        {/* End header_container */}
       </header>
     </>
   );

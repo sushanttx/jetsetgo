@@ -1,66 +1,74 @@
 import { useSelector, useDispatch } from "react-redux";
 import { addCurrentTab } from "../../../features/hero/findPlaceSlice";
+import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import LocationSearch from "./LocationSearch";
 import DateSearch from "../DateSearch";
 import GuestSearch from "./GuestSearch";
-import LocationSearch from "./LocationSearch";
-import { useNavigate } from "react-router-dom";
+import "../../../../public/sass/components/mainSearch.scss";
 
 const MainFilterSearchBox = () => {
-  // const { tabs, currentTab } = useSelector((state) => state.hero) || {};
+  const { currentTab } = useSelector((state) => state.hero) || {};
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const tabs = [
+    { name: "One Way", component: <LocationSearch /> },
+    { name: "Round Trip", component: <DateSearch /> },
+    { name: "Multi City", component: <GuestSearch /> },
+  ];
+
+  // Set default tab to "One Way" if currentTab is falsy or not a valid tab
+  useEffect(() => {
+    const validTabs = tabs.map((tab) => tab.name);
+    if (!currentTab || !validTabs.includes(currentTab)) {
+      dispatch(addCurrentTab("One Way"));
+    }
+  }, [currentTab, dispatch, tabs]);
+
+  const handleTabSelect = (index) => {
+    dispatch(addCurrentTab(tabs[index].name));
+  };
+
+  // Default to index 0 ("One Way") if currentTab is not found
+  const selectedIndex = currentTab && tabs.findIndex((tab) => tab.name === currentTab) !== -1
+    ? tabs.findIndex((tab) => tab.name === currentTab)
+    : 0;
+
+  // Debugging log to verify values (optional, can remove in production)
+  useEffect(() => {
+    console.log("Current Tab:", currentTab, "Selected Index:", selectedIndex);
+  }, [currentTab, selectedIndex]);
+
   return (
-    <>
-      {/* <div className="tabs__controls d-flex x-gap-30 y-gap-20 justify-center sm:justify-start js-tabs-controls">
-        {tabs?.map((tab) => (
-          <button
-            key={tab?.id}
-            className={`tabs__button text-15 fw-500 text-white pb-4 js-tabs-button ${
-              tab?.name === currentTab ? "is-tab-el-active" : ""
-            }`}
-            onClick={() => dispatch(addCurrentTab(tab?.name))}
-          >
-            {tab?.name}
-          </button>
-        ))}
-      </div> */}
+    <div className="main-filter-search-box">
+      <Tabs selectedIndex={selectedIndex} onSelect={handleTabSelect}>
+        <TabList className="tabs__controls">
+          {tabs.map((tab) => (
+            <Tab key={tab.name} className="tabs__button" selectedClassName="is-tab-el-active">
+              {tab.name}
+            </Tab>
+          ))}
+        </TabList>
 
-      <div className="position-relative mt-30 md:mt-20 js-tabs-content">
-        <div className="mainSearch -w-900 bg-white px-10 py-10 lg:px-20 lg:pt-5 lg:pb-20 rounded-100">
-          <div className="button-grid items-center">
-            <LocationSearch />
-            {/* End Location */}
-
-            <div className="searchMenu-date px-30 lg:py-20 lg:px-0 js-form-dd js-calendar">
-              <div>
-                <h4 className="text-15 fw-500 ls-2 lh-16">
-                  Round Trip
-                </h4>
-                <DateSearch />
-              </div>
-            </div>
-            {/* End check-in-out */}
-
-            <GuestSearch />
-            {/* End guest */}
-
-            <div className="button-item">
-              <button
-                className="mainSearch__submit button -dark-1 h-60 px-35 col-12 rounded-100 bg-blue-1 text-white"
-                onClick={() => navigate("/flight")}
-              >
-                <i className="icon-search text-20 mr-10" />
-                Search
-              </button>
-            </div>
-            {/* End search button_item */}
+        <div className="main-search-box">
+          {tabs.map((tab) => (
+            <TabPanel key={tab.name} className="tabs__content">
+              {tab.component}
+            </TabPanel>
+          ))}
+          <div className="button-item">
+            <button
+              className="mainSearch__submit"
+              onClick={() => navigate("/flight")}
+            >
+              Search Flights
+            </button>
           </div>
         </div>
-        {/* End .mainSearch */}
-      </div>
-      {/* End serarchbox tab-content */}
-    </>
+      </Tabs>
+    </div>
   );
 };
 

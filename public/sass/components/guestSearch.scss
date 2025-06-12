@@ -1,0 +1,251 @@
+.search-menu-guests {
+  width: 100%;
+
+  .form-container {
+    width: 100%;
+    padding: 0;
+    background: transparent;
+  }
+
+  .flight-form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  // Styles for each individual flight leg in Multi City
+  .multi-city-flight-leg-main {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* From, To, Date, Anytime each in their own column */
+    gap: 18px;
+    width: 100%;
+
+    &:not(:last-of-type) {
+      /* Removed divider between flight legs */
+    }
+
+    input,
+    select {
+      width: 100%;
+      height: 56px;
+      box-sizing: border-box;
+    }
+  }
+
+  // Styles for the Add/Remove row
+  .multi-city-action-buttons-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 24px;
+    min-height: 36px;
+    gap: 12px;
+
+    .multi-city-add-button,
+    .multi-city-remove-button.pill {
+      height: 32px;
+      font-size: 15px;
+      padding: 0 12px;
+      min-width: 60px;
+      background: #0d47a1;
+      color: #fff;
+      border-radius: 18px;
+      border: none;
+      cursor: pointer;
+      transition: background 0.2s;
+
+      &:hover {
+        background: #1565c0;
+      }
+    }
+
+    .multi-city-action-separator {
+      font-size: 18px;
+      font-weight: 600;
+      color: #bbb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 4px;
+    }
+
+    .multi-city-action-divider {
+      flex: 1;
+      height: 1.5px;
+      background: #e0e0e0;
+      margin-left: 16px;
+      border-radius: 1px;
+      min-width: 0;
+    }
+  }
+
+  // Styles for the Passenger & Cabin Class row
+  .multi-city-passenger-main-row {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr); /* Adult, Child, Lap, Seat, Class */
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+    margin-bottom: 24px;
+
+    & > select {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+
+  .multi-city-infant-group {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Lap Infant and Seat Infant side-by-side */
+    gap: 12px;
+    width: 100%;
+    height: 56px;
+    box-sizing: border-box;
+    grid-column: span 2; /* Span 2 columns within the multi-city-passenger-main-row grid */
+
+    select {
+      width: 100%;
+      height: 56px;
+      box-sizing: border-box;
+    }
+  }
+
+  // Styles for Checkboxes and Preferred Airlines row
+  .multi-city-checkbox-airline-main-row {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr); /* Checkboxes (2 cols), Airline1, Airline2 */
+    align-items: center;
+    gap: 18px;
+    width: 100%;
+  }
+
+  .multi-city-checkbox-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* 2x2 grid for checkboxes */
+    gap: 12px;
+    width: 100%;
+    grid-column: span 2; /* Checkboxes occupy 2 columns on desktop */
+  }
+
+  .multi-city-checkbox-item {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    white-space: normal;
+
+    input[type="checkbox"] {
+      margin-right: 6px;
+      width: 18px;
+      height: 18px;
+      accent-color: #0d47a1;
+    }
+  }
+
+  /* General input and select styling */
+  input:not([type="checkbox"]),
+  select {
+    min-width: 0;
+    padding: 0 20px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 18px;
+    font-size: 17px;
+    height: 56px;
+    outline: none;
+    color: #222;
+    background: #fafbfc;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    text-align: center;
+    line-height: 1.4;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: #0d47a1;
+      box-shadow: 0 0 8px rgba(13,71,161,0.10);
+    }
+
+    &::placeholder {
+      color: #bbb;
+    }
+  }
+
+  select {
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' fill='none' stroke='%230d47a1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 8 10 12 14 8'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 1.2rem center;
+    background-size: 1.2em;
+  }
+
+  /* Media queries for smaller screens */
+  @media (max-width: 992px) {
+    .multi-city-flight-leg-main {
+      grid-template-columns: repeat(2, 1fr); /* From/To, Date/Anytime */
+    }
+    .multi-city-passenger-main-row {
+      grid-template-columns: repeat(3, 1fr); /* Adult/Child, Lap/Seat, Class */
+    }
+    .multi-city-checkbox-airline-main-row {
+      grid-template-columns: repeat(2, 1fr); /* Checkboxes, Airlines */
+    }
+  }
+
+  @media (max-width: 768px) {
+    .multi-city-flight-leg-main {
+      grid-template-columns: 1fr; /* Stack all fields */
+      gap: 12px;
+    }
+    .multi-city-passenger-main-row {
+      grid-template-columns: repeat(2, 1fr); /* Adult/Child, Lap/Seat, Class */
+    }
+    .multi-city-checkbox-airline-main-row {
+      grid-template-columns: 1fr; /* Stack all fields */
+    }
+    .multi-city-checkbox-grid {
+      grid-template-columns: 1fr; /* Stack checkboxes */
+    }
+  }
+
+  @media (max-width: 576px) {
+    .flight-form {
+      gap: 12px;
+    }
+    .multi-city-flight-leg-main {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .multi-city-action-buttons-row {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 8px;
+      .multi-city-add-button,
+      .multi-city-remove-button.pill {
+        width: 100%;
+        margin: 0;
+      }
+      .multi-city-action-separator,
+      .multi-city-action-divider {
+        display: none;
+      }
+    }
+    .multi-city-passenger-main-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .multi-city-infant-group {
+      grid-template-columns: 1fr 1fr; /* Keep Lap/Seat Infant side-by-side */
+      gap: 8px;
+    }
+    .multi-city-checkbox-airline-main-row {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .multi-city-checkbox-grid {
+      grid-template-columns: 1fr; /* Stack checkboxes */
+      gap: 8px;
+    }
+  }
+}

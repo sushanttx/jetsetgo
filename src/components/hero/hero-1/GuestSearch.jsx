@@ -1,135 +1,132 @@
-import React, { useState } from "react";
-const counters = [
-  { name: "Adults", defaultValue: 2 },
-  { name: "Children", defaultValue: 1 },
-  { name: "Rooms", defaultValue: 1 },
-];
+import { useState } from "react";
+import "../../../../public/sass/components/guestSearch.scss";
 
-const Counter = ({ name, defaultValue, onCounterChange }) => {
-  const [count, setCount] = useState(defaultValue);
-  const incrementCount = () => {
-    setCount(count + 1);
-    onCounterChange(name, count + 1);
+const GuestSearch = () => {
+  const [flights, setFlights] = useState([
+    { from: "", to: "", date: "", time: "Anytime" },
+    { from: "", to: "", date: "", time: "Anytime" },
+  ]);
+  const [form, setForm] = useState({
+    adult: 1,
+    child: 0,
+    lapInfant: 0,
+    seatInfant: 0,
+    cabinClass: "All Class Cabin",
+    airline1: "",
+    airline2: "",
+    flexibleDates: false,
+    directFlights: false,
+    noPenalties: false,
+    nearbyAirports: false,
+  });
+
+  const handleFlightChange = (index, e) => {
+    const { name, value } = e.target;
+    const updatedFlights = [...flights];
+    updatedFlights[index][name] = value;
+    setFlights(updatedFlights);
   };
-  const decrementCount = () => {
-    if (count > 0) {
-      setCount(count - 1);
-      onCounterChange(name, count - 1);
+
+  const handleFormChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: type === "checkbox" ? checked : value,
+    }));
+  };
+
+  const addFlight = () => {
+    setFlights([...flights, { from: "", to: "", date: "", time: "Anytime" }]);
+  };
+
+  const removeFlight = () => {
+    if (flights.length > 2) {
+      setFlights(flights.slice(0, -1));
     }
   };
 
   return (
-    <>
-      <div className="row y-gap-10 justify-between items-center">
-        <div className="col-auto">
-          <div className="text-15 lh-12 fw-500">{name}</div>
-          {name === "Children" && (
-            <div className="text-14 lh-12 text-light-1 mt-5">Ages 0 - 17</div>
-          )}
-        </div>
-        {/* End .col-auto */}
-        <div className="col-auto">
-          <div className="d-flex items-center js-counter">
-            <button
-              className="button -outline-blue-1 text-blue-1 size-38 rounded-4 js-down"
-              onClick={decrementCount}
-            >
-              <i className="icon-minus text-12" />
-            </button>
-            {/* decrement button */}
-            <div className="flex-center size-20 ml-15 mr-15">
-              <div className="text-15 js-count">{count}</div>
+    <div className="search-menu-guests">
+      <div className="form-container">
+        <form className="flight-form">
+          {flights.map((flight, index) => (
+            <div key={index} className="form-row multi-city-flight-leg-main">
+              <input type="text" name="from" placeholder="From" value={flight.from} onChange={(e) => handleFlightChange(index, e)} />
+              <input type="text" name="to" placeholder="To" value={flight.to} onChange={(e) => handleFlightChange(index, e)} />
+              <input
+                type="text"
+                name="date"
+                placeholder="DD/MM/YYYY"
+                value={flight.date}
+                onChange={(e) => handleFlightChange(index, e)}
+                onFocus={(e) => (e.target.type = "date")}
+                onBlur={(e) => (e.target.type = flight.date ? "date" : "text")}
+              />
+              <select name="time" value={flight.time} onChange={(e) => handleFlightChange(index, e)}>
+                <option>Anytime</option>
+                <option>Morning</option>
+                <option>Evening</option>
+              </select>
             </div>
-            {/* counter text  */}
-            <button
-              className="button -outline-blue-1 text-blue-1 size-38 rounded-4 js-up"
-              onClick={incrementCount}
-            >
-              <i className="icon-plus text-12" />
-            </button>
-            {/* increment button */}
+          ))}
+
+          <div className="form-row multi-city-action-buttons-row">
+            <button type="button" className="multi-city-add-button pill" onClick={addFlight}>Add</button>
+            <div className="multi-city-action-separator">/</div>
+            <button type="button" className="multi-city-remove-button pill" onClick={removeFlight}>Remove</button>
+            <div className="multi-city-action-divider" />
           </div>
-        </div>
-        {/* End .col-auto */}
-      </div>
-      {/* End .row */}
-      <div className="border-top-light mt-24 mb-24" />
-    </>
-  );
-};
 
-const GuestSearch = () => {
- 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    // handle form submission logic here
-  };
-  return (
-    <div className="searchMenu-guests px-30 lg:py-20 lg:px-0 js-form-dd js-form-counters position-relative">
-      <div
-        data-bs-toggle="dropdown"
-        data-bs-auto-close="outside"
-        aria-expanded="false"
-        data-bs-offset="0,22"
-      >
-        <h4 className="text-15 fw-500 ls-2 lh-16">Multi City</h4>
-        <div className="text-15 text-light-1 ls-2 lh-16">
-          <span className="js-count-adult">form</span>
-           {/* adults -{" "}
-          <span className="js-count-child">{guestCounts.Children}</span>{" "}
-          childeren - <span className="js-count-room">{guestCounts.Rooms}</span>{" "}
-          room */}
-        </div>
-      </div>
-      {/* End guest */}
+          <div className="form-row multi-city-passenger-main-row">
+            <select name="adult" value={form.adult} onChange={handleFormChange}>
+              <option value="1">1 Adult</option>
+              <option value="2">2 Adults</option>
+              <option value="3">3 Adults</option>
+            </select>
+            <select name="child" value={form.child} onChange={handleFormChange}>
+              <option value="0">0 Child</option>
+              <option value="1">1 Child</option>
+              <option value="2">2 Children</option>
+            </select>
+            <div className="multi-city-infant-group">
+              <select name="lapInfant" value={form.lapInfant} onChange={handleFormChange}>
+                <option value="0">0 Lap Infant</option>
+                <option value="1">1 Lap Infant</option>
+              </select>
+              <select name="seatInfant" value={form.seatInfant} onChange={handleFormChange}>
+                <option value="0">0 Seat Infant</option>
+                <option value="1">1 Seat Infant</option>
+              </select>
+            </div>
+            <select name="cabinClass" value={form.cabinClass} onChange={handleFormChange}>
+              <option>All Class Cabin</option>
+              <option>Economy</option>
+              <option>Business</option>
+            </select>
+          </div>
 
-      <div className="shadow-2 dropdown-menu min-width-400">
-        <div className="bg-white px-30 py-30 rounded-4 counter-box">
-           <form className="row y-gap-20 pt-20" onSubmit={handleSubmit}>
-      <div className="col-12">
-        <div className="form-input">
-          <input type="text" id="name" required />
-          <label htmlFor="name" className="lh-1 text-16 text-light-1">
-            Full Name
-          </label>
-        </div>
-      </div>
-      <div className="col-12">
-        <div className="form-input">
-          <input type="email" id="email" required />
-          <label htmlFor="email" className="lh-1 text-16 text-light-1">
-            Email
-          </label>
-        </div>
-      </div>
-      <div className="col-12">
-        <div className="form-input">
-          <input type="text" id="subject" required />
-          <label htmlFor="subject" className="lh-1 text-16 text-light-1">
-            Subject
-          </label>
-        </div>
-      </div>
-      <div className="col-12">
-        <div className="form-input">
-          <textarea id="message" required rows="4"></textarea>
-          <label htmlFor="message" className="lh-1 text-16 text-light-1">
-            Your Message
-          </label>
-        </div>
-      </div>
-      <div className="col-auto">
-        <button
-          type="submit"
-          className="button px-24 h-50 -dark-1 bg-blue-1 text-white"
-        >
-          Send Message <div className="icon-arrow-top-right ml-15"></div>
-        </button>
-      </div>
-    </form>
-        </div>
+          <div className="form-row multi-city-checkbox-airline-main-row">
+            <div className="multi-city-checkbox-grid">
+              <label className="multi-city-checkbox-item">
+                <input type="checkbox" name="flexibleDates" checked={form.flexibleDates} onChange={handleFormChange} /> Flexible dates
+              </label>
+              <label className="multi-city-checkbox-item">
+                <input type="checkbox" name="noPenalties" checked={form.noPenalties} onChange={handleFormChange} /> Fares with no penalties
+              </label>
+              <label className="multi-city-checkbox-item">
+                <input type="checkbox" name="directFlights" checked={form.directFlights} onChange={handleFormChange} /> Direct flights
+              </label>
+              <label className="multi-city-checkbox-item">
+                <input type="checkbox" name="nearbyAirports" checked={form.nearbyAirports} onChange={handleFormChange} /> Nearby airports
+              </label>
+            </div>
+            <input type="text" name="airline1" placeholder="Preferred Airline 1" value={form.airline1} onChange={handleFormChange} />
+            <input type="text" name="airline2" placeholder="Preferred Airline 2" value={form.airline2} onChange={handleFormChange} />
+          </div>
+        </form>
       </div>
     </div>
   );
 };
+
 export default GuestSearch;

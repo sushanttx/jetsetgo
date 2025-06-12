@@ -1,13 +1,14 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import "../../../public/sass/components/dateSearch.scss";
 
 const DateSearch = () => {
-  const [searchValue, setSearchValue] = useState("");
-
   const [form, setForm] = useState({
     from: "",
     to: "",
-    date: "",
-    time: "",
+    departureDate: "",
+    departureTime: "Anytime",
+    returnDate: "",
+    returnTime: "Anytime",
     adult: 1,
     child: 0,
     lapInfant: 0,
@@ -28,102 +29,93 @@ const DateSearch = () => {
       [name]: type === "checkbox" ? checked : value,
     }));
   };
+
   return (
-    <>
-      <div className="searchMenu-loc px-30 lg:py-20 lg:px-0 js-form-dd js-liverSearch">
-        <div data-bs-toggle="dropdown" data-bs-auto-close="true" data-bs-offset="0,22">
-          <h4 className="text-15 fw-500 ls-2 lh-16">Round Trip</h4>
-          <div className="text-15 text-light-1 ls-2 lh-16">
-            <input autoComplete="off" type="search" placeholder="Where are you going?" className="js-search js-dd-focus" value={searchValue} onChange={(e) => setSearchValue(e.target.value)} />
+    <div className="search-menu-date">
+      <div className="form-container">
+        <form className="flight-form">
+          <div className="form-row first-row-round-trip">
+            <input type="text" name="from" placeholder="From" value={form.from} onChange={handleChange} />
+            <input type="text" name="to" placeholder="To" value={form.to} onChange={handleChange} />
+            <select name="adult" value={form.adult} onChange={handleChange}>
+              <option value="1">1 Adult</option>
+              <option value="2">2 Adults</option>
+              <option value="3">3 Adults</option>
+            </select>
+            <select name="child" value={form.child} onChange={handleChange}>
+              <option value="0">0 Child</option>
+              <option value="1">1 Child</option>
+              <option value="2">2 Children</option>
+            </select>
           </div>
-        </div>
-        {/* End location Field */}
-
-        <div className="min-width-800 shadow-2 dropdown-menu w-full ">
-          <div className="flight-search-container">
-            <form className="flight-form">
-              <div className="rowflight">
-                <input type="text" placeholder="From" />
-                <input type="text" placeholder="To" />
-                <select>
-                  <option>1 Adult</option>
-                  <option>2 Adults</option>
-                  <option>3 Adults</option>
-                </select>
-                <select>
-                  <option>0 Child</option>
-                  <option>1 Child</option>
-                  <option>2 Children</option>
-                </select>
-              </div>
-
-              <div className="rowflight">
-                <input type="date" placeholder="DD/MM/YYYY" />
-                <select>
-                  <option>Anytime</option>
-                  <option>Morning</option>
-                  <option>Evening</option>
-                </select>
-                <input type="date" placeholder="DD/MM/YYYY" />
-                <select>
-                  <option>Anytime</option>
-                  <option>Morning</option>
-                  <option>Evening</option>
-                </select>
-                <select>
-                  <option>All Class Cabin</option>
-                  <option>Economy</option>
-                  <option>Business</option>
-                </select>
-              </div>
-
-              <div className="rowflight">
-                <input type="text" placeholder="Preferred Airline 1" />
-                <input type="text" placeholder="Preferred Airline 2" />
-
-                <select>
-                  <option>0 Lap Infant</option>
-                  <option>1 Lap Infant</option>
-                </select>
-                <select>
-                  <option>0 Seat Infant</option>
-                  <option>1 Seat Infant</option>
-                </select>
-              </div>
-             <div
-  className="rowflight"
-  style={{ display: 'flex', justifyContent: 'center', }}
->
-  <div>
-    <label style={{ alignItems: 'center' }}>
-      <input type="checkbox" />
-      Flexible dates
-    </label>
-    <label style={{  alignItems: 'center', cursor: 'pointer' }}>
-      <input type="checkbox" />
-      Direct flights
-    </label>
-    <label style={{  alignItems: 'center', cursor: 'pointer' }}>
-      <input type="checkbox" />
-      Fares with no penalties
-    </label>
-    <label style={{  alignItems: 'center', cursor: 'pointer' }}>
-      <input type="checkbox" />
-      Nearby airports
-    </label>
-  </div>
-</div>
-
-              <div className="rowflight">
-                <button type="submit" className="search-btn">
-                  Search Flights
-                </button>
-              </div>
-            </form>
+          <div className="form-row second-row-round-trip">
+            <input
+              type="text"
+              name="departureDate"
+              placeholder="DD/MM/YYYY"
+              value={form.departureDate}
+              onChange={handleChange}
+              onFocus={(e) => (e.target.type = "date")}
+              onBlur={(e) => (e.target.type = form.departureDate ? "date" : "text")}
+            />
+            <select name="departureTime" value={form.departureTime} onChange={handleChange}>
+              <option>Anytime</option>
+              <option>Morning</option>
+              <option>Evening</option>
+            </select>
+            <input
+              type="text"
+              name="returnDate"
+              placeholder="DD/MM/YYYY"
+              value={form.returnDate}
+              onChange={handleChange}
+              onFocus={(e) => (e.target.type = "date")}
+              onBlur={(e) => (e.target.type = form.returnDate ? "date" : "text")}
+            />
+            <select name="returnTime" value={form.returnTime} onChange={handleChange}>
+              <option>Anytime</option>
+              <option>Morning</option>
+              <option>Evening</option>
+            </select>
+            <select name="cabinClass" value={form.cabinClass} onChange={handleChange}>
+              <option>All Class Cabin</option>
+              <option>Economy</option>
+              <option>Business</option>
+            </select>
           </div>
-        </div>
+          <div className="form-row third-row-round-trip">
+            <input type="text" name="airline1" placeholder="Preferred Airline 1" value={form.airline1} onChange={handleChange} />
+            <input type="text" name="airline2" placeholder="Preferred Airline 2" value={form.airline2} onChange={handleChange} />
+            <select name="lapInfant" value={form.lapInfant} onChange={handleChange}>
+              <option value="0">0 Lap Infant</option>
+              <option value="1">1 Lap Infant</option>
+            </select>
+            <select name="seatInfant" value={form.seatInfant} onChange={handleChange}>
+              <option value="0">0 Seat Infant</option>
+              <option value="1">1 Seat Infant</option>
+            </select>
+          </div>
+          <div className="form-row checkboxes">
+            <div className="checkbox-col">
+              <label>
+                <input type="checkbox" name="flexibleDates" checked={form.flexibleDates} onChange={handleChange} /> Flexible dates
+              </label>
+              <label>
+                <input type="checkbox" name="noPenalties" checked={form.noPenalties} onChange={handleChange} /> Fares with no penalties
+              </label>
+            </div>
+            <div className="checkbox-col">
+              <label>
+                <input type="checkbox" name="directFlights" checked={form.directFlights} onChange={handleChange} /> Direct flights
+              </label>
+              <label>
+                <input type="checkbox" name="nearbyAirports" checked={form.nearbyAirports} onChange={handleChange} /> Nearby airports
+              </label>
+            </div>
+          </div>
+        </form>
       </div>
-    </>
+    </div>
   );
 };
 

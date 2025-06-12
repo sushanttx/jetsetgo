@@ -12,7 +12,7 @@ const AppButton = () => {
     {
       id: 2,
       icon: "fa-brands fa-whatsapp", // Use your actual WhatsApp icon class here
-      link: "https://wa.me/1234567890", // Replace with your WhatsApp number link
+      link: "https://wa.me/+918882817640", // Replace with your WhatsApp number link
       text: "Message us on",
       market: "WhatsApp",
       colClass: "mt-20",
