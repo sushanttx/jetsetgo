@@ -54,28 +54,17 @@ const Header1 = () => {
                   <LanguageMegaMenu textClass="text-dark-1" />
                 </div>
 
-                {/* Phone and Mail Icons */}
-                <div className="d-flex items-center ml-20 text-dark-1 text-18">
-                  <div className="mr-15">
-                    <a href="tel:+918882817640" className="text-dark-1" aria-label="Call us">
-                      <FiPhone />
-                    </a>
-                  </div>
-                  <div>
-                    <a href="mailto:dheerajnarang2050@gmail.com" className="text-dark-1" aria-label="Send an email">
-                      <FiMail />
-                    </a>
-                  </div>
-                </div>
-
+                
                 {/* Buttons */}
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
                   <Link
                     to="/signup"
                     className="button px-30 fw-400 text-14 -outline-blue-1 h-50 text-blue-1 ml-20"
-                  >
-                    {/* +(91) 123 456 7890 */}
-                    Sign In / Register
+                  ><div className="mr-15">
+                  <a href="tel:+918882817640" className="text-dark-1" aria-label="Call us">
+                    <FiPhone /> {" "}+918882817640
+                  </a>
+                </div>
                   </Link>
                 </div>
 

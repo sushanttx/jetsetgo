@@ -3,8 +3,8 @@ const footercontent = [
     id: 1,
     title: "Company",
     menuList: [
+      { name: " Sign In / Register", routerPath: "/signup" },
       { name: "About Us", routerPath: "/" },
-      // { name: "Careers", routerPath: "/" },
       { name: "Blog", routerPath: "/" },
       // { name: "Press", routerPath: "/" },
       // { name: "Gift Cards", routerPath: "/" },

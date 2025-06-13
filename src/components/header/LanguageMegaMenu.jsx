@@ -43,7 +43,7 @@ const LanguageMegaMenu = ({ textClass }) => {
           onClick={handleCurrency}
         >
           <img
-            src="/img/general/lang.png"
+            src="/img/general/us.png"
             alt="image"
             className="rounded-full mr-10"
           />

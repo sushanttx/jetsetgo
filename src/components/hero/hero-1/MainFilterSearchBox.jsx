@@ -5,9 +5,9 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import LocationSearch from "./LocationSearch";
 import DateSearch from "../DateSearch";
-import GuestSearch from "./GuestSearch";
+import ContactForm from "@/components/common/ContactForm";
 import "../../../../public/sass/components/mainSearch.scss";
-
+ 
 const MainFilterSearchBox = () => {
   const { currentTab } = useSelector((state) => state.hero) || {};
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const MainFilterSearchBox = () => {
   const tabs = [
     { name: "One Way", component: <LocationSearch /> },
     { name: "Round Trip", component: <DateSearch /> },
-    { name: "Multi City", component: <GuestSearch /> },
+    { name: "Multi City", component: <ContactForm /> },
   ];
 
   // Set default tab to "One Way" if currentTab is falsy or not a valid tab
@@ -58,14 +58,16 @@ const MainFilterSearchBox = () => {
               {tab.component}
             </TabPanel>
           ))}
-          <div className="button-item">
-            <button
-              className="mainSearch__submit"
-              // onClick={() => navigate("/flight")}
-            >
-              Search Flights
-            </button>
-          </div>
+          {currentTab !== "Multi City" && (
+            <div className="button-item">
+              <button
+                className="mainSearch__submit"
+                // onClick={() => navigate("/flight")}
+              >
+                Search Flights
+              </button>
+            </div>
+          )}
         </div>
       </Tabs>
     </div>

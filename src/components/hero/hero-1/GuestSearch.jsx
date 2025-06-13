@@ -5,7 +5,7 @@ const GuestSearch = () => {
   const [flights, setFlights] = useState([
     { from: "", to: "", date: "", time: "Anytime" },
     { from: "", to: "", date: "", time: "Anytime" },
-  ]);
+  ]); 
   const [form, setForm] = useState({
     adult: 1,
     child: 0,
