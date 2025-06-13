@@ -81,12 +81,12 @@ const Header1 = () => {
 
                 {/* Start btn-group */}
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
-                  <Link
+                  {/* <Link
                     to="/login"
                     className="button px-30 fw-400 text-14 -blue-1 bg-dark-1 h-50 text-white"
                   >
                     Become An Expert
-                  </Link>
+                  </Link> */}
                   <Link
                     to="/signup"
                     className="button px-30 fw-400 text-14 border-dark-1 -blue-1 h-50 text-dark-1 ml-20"

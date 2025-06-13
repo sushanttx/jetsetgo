@@ -61,164 +61,38 @@ const MobileMenu = () => {
 
       <Sidebar width="400" backgroundColor="#fff">
         <Menu>
-          <SubMenu
-            label="Home"
-            className={
-              homeItems.some(
-                (item) =>
-                  item.routePath?.split("/")[1] == pathname.split("/")[1],
-              )
-                ? "menu-active-link"
-                : ""
-            }
+        <MenuItem
+            onClick={() => navigate("/")}
+            className={pathname === "/" ? "menu-active-link" : ""}
           >
-            {homeItems.map((item, i) => (
-              <MenuItem
-                key={i}
-                onClick={() => navigate(item.routePath)}
-                className={
-                  isActiveLink(item.routePath, pathname)
-                    ? "menu-active-link"
-                    : "inactive-menu"
-                }
-              >
-                {item.name}
-              </MenuItem>
-            ))}
-          </SubMenu>
-          {/* End  All Home Menu */}
-
-          <SubMenu
-            label="Categories"
-            className={isActiveParent ? "menu-active-link" : ""}
+            Home
+          </MenuItem>
+         
+          <MenuItem
+            onClick={() => navigate("/flight")}
+            className={pathname === "/flight" ? "menu-active-link" : ""}
           >
-            {categorieMobileItems.map((item) => (
-              <SubMenu
-                label={item.title}
-                key={item.id}
-                className={
-                  isActiveNestedParent == item.id
-                    ? "menu-active-link"
-                    : "inactive-menu"
-                }
-              >
-                {item.menuItems.map((single) => (
-                  <SubMenu
-                    label={single.title}
-                    key={single.id}
-                    className={
-                      isActiveNestedParentTwo == single.title
-                        ? "menu-active-link"
-                        : "inactive-menu"
-                    }
-                  >
-                    {single.menuList.map((menu, i) => (
-                      <MenuItem
-                        key={i}
-                        onClick={() => navigate(menu.routePath)}
-                        className={
-                          isActiveLink(menu.routePath, pathname)
-                            ? "menu-active-link"
-                            : "inactive-menu"
-                        }
-                      >
-                        {menu.name}
-                      </MenuItem>
-                    ))}
-                  </SubMenu>
-                ))}
-              </SubMenu>
-            ))}
-          </SubMenu>
-          {/* End  All Categories Menu */}
-
+            Flight
+          </MenuItem>
+          
           <MenuItem
             onClick={() => navigate("/destinations")}
             className={pathname === "/destinations" ? "menu-active-link" : ""}
           >
-            Desitinations
+            Destination
           </MenuItem>
-          {/* End  Desitinations Menu */}
-
-          <SubMenu
-            label="Blog"
-            className={
-              blogItems.some(
-                (item) =>
-                  item.routePath?.split("/")[1] == pathname.split("/")[1],
-              )
-                ? "menu-active-link"
-                : ""
-            }
+          <MenuItem
+            onClick={() => navigate("/blog")}
+            className={pathname === "/blog" ? "menu-active-link" : ""}
           >
-            {blogItems.map((item, i) => (
-              <MenuItem
-                key={i}
-                onClick={() => navigate(item.routePath)}
-                className={
-                  isActiveLink(item.routePath, pathname)
-                    ? "menu-active-link"
-                    : "inactive-menu"
-                }
-              >
-                {item.name}
-              </MenuItem>
-            ))}
-          </SubMenu>
-          {/* End  All Blog Menu */}
-
-          <SubMenu
-            label="Pages"
-            className={
-              pageItems.some(
-                (item) =>
-                  item.routePath?.split("/")[1] == pathname.split("/")[1],
-              )
-                ? "menu-active-link"
-                : ""
-            }
+            Blog
+          </MenuItem>
+          <MenuItem
+            onClick={() => navigate("/about")}
+            className={pathname === "/about" ? "menu-active-link" : ""}
           >
-            {pageItems.map((item, i) => (
-              <MenuItem
-                key={i}
-                onClick={() => navigate(item.routePath)}
-                className={
-                  isActiveLink(item.routePath, pathname)
-                    ? "menu-active-link"
-                    : "inactive-menu"
-                }
-              >
-                {item.name}
-              </MenuItem>
-            ))}
-          </SubMenu>
-          {/* End  All Pages Menu */}
-
-          <SubMenu
-            label="Dashboard"
-            className={
-              pathname.split("/")[1] == "dashboard" ||
-              pathname.split("/")[1] == "vendor-dashboard"
-                ? "menu-active-link"
-                : ""
-            }
-          >
-            {dashboardItems.map((item, i) => (
-              <MenuItem
-                key={i}
-                onClick={() => navigate(item.routePath)}
-                className={
-                  isActiveLink(item.routePath, pathname)
-                    ? "menu-active-link"
-                    : "inactive-menu"
-                }
-              >
-                {item.name}
-              </MenuItem>
-            ))}
-          </SubMenu>
-          {/* End  All Dashboard Menu */}
-
+            About
+          </MenuItem>
           <MenuItem
             onClick={() => navigate("/contact")}
             className={pathname === "/contact" ? "menu-active-link" : ""}
@@ -239,14 +113,14 @@ const MobileMenu = () => {
             <Social />
           </div>
         </div>
-        <div className="mt-20">
-          <Link
+        {/* <div className="mt-20">
+          {/* <Link
             className=" button -dark-1 px-30 fw-400 text-14 bg-blue-1 h-50 text-white"
             to="/login"
           >
-            Become An Expert
-          </Link>
-        </div>
+            dheerajnarang2050@gmail.com
+          </Link> 
+        </div> */}
       </div>
       {/* End pro-footer */}
     </>

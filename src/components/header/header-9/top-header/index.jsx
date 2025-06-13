@@ -37,11 +37,11 @@ const HeaderBanner = () => {
                 <div className="w-1 h-20 bg-white-20" />
               </div>
               {/* End .col-auto */}
-              <div className="col-auto md:d-none">
+              {/* <div className="col-auto md:d-none">
                 <Link to="/login" className="text-12 text-white">
                   Become An Expert
                 </Link>
-              </div>
+              </div> */}
               {/* End .col-auto */}
               <div className="col-auto md:d-none">
                 <div className="w-1 h-20 bg-white-20" />

@@ -67,12 +67,12 @@ const Header1 = () => {
 
                 {/* Start btn-group */}
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
-                  <Link
+                  {/* <Link
                     to="/login"
                     className="button px-30 fw-400 text-14 -blue-1 bg-dark-4 h-50 text-white"
                   >
                     Become An Expert
-                  </Link>
+                  </Link> */}
                   <Link
                     to="/signup"
                     className="button px-30 fw-400 text-14 -outline-blue-1 h-50 text-blue-1 ml-20"
