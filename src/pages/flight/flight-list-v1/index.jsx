@@ -26,11 +26,11 @@ const FlightListPage1 = () => {
       <Header11 />
       {/* End Header 1 */}
 
-      <section className="pt-40 pb-40">
+      {/* <section className="pt-40 pb-40">
         <div className="container">
           <MainFilterSearchBox />
         </div>
-      </section>
+      </section> */}
       {/* Top SearchBanner */}
 
       <section className="layout-pt-md layout-pb-md bg-light-2">

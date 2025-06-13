@@ -62,7 +62,7 @@ const Header1 = () => {
                     </a>
                   </div>
                   <div>
-                    <a href="mailto:flightbooking@gmail.com" className="text-white" aria-label="Send an email">
+                    <a href="mailto:dheerajnarang2050@gmail.com" className="text-white" aria-label="Send an email">
                       <FiMail />
                     </a>
                   </div>

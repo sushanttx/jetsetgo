@@ -15,7 +15,7 @@ const Address = () => {
       title: "Toll Free Customer Care",
       content: (
         <>
-          <a href="tel:+4733378901">+47 333 78 901</a>
+          <a href="tel:+4733378901">+91 8882817640</a>
         </>
       ),
     },
@@ -26,7 +26,7 @@ const Address = () => {
       content: (
         <>
           {" "}
-          <a href="mailto:flightbooking@gmail.com">flightbooking@gmail.com</a>
+          <a href="mailto:dheerajnarang2050@gmail.com">dheerajnarang2050@gmail.com</a>
         </>
       ),
     },

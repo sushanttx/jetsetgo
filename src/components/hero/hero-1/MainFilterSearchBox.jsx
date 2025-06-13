@@ -61,7 +61,7 @@ const MainFilterSearchBox = () => {
           <div className="button-item">
             <button
               className="mainSearch__submit"
-              onClick={() => navigate("/flight")}
+              // onClick={() => navigate("/flight")}
             >
               Search Flights
             </button>

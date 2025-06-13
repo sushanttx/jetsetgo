@@ -9,8 +9,8 @@ const ContactInfo = () => {
     {
       id: 2,
       title: "Need live support?",
-      action: "mailto:flightbooking@gmail.com",
-      text: "flightbooking@gmail.com",
+      action: "mailto:dheerajnarang2050@gmail.com",
+      text: "dheerajnarang2050@gmail.com",
     },
   ];
   return (
