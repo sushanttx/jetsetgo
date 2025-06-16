@@ -43,8 +43,9 @@ const MobileMenu = () => {
   return (
     <>
       <div className="pro-header d-flex align-items-center justify-between border-bottom-light">
-        <Link to="/">
+        <Link to="/" className="d-flex flex-column align-items-center">
           <img src="/img/general/logo-dark.svg" alt="brand" />
+          <span className="text-20 fw-500 mt-10 text-dark-1">Flight Booking</span>
         </Link>
         {/* End logo */}
 

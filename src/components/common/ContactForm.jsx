@@ -1,51 +1,76 @@
-import React from "react";
+import React, { useState } from "react";
+import "../../../public/sass/components/contactForm.scss";
 
 const ContactForm = () => {
+  const [form, setForm] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    countryCode: "+1", // Default country code
+    phoneNumber: "",
+    message: "",
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     // handle form submission logic here
+    console.log(form);
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   return (
-    <form className="row y-gap-20 pt-20" onSubmit={handleSubmit}>
-      <div className="col-12">
+    <form className="contact-form" onSubmit={handleSubmit}>
+      <div className="form-row two-columns">
         <div className="form-input">
-          <input type="text" id="name" required />
-          <label htmlFor="name" className="lh-1 text-16 text-light-1">
-            Full Name
-          </label>
+          <input type="text" id="firstName" name="firstName" placeholder="First Name" value={form.firstName} onChange={handleChange} required />
+        </div>
+        <div className="form-input">
+          <input type="text" id="lastName" name="lastName" placeholder="Last Name" value={form.lastName} onChange={handleChange} required />
         </div>
       </div>
-      <div className="col-12">
+
+      <div className="form-row two-columns">
         <div className="form-input">
-          <input type="email" id="email" required />
-          <label htmlFor="email" className="lh-1 text-16 text-light-1">
-            Email
-          </label>
+          <input type="email" id="email" name="email" placeholder="Email" value={form.email} onChange={handleChange} required />
+        </div>
+        <div className="phone-input-group">
+          <div className="select-wrapper">
+            <select className="country-code" name="countryCode" value={form.countryCode} onChange={handleChange}>
+              <option value="+1">+1 (US)</option>
+              <option value="+44">+44 (UK)</option>
+              <option value="+91">+91 (IN)</option>
+              <option value="+61">+61 (AU)</option>
+              <option value="+86">+86 (CN)</option>
+              <option value="+81">+81 (JP)</option>
+              <option value="+49">+49 (DE)</option>
+              <option value="+33">+33 (FR)</option>
+              <option value="+39">+39 (IT)</option>
+              <option value="+34">+34 (ES)</option>
+            </select>
+          </div>
+          <div className="form-input">
+            <input type="tel" id="phoneNumber" name="phoneNumber" placeholder="Phone Number" value={form.phoneNumber} onChange={handleChange} required />
+          </div>
         </div>
       </div>
-      <div className="col-12">
+
+      <div className="form-row one-column">
         <div className="form-input">
-          <input type="text" id="subject" required />
-          <label htmlFor="subject" className="lh-1 text-16 text-light-1">
-            Subject
-          </label>
+          <textarea id="message" name="message" placeholder="Message" value={form.message} onChange={handleChange} required rows="4"></textarea>
         </div>
       </div>
-      <div className="col-12">
-        <div className="form-input">
-          <textarea id="message" required rows="4"></textarea>
-          <label htmlFor="message" className="lh-1 text-16 text-light-1">
-            Your Message
-          </label>
-        </div>
-      </div>
-      <div className="col-auto">
-        <button
-          type="submit"
-          className="button px-24 h-50 -dark-1 bg-blue-1 text-white"
-        >
-          Send Message <div className="icon-arrow-top-right ml-15"></div>
+
+      {/* Keeping submit button commented out for now, as it's not in the field layout image */}
+      <div className="form-row">
+        <button type="submit" className="submit-button">
+          Send Message
         </button>
       </div>
     </form>
