@@ -38,6 +38,9 @@ import LogIn from "./pages/others/login";
 import SignUp from "./pages/others/signup";
 import Terms from "./pages/others/terms";
 import Invoice from "./pages/others/invoice";
+import Contact from "./pages/others/contact";
+import Destinations from "./pages/others/destinations";
+import Enquiry from "./pages/Enquiry";
 import DBDashboard from "./pages/dashboard/dashboard/db-dashboard";
 import DBBooking from "./pages/dashboard/dashboard/db-booking";
 import DBWishlist from "./pages/dashboard/dashboard/db-wishlist";
@@ -76,8 +79,6 @@ import CruiseListPage2 from "./pages/cruise/cruise-list-v2";
 import CruiseListPage3 from "./pages/cruise/cruise-list-v3";
 import CruiseSingleV1Dynamic from "./pages/cruise/cruise-single";
 import FlightListPage1 from "./pages/flight/flight-list-v1";
-import Contact from "./pages/others/contact";
-import Destinations from "./pages/others/destinations";
 
 function App() {
   useEffect(() => {
@@ -121,6 +122,7 @@ function App() {
               <Route path="invoice" element={<Invoice />} />
               <Route path="contact" element={<Contact />} />
               <Route path="destinations" element={<Destinations />} />
+              <Route path="enquiry" element={<Enquiry />} />
 
               <Route path="dashboard">
                 <Route path="db-dashboard" element={<DBDashboard />} />

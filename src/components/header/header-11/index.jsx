@@ -27,11 +27,11 @@ const Header1 = () => {
   return (
     <>
       <header className={`header bg-dark-3 ${navbar ? "is-sticky" : ""}`}>
-        <div className="header__container px-30 sm:px-20">
+        <div className="header__container px-30 sm:px-10">
           <div className="row justify-between items-center">
             <div className="col-auto">
               <div className="d-flex items-center">
-                <Link to="/" className="header-logo mr-20">
+                <Link to="/" className="header-logo ">
                   <img src="/img/general/logo-dark.svg" alt="logo icon" />
                   <img src="/img/general/logo-dark.svg" alt="logo icon" />
                 </Link>
@@ -56,7 +56,7 @@ const Header1 = () => {
 
 
                 {/* ✅ Sign In / Register Button */}
-                <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
+                <div className="d-flex items-center  ">
                   <Link
                     to="tel:+918882817640"
                     aria-label="Call us"
@@ -68,12 +68,12 @@ const Header1 = () => {
 
                 {/* Mobile menu icon */}
                 <div className="d-none xl:d-flex x-gap-20 items-center pl-30 text-white">
-                  <div>
+                  {/* <div>
                     <Link
                       to="/login"
                       className="d-flex items-center icon-user text-inherit text-22"
                     />
-                  </div>
+                  </div> */}
                   <div>
                     <button
                       className="d-flex items-center icon-menu text-inherit text-20"

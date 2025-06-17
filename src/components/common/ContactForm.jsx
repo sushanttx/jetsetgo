@@ -62,7 +62,7 @@ const ContactForm = () => {
       </div>
 
       <div className="form-row one-column">
-        <div className="form-input">
+        <div className="form-textarea">
           <textarea id="message" name="message" placeholder="Message" value={form.message} onChange={handleChange} required rows="4"></textarea>
         </div>
       </div>

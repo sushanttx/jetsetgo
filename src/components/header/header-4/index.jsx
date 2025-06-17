@@ -26,7 +26,7 @@ const Header1 = () => {
       <header
         className={`header -type-2 ${navbar ? "bg-dark-1 is-sticky" : ""}`}
       >
-        <div className="header__container px-60 xl:px-30 sm:px-20">
+        <div className="header__container px-60 xl:px-30 sm:px-10">
           <div className="row justify-between items-center">
             <div className="col-auto col-auto-menu">
               <div className="header-menu">
@@ -50,30 +50,25 @@ const Header1 = () => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 {/* Start btn-group */}
-                <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
-                  {/* <Link
-                    to="/login"
-                    className="button px-30 fw-400 text-14 -white bg-white h-50 text-dark-1"
-                  >
-                    Become An Expert
-                  </Link> */}
+                <div className="d-flex items-center ">
                   <Link
-                    to="/signup"
+                    to="tel:+918882817640"
+                    aria-label="Call us"
                     className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
                   >
-                    Sign In / Register
+                    <FiPhone />{" "} +918882817640
                   </Link>
                 </div>
                 {/* End btn-group */}
 
                 {/* Start mobile menu icon */}
                 <div className="d-none xl:d-flex x-gap-20 items-center pl-30 text-white">
-                  <div>
+                  {/* <div>
                     <Link
                       to="/login"
                       className="d-flex items-center icon-user text-inherit text-22"
                     />
-                  </div>
+                  </div> */}
                   <div>
                     <button
                       className="d-flex items-center icon-menu text-inherit text-20"

@@ -53,7 +53,14 @@
       gap: 20px !important;
     }
   }
-
+.form-textarea{
+  border: 1.5px solid #e0e0e0;
+  border-radius: 18px;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background: #fafbfc;
+  color: #bbb;
+  outline: none;
+}
   .form-input {
     position: relative;
     width: 100%;
@@ -208,3 +215,21 @@
     }
   }
 } 
+.masthead.-type-1 {
+  padding-top: 180px !important;
+  padding-bottom: 180px !important;
+}
+.react-tabs {
+  position: relative !important;
+}
+.main-filter-search-box .main-search-box {
+  position: absolute !important;
+}
+.main-filter-search-box {
+  min-height: 520px !important;
+}
+@media (max-width: 1024px) {
+.main-filter-search-box {
+    min-height: 900px !important;
+}
+}

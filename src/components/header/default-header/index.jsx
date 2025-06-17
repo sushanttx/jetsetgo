@@ -58,13 +58,10 @@ const Header1 = () => {
                 {/* Buttons */}
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
                   <Link
-                    to="/signup"
+                    to="tel:+918882817640"
                     className="button px-30 fw-400 text-14 -outline-blue-1 h-50 text-blue-1 ml-20"
-                  ><div className="mr-15">
-                  <a href="tel:+918882817640" className="text-dark-1" aria-label="Call us">
+                  >
                     <FiPhone /> {" "}+918882817640
-                  </a>
-                </div>
                   </Link>
                 </div>
 
