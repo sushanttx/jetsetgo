@@ -1,4 +1,19 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
+import { useEffect } from "react";
+const TawkToWidget = () => {
+  useEffect(() => {
+    const script = document.createElement("script");
+    script.src = "https://embed.tawk.to/68500e403f2d67190d834de6/1itsbfbm5";
+    script.async = true;
+    script.charset = "UTF-8";
+    script.setAttribute("crossorigin", "*");
+    document.body.appendChild(script);
+  }, []);
+
+  return null;
+};
+
 const AppButton = () => {
   const appContent = [
     {
@@ -31,6 +46,7 @@ const AppButton = () => {
             <div className="text-14 text-light-1">{item.text}</div>
             <div className="text-15 lh-1 fw-500">{item.market}</div>
           </a>
+          <TawkToWidget />
         </div>
       ))}
     </>
