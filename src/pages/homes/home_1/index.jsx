@@ -37,9 +37,9 @@ const Home_1 = () => {
             <div className="col-auto">
               <div className="sectionTitle -md">
                 <h2 className="sectionTitle__title">Popular Destinations</h2>
-                <p className=" sectionTitle__text mt-5 sm:mt-0">
+                <h5 className=" sectionTitle__text mt-5 sm:mt-0">
                   These popular destinations have a lot to offer
-                </p>
+                </h5>
               </div>
             </div>
             {/* End col-auto */}

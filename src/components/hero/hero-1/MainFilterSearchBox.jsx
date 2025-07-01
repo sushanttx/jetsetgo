@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import LocationSearch from "./LocationSearch";
 import DateSearch from "../DateSearch";
 import ContactForm from "@/components/common/ContactForm";
+import ContactFormMultiCity from "@/components/common/ContactFormMultiCity";
 import "../../../../public/sass/components/mainSearch.scss";
  
 const MainFilterSearchBox = () => {
@@ -16,7 +17,7 @@ const MainFilterSearchBox = () => {
   const tabs = [
     { name: "One Way", component: <LocationSearch /> },
     { name: "Round Trip", component: <DateSearch /> },
-    { name: "Multi City", component: <ContactForm /> },
+    { name: "Multi City", component: <ContactFormMultiCity /> },
   ];
 
   // Set default tab to "One Way" if currentTab is falsy or not a valid tab

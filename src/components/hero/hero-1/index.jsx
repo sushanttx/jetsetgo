@@ -49,12 +49,12 @@ const Index = () => {
         <div className="row justify-center">
           <div className="col-auto">
             <div className="text-center">
-              <h1 className="text-60 lg:text-40 md:text-30 text-white mobile-hide" data-aos="fade-up">
+              {/* <h1 className="text-60 lg:text-40 md:text-30 text-white mobile-hide" data-aos="fade-up">
                 Find Next Place To Visit
-              </h1>
-              <p className="text-white mt-6 md:mt-10 mobile-hide" data-aos="fade-up" data-aos-delay="100">
+              </h1> */}
+              <h1 className="text-white mt-6 md:mt-10 mobile-hide" data-aos="fade-up" data-aos-delay="100">
                 Discover amazing places at exclusive deals
-              </p>
+              </h1>
             </div>
 
             <div className="tabs -underline mt-60 md:mt-60 mobile-spacing js-tabs" data-aos="fade-up" data-aos-delay="200">

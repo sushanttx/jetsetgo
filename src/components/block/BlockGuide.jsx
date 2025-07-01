@@ -36,8 +36,8 @@ const BlockGuide = () => {
               <img src={item.icon} alt="image" className="js-lazy" />
             </div>
             <div className="text-center mt-30">
-              <h4 className="text-18 fw-500">{item.title}</h4>
-              <p className="text-15 mt-10">{item.text}</p>
+              <h4 className="text-20 fw-500">{item.title}</h4>
+              <p className="text-20 mt-10">{item.text}</p>
             </div>
           </div>
         </div>

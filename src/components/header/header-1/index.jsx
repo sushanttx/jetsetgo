@@ -63,7 +63,7 @@ const Header1 = () => {
                     aria-label="Call us"
                     className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
                   >
-                    <FiPhone />{" "} +918882817640
+                    <FiPhone />{" "} +91 8882817640
                   </Link>
                 </div>
 

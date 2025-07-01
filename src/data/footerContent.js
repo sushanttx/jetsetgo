@@ -28,10 +28,10 @@ const footercontent = [
       { name: "Car hire", routerPath: "/enquiry" },
       { name: "Activity Finder", routerPath: "/enquiry" },
       { name: "Tour List", routerPath: "/enquiry" },
-      { name: "Flight finder", routerPath: "/enquiry" },
+      // { name: "Flight finder", routerPath: "/enquiry" },
       { name: "Cruise Ticket", routerPath: "/enquiry" },
-      { name: "Holiday Rental", routerPath: "/enquiry" },
-      { name: "Travel Agents", routerPath: "/enquiry" },
+      // { name: "Holiday Rental", routerPath: "/enquiry" },
+      // { name: "Travel Agents", routerPath: "/enquiry" },
     ],
   },
 ];
