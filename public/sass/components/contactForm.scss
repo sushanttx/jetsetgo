@@ -71,19 +71,39 @@
 
   .form-row.two-columns .phone-input-group {
     display: grid;
-    grid-template-columns: 0.2fr 0.8fr;
+    grid-template-columns: 0.35fr 0.65fr;
     gap: 10px;
     align-items: center;
     width: 100%;
   }
 
   .form-row.two-columns .phone-input-group .select-wrapper {
-    min-width: 0;
+    position: relative;
+    width: 100%;
+    height: 50px;
+  }
+
+  .form-row.two-columns .phone-input-group .select-wrapper::after {
+    content: '';
+    font-size: 1px;
+    color: transparent;
+    display: block;
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%) rotate(45deg);
+    width: 8px;
+    height: 8px;
+    border: 2px solid #bbb;
+    border-left: none;
+    border-top: none;
+    pointer-events: none;
+    z-index: 9999;
   }
 
   .form-row.two-columns .phone-input-group .country-code {
     width: 100%;
-    min-width: 60px;
+    // min-width: 60px;
     max-width: 100px;
     text-align: left;
     height: 50px !important;
@@ -249,7 +269,7 @@
 }
 .form-row.one-column .phone-group .country-code {
   width: 100%;
-  min-width: 60px;
+  // min-width: 60px;
   max-width: 100px;
   text-align: left;
   height: 50px !important;

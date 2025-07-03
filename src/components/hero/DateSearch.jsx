@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../../../public/sass/components/dateSearch.scss";
+import { useNavigate } from "react-router-dom";
 
 const DateSearch = () => {
   const [form, setForm] = useState({
@@ -21,6 +22,7 @@ const DateSearch = () => {
     noPenalties: false,
     nearbyAirports: false,
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -30,10 +32,17 @@ const DateSearch = () => {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("flightFormData");
+    localStorage.setItem("flightRoundTripFormData", JSON.stringify(form));
+    navigate("/flight");
+  };
+
   return (
     <div className="search-menu-date">
       <div className="form-container">
-        <form className="flight-form">
+        <form className="flight-form" onSubmit={handleSubmit}>
           <div className="form-main-columns">
             <div className="column-one">
               <input type="text" name="from" placeholder="From" value={form.from} onChange={handleChange} />
@@ -134,6 +143,11 @@ const DateSearch = () => {
             <label>
               <input type="checkbox" name="nearbyAirports" checked={form.nearbyAirports} onChange={handleChange} /> Nearby airports
             </label>
+          </div>
+          <div className="form-row">
+            <button type="submit" className="submit-button">
+              Search Flights
+            </button>
           </div>
         </form>
       </div>

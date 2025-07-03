@@ -79,6 +79,7 @@ import CruiseListPage2 from "./pages/cruise/cruise-list-v2";
 import CruiseListPage3 from "./pages/cruise/cruise-list-v3";
 import CruiseSingleV1Dynamic from "./pages/cruise/cruise-single";
 import FlightListPage1 from "./pages/flight/flight-list-v1";
+import FlightBookingPage from "./pages/flight/booking";
 
 function App() {
   useEffect(() => {
@@ -131,7 +132,7 @@ function App() {
                 <Route path="db-settings" element={<DBSettings />} />
               </Route>
 
-              <Route path="vendor-dashboard">
+              <Route path="admin-dashboard">
                 <Route path="dashboard" element={<VendorDashboard />} />
                 <Route path="add-hotel" element={<VendorAddHotel />} />
                 <Route path="booking" element={<VendorBooking />} />
@@ -189,6 +190,7 @@ function App() {
               />
 
               <Route path="flight" element={<FlightListPage1 />} />
+              <Route path="flight/booking/:id/:segmentId" element={<FlightBookingPage />} />
             </Route>
           </Routes>
           <ScrollTopBehaviour />

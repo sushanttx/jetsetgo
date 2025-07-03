@@ -156,6 +156,36 @@
     }
   }
 
+  .form-row {
+    display: flex;
+    justify-content: center;
+    margin-top: 24px;
+    margin-bottom: 0;
+    width: 100%;
+  }
+
+  .submit-button {
+    height: 56px;
+    padding: 0 48px;
+    background: #0d47a1;
+    color: #fff;
+    border-radius: 32px;
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background 0.2s;
+    width: 100%;
+    max-width: 320px;
+    box-shadow: 0 2px 8px rgba(13,71,161,0.08);
+    justify-self: center;
+    margin: 0 !important;
+
+    &:hover {
+      background: #1565c0;
+    }
+  }
+
   @media (max-width: 1024px) {
     .form-main-columns {
       display: flex !important;

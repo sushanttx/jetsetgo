@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "../../../../public/sass/components/locationSearch.scss";
+import { useNavigate } from "react-router-dom";
 
 const LocationSearch = () => {
   const [form, setForm] = useState({
@@ -19,6 +20,7 @@ const LocationSearch = () => {
     noPenalties: false,
     nearbyAirports: false,
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -28,10 +30,17 @@ const LocationSearch = () => {
     }));
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    localStorage.removeItem("flightRoundTripFormData");
+    localStorage.setItem("flightFormData", JSON.stringify(form));
+    navigate("/flight");
+  };
+
   return (
     <div className="search-menu-loc">
       <div className="form-container">
-        <form className="flight-form">
+        <form className="flight-form" onSubmit={handleSubmit}>
           <div className="form-main-columns">
             <div className="column-one">
               <input type="text" name="from" placeholder="From" value={form.from} onChange={handleChange} />
@@ -49,6 +58,7 @@ const LocationSearch = () => {
                   <select name="time" value={form.time} onChange={handleChange}>
                     <option>Anytime</option>
                     <option>Morning</option>
+                    <option>Afternoon</option>
                     <option>Evening</option>
                   </select>
                 </div>
@@ -63,6 +73,9 @@ const LocationSearch = () => {
                   <select name="lapInfant" value={form.lapInfant} onChange={handleChange}>
                     <option value="0">0 Lap Infant</option>
                     <option value="1">1 Lap Infant</option>
+                    <option value="2">2 Lap Infant</option>
+                    <option value="3">3 Lap Infant</option>
+                    <option value="4">4 Lap Infant</option>
                   </select>
                 </div>
                 <div className="select-wrapper">
@@ -82,6 +95,11 @@ const LocationSearch = () => {
                     <option value="1">1 Adult</option>
                     <option value="2">2 Adults</option>
                     <option value="3">3 Adults</option>
+                    <option value="4">4 Adults</option>
+                    <option value="5">5 Adults</option>
+                    <option value="6">6 Adults</option>
+                    <option value="7">7 Adults</option>
+                    <option value="8">8 Adults</option>
                   </select>
                 </div>
                 <div className="select-wrapper">
@@ -89,13 +107,19 @@ const LocationSearch = () => {
                     <option value="0">0 Child</option>
                     <option value="1">1 Child</option>
                     <option value="2">2 Children</option>
+                    <option value="3">3 Children</option>
+                    <option value="4">4 Children</option>
+                    <option value="5">5 Children</option>
+                    <option value="6">6 Children</option>
+                    <option value="7">7 Children</option>
                   </select>
                 </div>
               </div>
               <div className="select-wrapper">
                 <select name="cabinClass" value={form.cabinClass} onChange={handleChange}>
                   <option>All Class Cabin</option>
-                  <option>Economy</option>
+                  <option>Economy/Coach</option>
+                  <option>Premium Economy</option>
                   <option>Business</option>
                 </select>
               </div>
@@ -114,6 +138,11 @@ const LocationSearch = () => {
                 </label>
               </div>
             </div>
+          </div>
+          <div className="form-row">
+            <button type="submit" className="submit-button">
+              Search Flights
+            </button>
           </div>
         </form>
       </div>

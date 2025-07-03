@@ -59,16 +59,6 @@ const MainFilterSearchBox = () => {
               {tab.component}
             </TabPanel>
           ))}
-          {currentTab !== "Multi City" && (
-            <div className="button-item">
-              <button
-                className="mainSearch__submit"
-                // onClick={() => navigate("/flight")}
-              >
-                Search Flights
-              </button>
-            </div>
-          )}
         </div>
       </Tabs>
     </div>
