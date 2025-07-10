@@ -175,6 +175,8 @@
 // react multi date picker
 .custom_container-picker {
     display: flex !important;
+    // border: none !important;
+    // box-shadow: none !important;
 }
 @media (min-width: 1300px) {
     .rmdp-day span {
@@ -195,11 +197,17 @@
     color: var(--color-light-1);
     line-height: 1.6;
     font-size: 14px;
-    &:focus {
-        border: none;
-        box-shadow: none;
-    }
+    border: none !important;
+    // box-shadow: none !important;
 }
+.custom_input-picker::placeholder {
+  padding-left: 10px;
+}
+// For cross-browser support
+.custom_input-picker::-webkit-input-placeholder { padding-left: 10px; }
+.custom_input-picker::-moz-placeholder { padding-left: 10px; }
+.custom_input-picker:-ms-input-placeholder { padding-left: 10px; }
+.custom_input-picker::-ms-input-placeholder { padding-left: 10px; }
 .rmdp-day.rmdp-selected span:not(.highlight) {
     background-color: var(--color-dark-3) !important;
 }

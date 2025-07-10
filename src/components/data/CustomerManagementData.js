@@ -1,0 +1,17 @@
+export const customerManagementRows = [
+  { customerId: "CUST001", fullName: "John Doe", email: "john@example.com", phone: "+1234567890", bookings: 5, totalSpend: 1200.5, status: "Active", registeredOn: "2023-01-15" },
+  { customerId: "CUST002", fullName: "John Doe", email: "john2@example.com", phone: "+1234567891", bookings: 2, totalSpend: 450.0, status: "Active", registeredOn: "2022-11-20" },
+  { customerId: "CUST003", fullName: "Alice Brown", email: "alice@example.com", phone: "+1122334455", bookings: 8, totalSpend: 2100.75, status: "Active", registeredOn: "2023-03-10" },
+  { customerId: "CUST004", fullName: "John Doe", email: "john3@example.com", phone: "+1234567892", bookings: 1, totalSpend: 150.0, status: "Active", registeredOn: "2024-01-01" },
+  { customerId: "CUST005", fullName: "Maria Garcia", email: "maria.garcia@example.com", phone: "+1555666777", bookings: 12, totalSpend: 5000.0, status: "Deactivated", registeredOn: "2021-12-12" },
+  { customerId: "CUST006", fullName: "John Doe", email: "john4@example.com", phone: "+1234567893", bookings: 3, totalSpend: 900.0, status: "Active", registeredOn: "2022-05-05" },
+  { customerId: "CUST007", fullName: "Emma Watson", email: "emma.watson@example.com", phone: "+1777888999", bookings: 7, totalSpend: 1750.0, status: "Active", registeredOn: "2023-07-07" },
+  { customerId: "CUST008", fullName: "John Doe", email: "john5@example.com", phone: "+1234567894", bookings: 0, totalSpend: 0.0, status: "Deactivated", registeredOn: "2022-09-09" },
+  { customerId: "CUST009", fullName: "Olivia Wilde", email: "olivia.wilde@example.com", phone: "+1999000111", bookings: 4, totalSpend: 800.0, status: "Active", registeredOn: "2023-10-10" },
+  { customerId: "CUST010", fullName: "John Doe", email: "john6@example.com", phone: "+1234567895", bookings: 6, totalSpend: 1600.0, status: "Active", registeredOn: "2022-03-03" },
+  { customerId: "CUST011", fullName: "Sophia Turner", email: "sophia.turner@example.com", phone: "+1222333444", bookings: 9, totalSpend: 3000.0, status: "Deactivated", registeredOn: "2021-08-08" },
+  { customerId: "CUST012", fullName: "John Doe", email: "john7@example.com", phone: "+1234567896", bookings: 2, totalSpend: 400.0, status: "Active", registeredOn: "2023-04-04" },
+  { customerId: "CUST013", fullName: "Ella Brown", email: "ella.brown@example.com", phone: "+1444555666", bookings: 10, totalSpend: 3500.0, status: "Active", registeredOn: "2022-06-06" },
+  { customerId: "CUST014", fullName: "Lucas Green", email: "lucas.green@example.com", phone: "+1555666777", bookings: 5, totalSpend: 1200.0, status: "Deactivated", registeredOn: "2021-11-11" },
+  { customerId: "CUST015", fullName: "John Doe", email: "john8@example.com", phone: "+1234567897", bookings: 11, totalSpend: 4200.0, status: "Active", registeredOn: "2023-02-02" },
+]; 

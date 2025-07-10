@@ -1,6 +1,7 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const Sidebar = () => {
+  const location = useLocation();
   const sidebarData = [
     {
       icon: "/img/dashboard/sidebar/booking.svg",
@@ -106,24 +107,53 @@ const Sidebar = () => {
   return (
     <>
       <div className="sidebar -dashboard" id="vendorSidebarMenu">
-        <div className="sidebar__item ">
+      <div className="sidebar__item ">
           <Link
-            to="/dashboard/db-dashboard"
-            className="sidebar__button d-flex items-center text-15 lh-1 fw-500"
+            to="/admin-dashboard/"
+            className={`sidebar__button d-flex items-center text-15 lh-1 fw-500${location.pathname === "/admin-dashboard/" || location.pathname === "/admin-dashboard" ? " active" : ""}`}
           >
             <img
-              src="/img/dashboard/sidebar/compass.svg"
+              src="/img/dashboard/sidebar/airplane.svg"
               alt="image"
               className="mr-15"
             />
-            Dashboard
+            PNR Status
           </Link>
         </div>
         {/* End accordion__item */}
-
         <div className="sidebar__item ">
-          <a
-            href="#"
+          <Link
+            to="/admin-dashboard/customer-management"
+            className={`sidebar__button d-flex items-center text-15 lh-1 fw-500${location.pathname === "/admin-dashboard/customer-management" ? " active" : ""}`}
+          >
+            <img
+              src="/img/dashboard/sidebar/bookmark.svg"
+              alt="image"
+              className="mr-15"
+            />
+            Customer Management
+          </Link>
+        </div>
+        {/* End accordion__item */}
+        <div className="sidebar__item ">
+          <Link
+            to="/admin-dashboard/booking-management"
+            className={`sidebar__button d-flex items-center text-15 lh-1 fw-500${location.pathname === "/admin-dashboard/booking-management" ? " active" : ""}`}
+          >
+            <img
+              src="/img/dashboard/sidebar/booking.svg"
+              alt="image"
+              className="mr-15"
+            />
+            Booking Management
+          </Link>
+        </div>
+        {/* End accordion__item */}
+        
+
+        {/* <div className="sidebar__item ">
+          <Link
+            to="/admin-dashboard"
             className="sidebar__button d-flex items-center text-15 lh-1 fw-500"
           >
             <img
@@ -132,11 +162,11 @@ const Sidebar = () => {
               className="mr-15"
             />
             Booking Manager
-          </a>
+          </Link>
         </div>
-        {/* End accordion__item */}
+        End accordion__item */}
 
-        {sidebarData.map((item, index) => (
+        {/* {sidebarData.map((item, index) => (
           <div className="sidebar__item" key={index}>
             <div className="accordion -db-sidebar js-accordion">
               <div className="accordion__item">
@@ -171,7 +201,7 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
-        ))}
+        ))} */}
 
         <div className="sidebar__item ">
           <a

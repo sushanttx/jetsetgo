@@ -80,6 +80,8 @@ import CruiseListPage3 from "./pages/cruise/cruise-list-v3";
 import CruiseSingleV1Dynamic from "./pages/cruise/cruise-single";
 import FlightListPage1 from "./pages/flight/flight-list-v1";
 import FlightBookingPage from "./pages/flight/booking";
+import CustomerManagementPage from "./pages/dashboard/vendor-dashboard/customer-management";
+import BookingManagementPage from "./pages/dashboard/vendor-dashboard/booking-management";
 
 function App() {
   useEffect(() => {
@@ -133,10 +135,12 @@ function App() {
               </Route>
 
               <Route path="admin-dashboard">
-                <Route path="dashboard" element={<VendorDashboard />} />
-                <Route path="add-hotel" element={<VendorAddHotel />} />
-                <Route path="booking" element={<VendorBooking />} />
-                <Route path="hotels" element={<BVVendorHotel />} />
+                {/* <Route path="" element={<VendorDashboard />} /> */}
+                {/* <Route path="add-flight" element={<VendorAddHotel />} /> */}
+                <Route path="" element={<VendorBooking />} />
+                <Route path="customer-management" element={<CustomerManagementPage />} />
+                <Route path="booking-management" element={<BookingManagementPage />} />
+                <Route path="all-flights" element={<BVVendorHotel />} />
                 <Route path="recovery" element={<BDVendorRecovery />} />
               </Route>
 

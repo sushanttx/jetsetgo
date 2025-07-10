@@ -1,0 +1,17 @@
+export const bookingManagementRows = [
+  { bookingId: "BKG1001", pnr: "PNR001", customerName: "John Doe", flightDetails: "AI202, Air India, DEL-BOM", bookingStatus: "Confirmed", bookingDate: "2024-07-01", totalAmount: 1200.5 },
+  { bookingId: "BKG1002", pnr: "PNR002", customerName: "John Doe", flightDetails: "AI203, Air India, BOM-DEL", bookingStatus: "Confirmed", bookingDate: "2024-07-02", totalAmount: 1100.0 },
+  { bookingId: "BKG1003", pnr: "PNR003", customerName: "Alice Brown", flightDetails: "BA150, British Airways, LHR-JFK", bookingStatus: "Cancelled", bookingDate: "2024-07-03", totalAmount: 2100.75 },
+  { bookingId: "BKG1004", pnr: "PNR004", customerName: "John Doe", flightDetails: "AI204, Air India, DEL-BLR", bookingStatus: "Confirmed", bookingDate: "2024-07-04", totalAmount: 900.0 },
+  { bookingId: "BKG1005", pnr: "PNR005", customerName: "Maria Garcia", flightDetails: "LH760, Lufthansa, FRA-DEL", bookingStatus: "Cancelled", bookingDate: "2024-07-05", totalAmount: 5000.0 },
+  { bookingId: "BKG1006", pnr: "PNR006", customerName: "John Doe", flightDetails: "AI205, Air India, DEL-CCU", bookingStatus: "Confirmed", bookingDate: "2024-07-06", totalAmount: 800.0 },
+  { bookingId: "BKG1007", pnr: "PNR007", customerName: "Emma Watson", flightDetails: "AF220, Air France, CDG-DEL", bookingStatus: "Confirmed", bookingDate: "2024-07-07", totalAmount: 1750.0 },
+  { bookingId: "BKG1008", pnr: "PNR008", customerName: "John Doe", flightDetails: "AI206, Air India, DEL-HYD", bookingStatus: "Confirmed", bookingDate: "2024-07-08", totalAmount: 0.0 },
+  { bookingId: "BKG1009", pnr: "PNR009", customerName: "Olivia Wilde", flightDetails: "SQ444, Singapore Airlines, SIN-DEL", bookingStatus: "Cancelled", bookingDate: "2024-07-09", totalAmount: 800.0 },
+  { bookingId: "BKG1010", pnr: "PNR010", customerName: "John Doe", flightDetails: "AI207, Air India, DEL-MAA", bookingStatus: "Confirmed", bookingDate: "2024-07-10", totalAmount: 1600.0 },
+  { bookingId: "BKG1011", pnr: "PNR011", customerName: "Sophia Turner", flightDetails: "AI208, Air India, DEL-GOA", bookingStatus: "Cancelled", bookingDate: "2024-07-11", totalAmount: 3000.0 },
+  { bookingId: "BKG1012", pnr: "PNR012", customerName: "John Doe", flightDetails: "AI209, Air India, DEL-IXC", bookingStatus: "Confirmed", bookingDate: "2024-07-12", totalAmount: 400.0 },
+  { bookingId: "BKG1013", pnr: "PNR013", customerName: "Ella Brown", flightDetails: "QR888, Qatar Airways, DOH-DEL", bookingStatus: "Confirmed", bookingDate: "2024-07-13", totalAmount: 3500.0 },
+  { bookingId: "BKG1014", pnr: "PNR014", customerName: "Lucas Green", flightDetails: "LH999, Lufthansa, FRA-BOM", bookingStatus: "Cancelled", bookingDate: "2024-07-14", totalAmount: 1200.0 },
+  { bookingId: "BKG1015", pnr: "PNR015", customerName: "John Doe", flightDetails: "AI210, Air India, DEL-AMD", bookingStatus: "Confirmed", bookingDate: "2024-07-15", totalAmount: 4200.0 },
+]; 

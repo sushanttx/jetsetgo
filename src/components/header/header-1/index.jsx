@@ -47,6 +47,15 @@ const Header1 = () => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 <div className="row x-gap-20 items-center xxl:d-none">
+                  <div className="col-auto">
+                    <Link
+                      to="/admin-dashboard"
+                      className="button px-20 fw-400 text-14 border-white -outline-white h-40 text-white ml-10"
+                      style={{ minWidth: 120 }}
+                    >
+                      Admin Dashboard
+                    </Link>
+                  </div>
                   <CurrenctyMegaMenu textClass="text-white" />
                   <div className="col-auto">
                     <div className="w-1 h-20 bg-white-20" />

@@ -4,7 +4,7 @@ import DashboardPage from "../../../../components/dashboard/vendor-dashboard/das
 import MetaComponent from "@/components/common/MetaComponent";
 
 const metadata = {
-  title: "Vendor Dashboard || Flight Booking",
+  title: "Admin Dashboard || Flight Booking",
   description: "Flight Booking",
 };
 

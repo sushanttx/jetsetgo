@@ -5,6 +5,17 @@ const flights = [
     deals: "16",
     delayAnimation: "100",
     selectId: "collapse_1",
+    airline: "Air India",
+    date: "2024-07-10",
+    time: "14:00",
+    priceBreakdown: {
+      baseFare: 800,
+      taxes: 100,
+      fees: 34,
+      total: 934
+    },
+    totalFare: 934,
+    termsAccepted: false,
     flightList: [
       {
         id: 1,
@@ -25,6 +36,7 @@ const flights = [
         duration: "5h 05m- Nonstop",
       },
     ],
+    passengers: [], // to be filled at runtime
   },
   {
     id: 2,
@@ -32,6 +44,17 @@ const flights = [
     deals: "12",
     selectId: "collapse_2",
     delayAnimation: "200",
+    airline: "British Airways",
+    date: "2024-07-12",
+    time: "09:30",
+    priceBreakdown: {
+      baseFare: 600,
+      taxes: 60,
+      fees: 30,
+      total: 690
+    },
+    totalFare: 690,
+    termsAccepted: false,
     flightList: [
       {
         id: 1,
@@ -52,6 +75,7 @@ const flights = [
         duration: "6h 05m- Nonstop",
       },
     ],
+    passengers: [],
   },
   {
     id: 3,
@@ -59,6 +83,17 @@ const flights = [
     deals: "17",
     delayAnimation: "300",
     selectId: "collapse_3",
+    airline: "Lufthansa",
+    date: "2024-07-15",
+    time: "18:45",
+    priceBreakdown: {
+      baseFare: 850,
+      taxes: 120,
+      fees: 29,
+      total: 999
+    },
+    totalFare: 999,
+    termsAccepted: false,
     flightList: [
       {
         id: 1,
@@ -79,6 +114,7 @@ const flights = [
         duration: "7h 05m- Nonstop",
       },
     ],
+    passengers: [],
   },
   {
     id: 4,
@@ -86,6 +122,17 @@ const flights = [
     price: "859",
     deals: "15",
     selectId: "collapse_4",
+    airline: "Emirates",
+    date: "2024-07-18",
+    time: "07:20",
+    priceBreakdown: {
+      baseFare: 700,
+      taxes: 110,
+      fees: 49,
+      total: 859
+    },
+    totalFare: 859,
+    termsAccepted: false,
     flightList: [
       {
         id: 1,
@@ -106,6 +153,7 @@ const flights = [
         duration: "9h 05m- Nonstop",
       },
     ],
+    passengers: [],
   },
   {
     id: 5,
@@ -113,6 +161,17 @@ const flights = [
     deals: "16",
     selectId: "collapse_5",
     delayAnimation: "500",
+    airline: "Qatar Airways",
+    date: "2024-07-20",
+    time: "16:10",
+    priceBreakdown: {
+      baseFare: 780,
+      taxes: 120,
+      fees: 34,
+      total: 934
+    },
+    totalFare: 934,
+    termsAccepted: false,
     flightList: [
       {
         id: 1,
@@ -133,6 +192,7 @@ const flights = [
         duration: "5h 05m- Nonstop",
       },
     ],
+    passengers: [],
   },
   {
     id: 6,
@@ -140,6 +200,17 @@ const flights = [
     deals: "12",
     selectId: "collapse_6",
     delayAnimation: "600",
+    airline: "Vistara",
+    date: "2024-07-22",
+    time: "11:55",
+    priceBreakdown: {
+      baseFare: 590,
+      taxes: 70,
+      fees: 30,
+      total: 690
+    },
+    totalFare: 690,
+    termsAccepted: false,
     flightList: [
       {
         id: 1,
@@ -160,6 +231,7 @@ const flights = [
         duration: "6h 05m- Nonstop",
       },
     ],
+    passengers: [],
   },
 ];
 export default flights;

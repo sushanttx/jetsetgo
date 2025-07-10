@@ -1,9 +1,8 @@
 import TextSearchBox from "./TextSearchBox";
 import DateFieldFilter from "./DateFieldFilter";
 import StatusDropdownFilter from "./StatusDropdownFilter";
-import DropdownFilter from "./DropdownFilter";
 
-const FilterBox = ({
+const CustomerManagementFilterBox = ({
   searchValue,
   onSearchChange,
   statusOptions,
@@ -11,14 +10,10 @@ const FilterBox = ({
   onStatusChange,
   dateValue,
   onDateChange,
-  airlineOptions,
-  airlineValue,
-  onAirlineChange,
   onResetDate,
   onResetStatus,
   onResetSearch,
   onResetAll,
-  onResetAirline,
 }) => {
   return (
     <div className="filterbox-grid" style={{ width: '100%' }}>
@@ -35,27 +30,13 @@ const FilterBox = ({
             onReset={onResetStatus}
           />
         </div>
-        {airlineOptions && (
-          <div style={{ flex: 1, minWidth: 0, position: 'relative' }}>
-            <DropdownFilter
-              options={airlineOptions}
-              value={airlineValue}
-              onChange={onAirlineChange}
-              placeholder="Airline"
-              className="filterbox-input"
-            />
-            {airlineValue && onResetAirline && (
-              <button type="button" className="filterbox-reset-btn" style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', zIndex: 2 }} onClick={onResetAirline} title="Reset airline">×</button>
-            )}
-          </div>
-        )}
       </div>
       <div className="filterbox-row" style={{ display: 'flex', gap: 16, width: '100%', marginTop: 16, alignItems: 'center' }}>
         <div style={{ flex: 1, minWidth: 0, position: 'relative' }}>
           <TextSearchBox
             value={searchValue}
             onChange={onSearchChange}
-            placeholder="Search by Customer ID, Name, Email, Phone, Bookings, Spend"
+            placeholder="Search by Customer ID, Full Name, Email, Phone Number, Number of Bookings, Total Spend"
             onReset={onResetSearch}
           />
         </div>
@@ -67,4 +48,4 @@ const FilterBox = ({
   );
 };
 
-export default FilterBox;
+export default CustomerManagementFilterBox; 

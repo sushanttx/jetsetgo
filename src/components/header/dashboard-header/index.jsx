@@ -5,11 +5,6 @@ import MobileMenu from "../MobileMenu";
 
 const HeaderDashBoard = () => {
   const [navbar, setNavbar] = useState(false);
-  const [isOpen, setIsOpen] = useState(false);
-
-  const handleToggle = () => {
-    setIsOpen(!isOpen);
-  };
 
   const changeBackground = () => {
     if (window.scrollY >= 10) {
@@ -21,20 +16,15 @@ const HeaderDashBoard = () => {
 
   useEffect(() => {
     window.addEventListener("scroll", changeBackground);
-    const body = document.querySelector("body");
-    if (isOpen) {
-      body.classList.add("-is-sidebar-open");
-    } else {
-      body.classList.remove("-is-sidebar-open");
-    }
-  }, [isOpen]);
+    return () => window.removeEventListener("scroll", changeBackground);
+  }, []);
 
   return (
     <>
       <header
         className={`header -dashboard ${navbar ? "is-sticky bg-white" : ""}`}
       >
-        <div className="header__container px-30 sm:px-20">
+        <div className="header__container px-30 sm:px-20" style={{position: 'relative'}}>
           <div className="-left-side">
             <Link to="/" className="header-logo">
               <img src="/img/general/logo-dark.svg" alt="logo icon" />
@@ -46,11 +36,8 @@ const HeaderDashBoard = () => {
           <div className="row justify-between items-center pl-60 lg:pl-20">
             <div className="col-auto">
               <div className="d-flex items-center">
-                <button className="d-flex" onClick={handleToggle}>
-                  <i className="icon-menu-2 text-20"></i>
-                </button>
-
-                <div className="single-field relative d-flex items-center md:d-none ml-30">
+                {/* Sidebar toggle button removed */}
+                {/* <div className="single-field relative d-flex items-center md:d-none ml-30">
                   <input
                     className="pl-50 border-light text-dark-1 h-50 rounded-8"
                     type="email"
@@ -59,7 +46,7 @@ const HeaderDashBoard = () => {
                   <button className="absolute d-flex items-center h-full">
                     <i className="icon-search text-20 px-15 text-dark-1"></i>
                   </button>
-                </div>
+                </div> */}
               </div>
             </div>
             {/* End .col-auto */}
@@ -68,7 +55,7 @@ const HeaderDashBoard = () => {
               <div className="d-flex items-center">
                 <div className="header-menu">
                   <div className="header-menu__content">
-                    <MainMenu style="text-dark-1" />
+                    {/* <MainMenu style="text-dark-1" /> */}
                   </div>
                 </div>
                 {/* End header-menu */}

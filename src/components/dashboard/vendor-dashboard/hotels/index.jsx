@@ -25,7 +25,7 @@ const index = () => {
           <div className="dashboard__content bg-light-2">
             <div className="row y-gap-20 justify-between items-end pb-60 lg:pb-40 md:pb-32">
               <div className="col-auto">
-                <h1 className="text-30 lh-14 fw-600">All Hotels</h1>
+                <h1 className="text-30 lh-14 fw-600">All Flights</h1>
                 <div className="text-15 text-light-1">
                   Lorem ipsum dolor sit amet, consectetur.
                 </div>
@@ -34,10 +34,10 @@ const index = () => {
 
               <div className="col-auto">
                 <Link
-                  to="#"
+                  to="/admin-dashboard/add-flight"
                   className="button h-50 px-24 -dark-1 bg-blue-1 text-white"
                 >
-                  Add Hotels <div className="icon-arrow-top-right ml-15"></div>
+                  Add Flights <div className="icon-arrow-top-right ml-15"></div>
                 </Link>
               </div>
             </div>

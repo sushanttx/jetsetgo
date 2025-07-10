@@ -4,7 +4,7 @@ import DashboardPage from "../../../../components/dashboard/vendor-dashboard/boo
 import MetaComponent from "@/components/common/MetaComponent";
 
 const metadata = {
-  title: "Vendor History || Flight Booking",
+  title: "PNR Status || Flight Booking",
   description: "Flight Booking",
 };
 

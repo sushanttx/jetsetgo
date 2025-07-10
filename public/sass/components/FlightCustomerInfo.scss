@@ -1,0 +1,156 @@
+// FlightCustomerInfo component styles
+.gender-select {
+  color: #697488 !important;
+  
+  option {
+    color: #697488;
+  }
+  
+  option:not([value=""]) {
+    color: #051036;
+  }
+}
+
+// Floating label animations
+.form-input {
+  position: relative;
+  
+  // Default label for all
+  label {
+    position: absolute;
+    left: 15px;
+    font-size: 16px;
+    color: #697488;
+    background: white;
+    padding: 0 4px;
+    transition: all 0.2s cubic-bezier(0.4,0,0.2,1);
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  // Default label for textarea (centered in 120px)
+  textarea ~ label {
+    top: 32px;
+  }
+
+  // Default label for input/select (centered in 50px)
+  input ~ label,
+  select ~ label {
+    top: 17px;
+  }
+
+  // Floating label for all
+  input:focus ~ label,
+  input:not(:placeholder-shown) ~ label,
+  select:focus ~ label,
+  select:not([value=""]) ~ label,
+  textarea:focus ~ label,
+  textarea:not(:placeholder-shown) ~ label {
+    top: 0px;
+    font-size: 11px;
+    color: #0d47a1;
+  }
+
+  // For Alternate Number, Passport Number, Address Line 2 (default state only)
+  input[name="alternateNumber"]:not(:focus):placeholder-shown ~ label,
+  input[name="passportNumber"]:not(:focus):placeholder-shown ~ label,
+  input[name="address2"]:not(:focus):placeholder-shown ~ label {
+    top: 25px;
+  }
+
+  input,
+  select {
+    width: 100%;
+    height: 50px;
+    min-height: 50px;
+    line-height: 50px;
+    padding: 0 15px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 16px;
+    background: white;
+    transition: border-color 0.2s cubic-bezier(0.4,0,0.2,1);
+    
+    &:focus {
+      outline: none;
+      border-color: #0d47a1;
+      border-width: 2px;
+    }
+  }
+
+  textarea {
+    width: 100%;
+    height: 120px;
+    min-height: 120px;
+    padding: 15px;
+    border: 1.5px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 16px;
+    background: white;
+    transition: border-color 0.2s cubic-bezier(0.4,0,0.2,1);
+    resize: vertical;
+    
+    &:focus {
+      outline: none;
+      border-color: #0d47a1;
+      border-width: 2px;
+    }
+  }
+} 
+
+.custom_input-picker {
+  width: 100%;
+  height: 50px;
+  min-height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  border: 1.5px solid #b0b0b0;
+  border-radius: 4px;
+  font-size: 16px;
+  background: white;
+  transition: border-color 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+.custom_input-picker:focus {
+  outline: none;
+  border-color: #0d47a1;
+  border-width: 2px;
+}
+
+.form-input.active label {
+  top: 0px;
+  font-size: 11px;
+  color: #0d47a1;
+} 
+
+.form-input .custom_input-picker {
+  border: 1.5px solid #e0e0e0 !important;
+  border-radius: 4px !important;
+  height: 50px;
+  min-height: 50px;
+  line-height: 50px;
+  padding: 0 15px;
+  font-size: 16px;
+  background: white;
+  transition: border-color 0.2s cubic-bezier(0.4,0,0.2,1);
+}
+.form-input .custom_input-picker:focus {
+  border-color: #0d47a1 !important;
+  border-width: 2px !important;
+} 
+
+.form-input.date-picker-field label {
+  top: 17px;
+} 
+
+.form-input.date-picker-field.active label {
+  top: -10px;
+  font-size: 11px;
+  color: #0d47a1;
+} 
+
+
+.form-input select:focus ~ label,
+.form-input select:not([value=""]) ~ label,
+.form-input.active label {
+  top: -10px; /* Move label higher when floating for dropdowns */
+} 

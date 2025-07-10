@@ -1,0 +1,17 @@
+export const pnrStatusRows = [
+  { pnr: "ABC123", bookingId: "BKG001", passenger: "John Doe", flightNumber: "AI202", departureDate: "2024-07-01", status: "Confirmed", lastUpdated: "2024-06-10 14:32", airline: "Air India" },
+  { pnr: "XYZ789", bookingId: "BKG002", passenger: "John Doe", flightNumber: "AI203", departureDate: "2024-07-02", status: "Confirmed", lastUpdated: "2024-06-11 09:15", airline: "Air India" },
+  { pnr: "LMN456", bookingId: "BKG003", passenger: "Alice Brown", flightNumber: "BA150", departureDate: "2024-07-05", status: "Waitlisted", lastUpdated: "2024-06-11 18:20", airline: "British Airways" },
+  { pnr: "QRS234", bookingId: "BKG004", passenger: "John Doe", flightNumber: "AI204", departureDate: "2024-07-07", status: "On Hold", lastUpdated: "2024-06-12 11:05", airline: "Air India" },
+  { pnr: "TUV567", bookingId: "BKG005", passenger: "Maria Garcia", flightNumber: "LH760", departureDate: "2024-07-10", status: "Completed", lastUpdated: "2024-06-13 16:45", airline: "Lufthansa" },
+  { pnr: "DEF890", bookingId: "BKG006", passenger: "Chris Evans", flightNumber: "UA101", departureDate: "2024-07-12", status: "Confirmed", lastUpdated: "2024-06-14 10:00", airline: "United" },
+  { pnr: "GHI321", bookingId: "BKG007", passenger: "Emma Watson", flightNumber: "AF220", departureDate: "2024-07-14", status: "Cancelled", lastUpdated: "2024-06-15 11:30", airline: "Air France" },
+  { pnr: "JKL654", bookingId: "BKG008", passenger: "John Doe", flightNumber: "AI205", departureDate: "2024-07-16", status: "Confirmed", lastUpdated: "2024-06-16 12:45", airline: "Air India" },
+  { pnr: "MNO987", bookingId: "BKG009", passenger: "Olivia Wilde", flightNumber: "SQ444", departureDate: "2024-07-18", status: "On Hold", lastUpdated: "2024-06-17 13:55", airline: "Singapore Airlines" },
+  { pnr: "PQR210", bookingId: "BKG010", passenger: "Noah Wilson", flightNumber: "EK555", departureDate: "2024-07-20", status: "Completed", lastUpdated: "2024-06-18 14:05", airline: "Emirates" },
+  { pnr: "STU543", bookingId: "BKG011", passenger: "Sophia Turner", flightNumber: "AI206", departureDate: "2024-07-22", status: "Confirmed", lastUpdated: "2024-06-19 15:15", airline: "Air India" },
+  { pnr: "VWX876", bookingId: "BKG012", passenger: "Mason Lee", flightNumber: "BA777", departureDate: "2024-07-24", status: "Cancelled", lastUpdated: "2024-06-20 16:25", airline: "British Airways" },
+  { pnr: "YZA109", bookingId: "BKG013", passenger: "John Doe", flightNumber: "AI207", departureDate: "2024-07-26", status: "Waitlisted", lastUpdated: "2024-06-21 17:35", airline: "Air India" },
+  { pnr: "BCD432", bookingId: "BKG014", passenger: "Lucas Green", flightNumber: "LH999", departureDate: "2024-07-28", status: "On Hold", lastUpdated: "2024-06-22 18:45", airline: "Lufthansa" },
+  { pnr: "EFG765", bookingId: "BKG015", passenger: "John Doe", flightNumber: "AI208", departureDate: "2024-07-30", status: "Confirmed", lastUpdated: "2024-06-23 19:55", airline: "Air India" },
+]; 
