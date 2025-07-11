@@ -95,12 +95,14 @@ const FlightCustomerInfo = ({ flight, formData, segment, personalDetails, setPer
           </div>
           {/* End col-12 */}
 
+
           <div className="col-md-6">
-            <div className={`form-input${genderSelectFocused || Boolean(currentPassenger.gender) ? " active" : ""}`}> 
-              <select 
-                name="gender" 
-                value={currentPassenger.gender} 
-                onChange={handleChange} 
+            <div className={`form-input${genderSelectFocused || Boolean(currentPassenger.gender) ? " active" : ""}`}>
+              <label className="gender-label">Gender</label>
+              <select
+                name="gender"
+                value={currentPassenger.gender}
+                onChange={handleChange}
                 required
                 className="gender-select"
                 onFocus={() => setGenderSelectFocused(true)}
@@ -111,9 +113,10 @@ const FlightCustomerInfo = ({ flight, formData, segment, personalDetails, setPer
                 <option value="female">Female</option>
                 <option value="other">Other</option>
               </select>
-              <label className="lh-1 text-16 text-light-1">Gender</label>
             </div>
           </div>
+
+
           {/* End col-md-6 */}
 
           <div className="col-md-6">
@@ -208,14 +211,16 @@ const FlightCustomerInfo = ({ flight, formData, segment, personalDetails, setPer
           {/* End col-md-6 */}
 
           <div className="col-md-6">
-            <div className={`form-input${seatSelectFocused || Boolean(currentPassenger.seatPreference) ? " active" : ""}`}> 
-              <select 
-                name="seatPreference" 
-                value={currentPassenger.seatPreference} 
+            <div className={`form-input${seatSelectFocused || Boolean(currentPassenger.seatPreference) ? " active" : ""}`}>
+              <label className="seat-label">Seat Preference</label>
+              <select
+                name="seatPreference"
+                value={currentPassenger.seatPreference}
                 onChange={handleChange}
                 className="gender-select"
                 onFocus={() => setSeatSelectFocused(true)}
                 onBlur={() => setSeatSelectFocused(false)}
+                required
               >
                 <option value="" disabled hidden></option>
                 <option value="window">Window</option>
@@ -225,7 +230,6 @@ const FlightCustomerInfo = ({ flight, formData, segment, personalDetails, setPer
                 <option value="back">Back</option>
                 <option value="no-preference">No Preference</option>
               </select>
-              <label className="lh-1 text-16 text-light-1">Seat Preference</label>
             </div>
           </div>
           {/* End col-md-6 */}

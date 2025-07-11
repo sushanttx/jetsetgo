@@ -15,6 +15,7 @@
 .form-input {
   position: relative;
   
+  
   // Default label for all
   label {
     position: absolute;
@@ -70,6 +71,7 @@
     font-size: 16px;
     background: white;
     transition: border-color 0.2s cubic-bezier(0.4,0,0.2,1);
+    top:0px;
     
     &:focus {
       outline: none;
@@ -117,7 +119,7 @@
 }
 
 .form-input.active label {
-  top: 0px;
+  top: -8px;
   font-size: 11px;
   color: #0d47a1;
 } 
@@ -152,5 +154,47 @@
 .form-input select:focus ~ label,
 .form-input select:not([value=""]) ~ label,
 .form-input.active label {
-  top: -10px; /* Move label higher when floating for dropdowns */
+  top: -6px; /* Move label higher when floating for dropdowns */
 } 
+
+
+label.gender-label,
+label.seat-label{
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    transform: translateY(-50%);
+    background-color: white;
+    padding: 0 5px;
+    color: #697488;
+    transition: all 0.2s ease;
+    pointer-events: none;
+    font-size: 16px;
+  }
+
+    select.gender-select {
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #051036;
+    font-size: 16px;
+    background-color: transparent;
+    appearance: none;
+
+    &:focus {
+     color: #051036;
+      outline: none;
+    }
+  }
+
+  .active {
+    label.gender-label,
+    label.seat-label {
+      top: -17px; 
+      left: 15px;
+      transform: none; 
+      font-size: 16px; 
+      color: #1d3cad;
+      background-color: white;
+    }
+  }
