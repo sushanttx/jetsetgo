@@ -1,123 +1,50 @@
 import { Link, useLocation } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logoutUser } from "../../../../features/auth/authSlice";
 
 const Sidebar = () => {
   const location = useLocation();
-  const sidebarData = [
-    {
-      icon: "/img/dashboard/sidebar/booking.svg",
-      title: "Manage Hotel",
-      links: [
-        { title: "All Hotel", href: "#" },
-        { title: "Add Hotel", href: "#" },
-        { title: "Recovery", href: "#" },
-      ],
-    },
-    {
-      icon: "/img/dashboard/sidebar/map.svg",
-      title: "Manage Tour",
-      links: [
-        { title: "All Tour", href: "#" },
-        { title: "Add Tour", href: "#" },
-        { title: "Recovery", href: "#" },
-      ],
-    },
-    {
-      icon: "/img/dashboard/sidebar/sneakers.svg",
-      title: "Manage Activity",
-      links: [
-        { title: "All Activity", href: "#" },
-        { title: "Add Activity", href: "#" },
-        { title: "Recovery", href: "#" },
-      ],
-    },
-    {
-      icon: "/img/dashboard/sidebar/house.svg",
-      title: "Manage Holiday Rental",
-      links: [
-        {
-          title: "All Holiday Rental",
-          href: "#",
-        },
-        {
-          title: "Add Holiday Rental",
-          href: "#",
-        },
-        {
-          title: "Recovery",
-          href: "#",
-        },
-      ],
-    },
-    {
-      icon: "/img/dashboard/sidebar/taxi.svg",
-      title: "Manage Car",
-      links: [
-        {
-          title: "All Car",
-          href: "#",
-        },
-        {
-          title: "Add Car",
-          href: "#",
-        },
-        {
-          title: "Recovery",
-          href: "#",
-        },
-      ],
-    },
-    {
-      icon: "/img/dashboard/sidebar/canoe.svg",
-      title: "Manage Cruise",
-      links: [
-        {
-          title: "All Cruise",
-          href: "#",
-        },
-        {
-          title: "Add Cruise",
-          href: "#",
-        },
-        {
-          title: "Recovery",
-          href: "#",
-        },
-      ],
-    },
-    {
-      icon: "/img/dashboard/sidebar/airplane.svg",
-      title: "Manage Flights",
-      links: [
-        {
-          title: "All Flights",
-          href: "#",
-        },
-        {
-          title: "Add Flights",
-          href: "#",
-        },
-        {
-          title: "Recovery",
-          href: "#",
-        },
-      ],
-    },
-  ];
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+      navigate('/login');
+    } catch (error) {
+      console.error('Logout failed:', error);
+    }
+  };
 
   return (
     <>
-      <div className="sidebar -dashboard" id="vendorSidebarMenu">
-      <div className="sidebar__item ">
+      <div className="sidebar -dashboard">
+        <div className="sidebar__item ">
           <Link
-            to="/admin-dashboard/"
-            className={`sidebar__button d-flex items-center text-15 lh-1 fw-500${location.pathname === "/admin-dashboard/" || location.pathname === "/admin-dashboard" ? " active" : ""}`}
+            to="/admin-dashboard"
+            className={`sidebar__button d-flex items-center text-15 lh-1 fw-500${location.pathname === "/admin-dashboard" ? " active" : ""}`}
           >
             <img
-              src="/img/dashboard/sidebar/airplane.svg"
+              src="/img/dashboard/sidebar/compass.svg"
               alt="image"
               className="mr-15"
             />
-            PNR Status
+            Dashboard
+          </Link>
+        </div>
+        {/* End accordion__item */}
+        <div className="sidebar__item ">
+          <Link
+            to="/admin-dashboard/all-flights"
+            className={`sidebar__button d-flex items-center text-15 lh-1 fw-500${location.pathname === "/admin-dashboard/all-flights" ? " active" : ""}`}
+          >
+            <img
+              src="/img/dashboard/sidebar/booking.svg"
+              alt="image"
+              className="mr-15"
+            />
+            All Flights
           </Link>
         </div>
         {/* End accordion__item */}
@@ -150,63 +77,12 @@ const Sidebar = () => {
         </div>
         {/* End accordion__item */}
         
-
-        {/* <div className="sidebar__item ">
-          <Link
-            to="/admin-dashboard"
-            className="sidebar__button d-flex items-center text-15 lh-1 fw-500"
-          >
-            <img
-              src="/img/dashboard/sidebar/booking.svg"
-              alt="image"
-              className="mr-15"
-            />
-            Booking Manager
-          </Link>
-        </div>
-        End accordion__item */}
-
-        {/* {sidebarData.map((item, index) => (
-          <div className="sidebar__item" key={index}>
-            <div className="accordion -db-sidebar js-accordion">
-              <div className="accordion__item">
-                <div
-                  className="accordion__button"
-                  data-bs-toggle="collapse"
-                  data-bs-target={`#sidebarItem${index}`}
-                >
-                  <div className="sidebar__button col-12 d-flex items-center justify-between">
-                    <div className="d-flex items-center text-15 lh-1 fw-500">
-                      <img src={item.icon} alt="image" className="mr-10" />
-                      {item.title}
-                    </div>
-                    <div className="icon-chevron-sm-down text-7" />
-                  </div>
-                </div>
-                <div
-                  id={`sidebarItem${index}`}
-                  className="collapse"
-                  data-bs-parent="#vendorSidebarMenu"
-                >
-                  <ul className="list-disc pt-15 pb-5 pl-40">
-                    {item.links.map((link, linkIndex) => (
-                      <li key={linkIndex}>
-                        <a href={link.href} className="text-15">
-                          {link.title}
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-        ))} */}
-
+        {/* Logout Button */}
         <div className="sidebar__item ">
-          <a
-            href="#"
-            className="sidebar__button d-flex items-center text-15 lh-1 fw-500"
+          <button
+            onClick={handleLogout}
+            className="sidebar__button d-flex items-center text-15 lh-1 fw-500 text-red-1"
+            style={{ background: 'none', border: 'none', width: '100%', textAlign: 'left' }}
           >
             <img
               src="/img/dashboard/sidebar/log-out.svg"
@@ -214,7 +90,7 @@ const Sidebar = () => {
               className="mr-15"
             />
             Logout
-          </a>
+          </button>
         </div>
         {/* End accordion__item */}
       </div>

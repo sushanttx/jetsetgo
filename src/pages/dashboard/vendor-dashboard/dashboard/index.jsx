@@ -8,6 +8,7 @@ const metadata = {
   description: "Flight Booking",
 };
 
+// Uses AdminMobileMenu for mobile sidebar via dashboard-header
 export default function VendorDashboard() {
   return (
     <>

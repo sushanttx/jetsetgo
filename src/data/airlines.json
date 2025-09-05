@@ -1,0 +1,648 @@
+{
+    "airlines": [
+      {
+        "code": "QR",
+        "name": "Qatar Airways",
+        "country": "Qatar",
+        "alliance": "oneworld",
+        "searchTerms": ["QR", "Qatar Airways", "Qatar", "Doha"]
+      },
+      {
+        "code": "SQ",
+        "name": "Singapore Airlines",
+        "country": "Singapore",
+        "alliance": "Star Alliance",
+        "searchTerms": ["SQ", "Singapore Airlines", "Singapore", "Changi"]
+      },
+      {
+        "code": "EK",
+        "name": "Emirates",
+        "country": "United Arab Emirates",
+        "alliance": "None",
+        "searchTerms": ["EK", "Emirates", "UAE", "Dubai"]
+      },
+      {
+        "code": "NH",
+        "name": "All Nippon Airways",
+        "country": "Japan",
+        "alliance": "Star Alliance",
+        "searchTerms": ["NH", "All Nippon", "ANA", "Japan", "Tokyo"]
+      },
+      {
+        "code": "CX",
+        "name": "Cathay Pacific",
+        "country": "Hong Kong",
+        "alliance": "oneworld",
+        "searchTerms": ["CX", "Cathay Pacific", "Hong Kong"]
+      },
+      {
+        "code": "TK",
+        "name": "Turkish Airlines",
+        "country": "Turkey",
+        "alliance": "Star Alliance",
+        "searchTerms": ["TK", "Turkish Airlines", "Turkey", "Istanbul"]
+      },
+      {
+        "code": "AF",
+        "name": "Air France",
+        "country": "France",
+        "alliance": "SkyTeam",
+        "searchTerms": ["AF", "Air France", "France", "Paris"]
+      },
+      {
+        "code": "KL",
+        "name": "KLM Royal Dutch Airlines",
+        "country": "Netherlands",
+        "alliance": "SkyTeam",
+        "searchTerms": ["KL", "KLM", "Netherlands", "Amsterdam"]
+      },
+      {
+        "code": "BA",
+        "name": "British Airways",
+        "country": "United Kingdom",
+        "alliance": "oneworld",
+        "searchTerms": ["BA", "British Airways", "UK", "London", "British"]
+      },
+      {
+        "code": "LH",
+        "name": "Lufthansa",
+        "country": "Germany",
+        "alliance": "Star Alliance",
+        "searchTerms": ["LH", "Lufthansa", "Germany", "Frankfurt", "Munich"]
+      },
+      {
+        "code": "UA",
+        "name": "United Airlines",
+        "country": "United States",
+        "alliance": "Star Alliance",
+        "searchTerms": ["UA", "United", "United States", "USA", "Chicago"]
+      },
+      {
+        "code": "DL",
+        "name": "Delta Air Lines",
+        "country": "United States",
+        "alliance": "SkyTeam",
+        "searchTerms": ["DL", "Delta", "United States", "USA", "Atlanta"]
+      },
+      {
+        "code": "AA",
+        "name": "American Airlines",
+        "country": "United States",
+        "alliance": "oneworld",
+        "searchTerms": ["AA", "American Airlines", "United States", "USA", "Dallas"]
+      },
+      {
+        "code": "WN",
+        "name": "Southwest Airlines",
+        "country": "United States",
+        "alliance": "None",
+        "searchTerms": ["WN", "Southwest", "United States", "USA"]
+      },
+      {
+        "code": "AC",
+        "name": "Air Canada",
+        "country": "Canada",
+        "alliance": "Star Alliance",
+        "searchTerms": ["AC", "Air Canada", "Canada", "Toronto"]
+      },
+      {
+        "code": "FR",
+        "name": "Ryanair",
+        "country": "Ireland",
+        "alliance": "None",
+        "searchTerms": ["FR", "Ryanair", "Ireland", "Dublin"]
+      },
+      {
+        "code": "U2",
+        "name": "easyJet",
+        "country": "United Kingdom",
+        "alliance": "None",
+        "searchTerms": ["U2", "easyJet", "UK", "London"]
+      },
+      {
+        "code": "CA",
+        "name": "Air China",
+        "country": "China",
+        "alliance": "Star Alliance",
+        "searchTerms": ["CA", "Air China", "China", "Beijing"]
+      },
+      {
+        "code": "CZ",
+        "name": "China Southern Airlines",
+        "country": "China",
+        "alliance": "None",
+        "searchTerms": ["CZ", "China Southern", "China", "Guangzhou"]
+      },
+      {
+        "code": "MU",
+        "name": "China Eastern Airlines",
+        "country": "China",
+        "alliance": "SkyTeam",
+        "searchTerms": ["MU", "China Eastern", "China", "Shanghai"]
+      },
+      {
+        "code": "6E",
+        "name": "IndiGo",
+        "country": "India",
+        "alliance": "None",
+        "searchTerms": ["6E", "IndiGo", "India", "Delhi"]
+      },
+      {
+        "code": "AI",
+        "name": "Air India",
+        "country": "India",
+        "alliance": "Star Alliance",
+        "searchTerms": ["AI", "Air India", "India", "Delhi", "Mumbai"]
+      },
+      {
+        "code": "UK",
+        "name": "Vistara",
+        "country": "India",
+        "alliance": "None",
+        "searchTerms": ["UK", "Vistara", "India", "Delhi"]
+      },
+      {
+        "code": "SG",
+        "name": "SpiceJet",
+        "country": "India",
+        "alliance": "None",
+        "searchTerms": ["SG", "SpiceJet", "India", "Delhi"]
+      },
+      {
+        "code": "QP",
+        "name": "Akasa Air",
+        "country": "India",
+        "alliance": "None",
+        "searchTerms": ["QP", "Akasa Air", "India", "Mumbai"]
+      },
+      {
+        "code": "9I",
+        "name": "Alliance Air",
+        "country": "India",
+        "alliance": "None",
+        "searchTerms": ["9I", "Alliance Air", "India", "Delhi"]
+      },
+      {
+        "code": "S5",
+        "name": "Star Air",
+        "country": "India",
+        "alliance": "None",
+        "searchTerms": ["S5", "Star Air", "India", "Bengaluru"]
+      },
+      {
+        "code": "G8",
+        "name": "Go First",
+        "country": "India",
+        "alliance": "None",
+        "searchTerms": ["G8", "Go First", "India", "Mumbai"]
+      },
+      {
+        "code": "Qantas",
+        "name": "Qantas Airways",
+        "country": "Australia",
+        "alliance": "oneworld",
+        "searchTerms": ["QF", "Qantas", "Australia", "Sydney"]
+      },
+      {
+        "code": "VA",
+        "name": "Virgin Australia",
+        "country": "Australia",
+        "alliance": "None",
+        "searchTerms": ["VA", "Virgin Australia", "Australia", "Brisbane"]
+      },
+      {
+        "code": "NZ",
+        "name": "Air New Zealand",
+        "country": "New Zealand",
+        "alliance": "Star Alliance",
+        "searchTerms": ["NZ", "Air New Zealand", "New Zealand", "Auckland"]
+      },
+      {
+        "code": "ET",
+        "name": "Ethiopian Airlines",
+        "country": "Ethiopia",
+        "alliance": "Star Alliance",
+        "searchTerms": ["ET", "Ethiopian Airlines", "Ethiopia", "Addis Ababa"]
+      },
+      {
+        "code": "SA",
+        "name": "South African Airways",
+        "country": "South Africa",
+        "alliance": "Star Alliance",
+        "searchTerms": ["SA", "South African Airways", "South Africa", "Johannesburg"]
+      },
+      {
+        "code": "KQ",
+        "name": "Kenya Airways",
+        "country": "Kenya",
+        "alliance": "SkyTeam",
+        "searchTerms": ["KQ", "Kenya Airways", "Kenya", "Nairobi"]
+      },
+      {
+        "code": "LA",
+        "name": "LATAM Airlines",
+        "country": "Chile",
+        "alliance": "None",
+        "searchTerms": ["LA", "LATAM", "Chile", "Santiago"]
+      },
+      {
+        "code": "AV",
+        "name": "Avianca",
+        "country": "Colombia",
+        "alliance": "Star Alliance",
+        "searchTerms": ["AV", "Avianca", "Colombia", "Bogotá"]
+      },
+      {
+        "code": "AR",
+        "name": "Aerolineas Argentinas",
+        "country": "Argentina",
+        "alliance": "SkyTeam",
+        "searchTerms": ["AR", "Aerolineas Argentinas", "Argentina", "Buenos Aires"]
+      },
+      {
+        "code": "KE",
+        "name": "Korean Air",
+        "country": "South Korea",
+        "alliance": "SkyTeam",
+        "searchTerms": ["KE", "Korean Air", "South Korea", "Seoul"]
+      },
+      {
+        "code": "JL",
+        "name": "Japan Airlines",
+        "country": "Japan",
+        "alliance": "oneworld",
+        "searchTerms": ["JL", "Japan Airlines", "Japan", "Tokyo"]
+      },
+      {
+        "code": "MH",
+        "name": "Malaysia Airlines",
+        "country": "Malaysia",
+        "alliance": "oneworld",
+        "searchTerms": ["MH", "Malaysia Airlines", "Malaysia", "Kuala Lumpur"]
+      },
+      {
+        "code": "TG",
+        "name": "Thai Airways",
+        "country": "Thailand",
+        "alliance": "Star Alliance",
+        "searchTerms": ["TG", "Thai Airways", "Thailand", "Bangkok"]
+      },
+      {
+        "code": "VN",
+        "name": "Vietnam Airlines",
+        "country": "Vietnam",
+        "alliance": "SkyTeam",
+        "searchTerms": ["VN", "Vietnam Airlines", "Vietnam", "Hanoi"]
+      },
+      {
+        "code": "PR",
+        "name": "Philippine Airlines",
+        "country": "Philippines",
+        "alliance": "None",
+        "searchTerms": ["PR", "Philippine Airlines", "Philippines", "Manila"]
+      },
+      {
+        "code": "GA",
+        "name": "Garuda Indonesia",
+        "country": "Indonesia",
+        "alliance": "SkyTeam",
+        "searchTerms": ["GA", "Garuda Indonesia", "Indonesia", "Jakarta"]
+      },
+      {
+        "code": "WY",
+        "name": "Oman Air",
+        "country": "Oman",
+        "alliance": "None",
+        "searchTerms": ["WY", "Oman Air", "Oman", "Muscat"]
+      },
+      {
+        "code": "EY",
+        "name": "Etihad Airways",
+        "country": "United Arab Emirates",
+        "alliance": "None",
+        "searchTerms": ["EY", "Etihad", "UAE", "Abu Dhabi"]
+      },
+      {
+        "code": "SV",
+        "name": "Saudia",
+        "country": "Saudi Arabia",
+        "alliance": "SkyTeam",
+        "searchTerms": ["SV", "Saudia", "Saudi Arabia", "Jeddah"]
+      },
+      {
+        "code": "MS",
+        "name": "EgyptAir",
+        "country": "Egypt",
+        "alliance": "Star Alliance",
+        "searchTerms": ["MS", "EgyptAir", "Egypt", "Cairo"]
+      },
+      {
+        "code": "IB",
+        "name": "Iberia",
+        "country": "Spain",
+        "alliance": "oneworld",
+        "searchTerms": ["IB", "Iberia", "Spain", "Madrid"]
+      },
+      {
+        "code": "AZ",
+        "name": "ITA Airways",
+        "country": "Italy",
+        "alliance": "SkyTeam",
+        "searchTerms": ["AZ", "ITA Airways", "Italy", "Rome"]
+      },
+      {
+        "code": "SK",
+        "name": "SAS Scandinavian Airlines",
+        "country": "Sweden",
+        "alliance": "Star Alliance",
+        "searchTerms": ["SK", "SAS", "Sweden", "Stockholm"]
+      },
+      {
+        "code": "AY",
+        "name": "Finnair",
+        "country": "Finland",
+        "alliance": "oneworld",
+        "searchTerms": ["AY", "Finnair", "Finland", "Helsinki"]
+      },
+      {
+        "code": "TP",
+        "name": "TAP Air Portugal",
+        "country": "Portugal",
+        "alliance": "Star Alliance",
+        "searchTerms": ["TP", "TAP", "Portugal", "Lisbon"]
+      },
+      {
+        "code": "LO",
+        "name": "LOT Polish Airlines",
+        "country": "Poland",
+        "alliance": "Star Alliance",
+        "searchTerms": ["LO", "LOT", "Poland", "Warsaw"]
+      },
+      {
+        "code": "OS",
+        "name": "Austrian Airlines",
+        "country": "Austria",
+        "alliance": "Star Alliance",
+        "searchTerms": ["OS", "Austrian", "Austria", "Vienna"]
+      },
+      {
+        "code": "LX",
+        "name": "Swiss International Air Lines",
+        "country": "Switzerland",
+        "alliance": "Star Alliance",
+        "searchTerms": ["LX", "Swiss", "Switzerland", "Zurich"]
+      },
+      {
+        "code": "A3",
+        "name": "Aegean Airlines",
+        "country": "Greece",
+        "alliance": "Star Alliance",
+        "searchTerms": ["A3", "Aegean", "Greece", "Athens"]
+      },
+      {
+        "code": "SN",
+        "name": "Brussels Airlines",
+        "country": "Belgium",
+        "alliance": "Star Alliance",
+        "searchTerms": ["SN", "Brussels Airlines", "Belgium", "Brussels"]
+      },
+      {
+        "code": "W6",
+        "name": "Wizz Air",
+        "country": "Hungary",
+        "alliance": "None",
+        "searchTerms": ["W6", "Wizz Air", "Hungary", "Budapest"]
+      },
+      {
+        "code": "VY",
+        "name": "Vueling",
+        "country": "Spain",
+        "alliance": "None",
+        "searchTerms": ["VY", "Vueling", "Spain", "Barcelona"]
+      },
+      {
+        "code": "AK",
+        "name": "AirAsia",
+        "country": "Malaysia",
+        "alliance": "None",
+        "searchTerms": ["AK", "AirAsia", "Malaysia", "Kuala Lumpur"]
+      },
+      {
+        "code": "TR",
+        "name": "Scoot",
+        "country": "Singapore",
+        "alliance": "None",
+        "searchTerms": ["TR", "Scoot", "Singapore"]
+      },
+      {
+        "code": "FD",
+        "name": "Thai AirAsia",
+        "country": "Thailand",
+        "alliance": "None",
+        "searchTerms": ["FD", "Thai AirAsia", "Thailand", "Bangkok"]
+      },
+      {
+        "code": "D7",
+        "name": "AirAsia X",
+        "country": "Malaysia",
+        "alliance": "None",
+        "searchTerms": ["D7", "AirAsia X", "Malaysia", "Kuala Lumpur"]
+      },
+      {
+        "code": "AK",
+        "name": "AirAsia India",
+        "country": "India",
+        "alliance": "None",
+        "searchTerms": ["AK", "AirAsia India", "India", "Bengaluru"]
+      },
+      {
+        "code": "PG",
+        "name": "Bangkok Airways",
+        "country": "Thailand",
+        "alliance": "None",
+        "searchTerms": ["PG", "Bangkok Airways", "Thailand", "Bangkok"]
+      },
+      {
+        "code": "CI",
+        "name": "China Airlines",
+        "country": "Taiwan",
+        "alliance": "SkyTeam",
+        "searchTerms": ["CI", "China Airlines", "Taiwan", "Taipei"]
+      },
+      {
+        "code": "BR",
+        "name": "EVA Air",
+        "country": "Taiwan",
+        "alliance": "Star Alliance",
+        "searchTerms": ["BR", "EVA Air", "Taiwan", "Taipei"]
+      },
+      {
+        "code": "OZ",
+        "name": "Asiana Airlines",
+        "country": "South Korea",
+        "alliance": "Star Alliance",
+        "searchTerms": ["OZ", "Asiana", "South Korea", "Seoul"]
+      },
+      {
+        "code": "UL",
+        "name": "SriLankan Airlines",
+        "country": "Sri Lanka",
+        "alliance": "oneworld",
+        "searchTerms": ["UL", "SriLankan", "Sri Lanka", "Colombo"]
+      },
+      {
+        "code": "PK",
+        "name": "Pakistan International Airlines",
+        "country": "Pakistan",
+        "alliance": "None",
+        "searchTerms": ["PK", "Pakistan International", "Pakistan", "Karachi"]
+      },
+      {
+        "code": "BG",
+        "name": "Biman Bangladesh Airlines",
+        "country": "Bangladesh",
+        "alliance": "None",
+        "searchTerms": ["BG", "Biman", "Bangladesh", "Dhaka"]
+      },
+      {
+        "code": "KC",
+        "name": "Air Astana",
+        "country": "Kazakhstan",
+        "alliance": "None",
+        "searchTerms": ["KC", "Air Astana", "Kazakhstan", "Almaty"]
+      },
+      {
+        "code": "HY",
+        "name": "Uzbekistan Airways",
+        "country": "Uzbekistan",
+        "alliance": "None",
+        "searchTerms": ["HY", "Uzbekistan Airways", "Uzbekistan", "Tashkent"]
+      },
+      {
+        "code": "SU",
+        "name": "Aeroflot",
+        "country": "Russia",
+        "alliance": "None",
+        "searchTerms": ["SU", "Aeroflot", "Russia", "Moscow"]
+      },
+      {
+        "code": "PS",
+        "name": "Ukraine International Airlines",
+        "country": "Ukraine",
+        "alliance": "None",
+        "searchTerms": ["PS", "Ukraine International", "Ukraine", "Kyiv"]
+      },
+      {
+        "code": "LY",
+        "name": "El Al",
+        "country": "Israel",
+        "alliance": "None",
+        "searchTerms": ["LY", "El Al", "Israel", "Tel Aviv"]
+      },
+      {
+        "code": "AT",
+        "name": "Royal Air Maroc",
+        "country": "Morocco",
+        "alliance": "oneworld",
+        "searchTerms": ["AT", "Royal Air Maroc", "Morocco", "Casablanca"]
+      },
+      {
+        "code": "ME",
+        "name": "Middle East Airlines",
+        "country": "Lebanon",
+        "alliance": "SkyTeam",
+        "searchTerms": ["ME", "Middle East Airlines", "Lebanon", "Beirut"]
+      },
+      {
+        "code": "GF",
+        "name": "Gulf Air",
+        "country": "Bahrain",
+        "alliance": "None",
+        "searchTerms": ["GF", "Gulf Air", "Bahrain", "Manama"]
+      },
+      {
+        "code": "FJ",
+        "name": "Fiji Airways",
+        "country": "Fiji",
+        "alliance": "oneworld",
+        "searchTerms": ["FJ", "Fiji Airways", "Fiji", "Nadi"]
+      },
+      {
+        "code": "CM",
+        "name": "Copa Airlines",
+        "country": "Panama",
+        "alliance": "Star Alliance",
+        "searchTerms": ["CM", "Copa", "Panama", "Panama City"]
+      },
+      {
+        "code": "AM",
+        "name": "Aeromexico",
+        "country": "Mexico",
+        "alliance": "SkyTeam",
+        "searchTerms": ["AM", "Aeromexico", "Mexico", "Mexico City"]
+      },
+      {
+        "code": "B6",
+        "name": "JetBlue Airways",
+        "country": "United States",
+        "alliance": "None",
+        "searchTerms": ["B6", "JetBlue", "United States", "USA", "New York"]
+      },
+      {
+        "code": "AS",
+        "name": "Alaska Airlines",
+        "country": "United States",
+        "alliance": "oneworld",
+        "searchTerms": ["AS", "Alaska Airlines", "United States", "USA", "Seattle"]
+      },
+      {
+        "code": "NK",
+        "name": "Spirit Airlines",
+        "country": "United States",
+        "alliance": "None",
+        "searchTerms": ["NK", "Spirit", "United States", "USA"]
+      },
+      {
+        "code": "F9",
+        "name": "Frontier Airlines",
+        "country": "United States",
+        "alliance": "None",
+        "searchTerms": ["F9", "Frontier", "United States", "USA"]
+      },
+      {
+        "code": "G4",
+        "name": "Allegiant Air",
+        "country": "United States",
+        "alliance": "None",
+        "searchTerms": ["G4", "Allegiant", "United States", "USA"]
+      },
+      {
+        "code": "WS",
+        "name": "WestJet",
+        "country": "Canada",
+        "alliance": "None",
+        "searchTerms": ["WS", "WestJet", "Canada", "Calgary"]
+      },
+      {
+        "code": "4O",
+        "name": "Interjet",
+        "country": "Mexico",
+        "alliance": "None",
+        "searchTerms": ["4O", "Interjet", "Mexico", "Mexico City"]
+      },
+      {
+        "code": "VB",
+        "name": "VivaAerobus",
+        "country": "Mexico",
+        "alliance": "None",
+        "searchTerms": ["VB", "VivaAerobus", "Mexico", "Monterrey"]
+      },
+      {
+        "code": "Y4",
+        "name": "Volaris",
+        "country": "Mexico",
+        "alliance": "None",
+        "searchTerms": ["Y4", "Volaris", "Mexico", "Mexico City"]
+      }
+    ]
+  }

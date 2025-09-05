@@ -96,6 +96,7 @@ const CustomerManagementTable = () => {
         onResetStatus={handleResetStatus}
         onResetSearch={handleResetSearch}
         onResetAll={handleResetAll}
+        rotatingOptions={["Customer ID", "Full Name", "Email", "Phone Number"]}
       />
       <div className="tabs__content pt-30 js-tabs-content">
         <div className="tabs__pane -tab-item-1 is-tab-el-active">
@@ -103,7 +104,7 @@ const CustomerManagementTable = () => {
             <table className="table-3 -border-bottom col-12">
               <thead className="bg-light-2">
                 <tr>
-                  <th></th>
+                  <th style={{ textAlign: 'center' }}>Actions</th>
                   <th>Customer ID</th>
                   <th>Full Name</th>
                   <th>Email</th>
@@ -124,8 +125,10 @@ const CustomerManagementTable = () => {
                 ) : (
                   paginatedRows.map((row) => (
                     <tr key={row.customerId}>
-                      <td>
-                        <button className="view-btn button px-15 py-5 text-14 bg-blue-1 text-white rounded-4">View</button>
+                      <td style={{ textAlign: 'center' }}>
+                        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                          <button className="view-btn button px-15 py-5 text-14 bg-blue-1 text-white rounded-4">View</button>
+                        </div>
                       </td>
                       <td>{row.customerId}</td>
                       <td>{row.fullName}</td>

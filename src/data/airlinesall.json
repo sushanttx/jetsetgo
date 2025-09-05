@@ -1,0 +1,1014 @@
+[
+    {
+        "Airline Name":"ABSA Cargo Airline",
+        "IATA Designator":"M3"
+    },
+    {
+        "Airline Name":"Adria Airways",
+        "IATA Designator":"JP"
+    },
+    {
+        "Airline Name":"Aegean Airlines",
+        "IATA Designator":"A3"
+    },
+    {
+        "Airline Name":"Aer Lingus",
+        "IATA Designator":"EI"
+    },
+    {
+        "Airline Name":"Aero Rep\u00fablica",
+        "IATA Designator":"P5"
+    },
+    {
+        "Airline Name":"Aeroflot",
+        "IATA Designator":"SU"
+    },
+    {
+        "Airline Name":"Aerolineas Argentinas",
+        "IATA Designator":"AR"
+    },
+    {
+        "Airline Name":"Aerolineas Galapagos S.A. Aerogal",
+        "IATA Designator":"2K"
+    },
+    {
+        "Airline Name":"Aeromexico",
+        "IATA Designator":"AM"
+    },
+    {
+        "Airline Name":"Afriqiyah Airways",
+        "IATA Designator":"8U"
+    },
+    {
+        "Airline Name":"Aigle Azur",
+        "IATA Designator":"ZI"
+    },
+    {
+        "Airline Name":"Air Alg\u00e9rie",
+        "IATA Designator":"AH"
+    },
+    {
+        "Airline Name":"Air Arabia",
+        "IATA Designator":"G9"
+    },
+    {
+        "Airline Name":"Air Astana",
+        "IATA Designator":"KC"
+    },
+    {
+        "Airline Name":"Air Austral",
+        "IATA Designator":"UU"
+    },
+    {
+        "Airline Name":"Air Baltic",
+        "IATA Designator":"BT"
+    },
+    {
+        "Airline Name":"Air Berlin",
+        "IATA Designator":"AB"
+    },
+    {
+        "Airline Name":"Air Botswana",
+        "IATA Designator":"BP"
+    },
+    {
+        "Airline Name":"Air Caledonie",
+        "IATA Designator":"TY"
+    },
+    {
+        "Airline Name":"Air Canada",
+        "IATA Designator":"AC"
+    },
+    {
+        "Airline Name":"Air China Limited",
+        "IATA Designator":"CA"
+    },
+    {
+        "Airline Name":"Air Corsica",
+        "IATA Designator":"XK"
+    },
+    {
+        "Airline Name":"Air Europa",
+        "IATA Designator":"UX"
+    },
+    {
+        "Airline Name":"Air France",
+        "IATA Designator":"AF"
+    },
+    {
+        "Airline Name":"Air India",
+        "IATA Designator":"AI"
+    },
+    {
+        "Airline Name":"Air Koryo",
+        "IATA Designator":"JS"
+    },
+    {
+        "Airline Name":"Air Macau",
+        "IATA Designator":"NX"
+    },
+    {
+        "Airline Name":"Air Madagascar",
+        "IATA Designator":"MD"
+    },
+    {
+        "Airline Name":"Air Malta",
+        "IATA Designator":"KM"
+    },
+    {
+        "Airline Name":"Air Mauritius",
+        "IATA Designator":"MK"
+    },
+    {
+        "Airline Name":"Air Moldova",
+        "IATA Designator":"9U"
+    },
+    {
+        "Airline Name":"Air Namibia",
+        "IATA Designator":"SW"
+    },
+    {
+        "Airline Name":"Air New Zealand",
+        "IATA Designator":"NZ"
+    },
+    {
+        "Airline Name":"Air Niugini",
+        "IATA Designator":"PX"
+    },
+    {
+        "Airline Name":"Air Nostrum",
+        "IATA Designator":"YW"
+    },
+    {
+        "Airline Name":"Air One S.p.A.",
+        "IATA Designator":"AP"
+    },
+    {
+        "Airline Name":"Air SERBIA a.d. Beograd",
+        "IATA Designator":"JU"
+    },
+    {
+        "Airline Name":"Air Seychelles",
+        "IATA Designator":"HM"
+    },
+    {
+        "Airline Name":"Air Tahiti",
+        "IATA Designator":"VT"
+    },
+    {
+        "Airline Name":"Air Tahiti Nui",
+        "IATA Designator":"TN"
+    },
+    {
+        "Airline Name":"Air Transat",
+        "IATA Designator":"TS"
+    },
+    {
+        "Airline Name":"Air Uganda",
+        "IATA Designator":"U7"
+    },
+    {
+        "Airline Name":"Air Vanuatu",
+        "IATA Designator":"NF"
+    },
+    {
+        "Airline Name":"AirBridgeCargo Airlines",
+        "IATA Designator":"RU"
+    },
+    {
+        "Airline Name":"Aircalin",
+        "IATA Designator":"SB"
+    },
+    {
+        "Airline Name":"Airlink",
+        "IATA Designator":"4Z"
+    },
+    {
+        "Airline Name":"Alaska Airlines",
+        "IATA Designator":"AS"
+    },
+    {
+        "Airline Name":"Alitalia",
+        "IATA Designator":"AZ"
+    },
+    {
+        "Airline Name":"All Nippon Airways",
+        "IATA Designator":"NH"
+    },
+    {
+        "Airline Name":"AlMasria Universal Airlines",
+        "IATA Designator":"UJ"
+    },
+    {
+        "Airline Name":"ALS",
+        "IATA Designator":"K4"
+    },
+    {
+        "Airline Name":"American Airlines",
+        "IATA Designator":"AA"
+    },
+    {
+        "Airline Name":"Arik Air",
+        "IATA Designator":"W3"
+    },
+    {
+        "Airline Name":"Arkia Israeli Airlines",
+        "IATA Designator":"IZ"
+    },
+    {
+        "Airline Name":"Asia Pacific Airlines",
+        "IATA Designator":"A6"
+    },
+    {
+        "Airline Name":"Asiana",
+        "IATA Designator":"OZ"
+    },
+    {
+        "Airline Name":"Atlas Air",
+        "IATA Designator":"5Y"
+    },
+    {
+        "Airline Name":"Atlasjet Airlines",
+        "IATA Designator":"KK"
+    },
+    {
+        "Airline Name":"Austral",
+        "IATA Designator":"AU"
+    },
+    {
+        "Airline Name":"Austrian",
+        "IATA Designator":"OS"
+    },
+    {
+        "Airline Name":"AVIANCA",
+        "IATA Designator":"AV"
+    },
+    {
+        "Airline Name":"Avianca Brasil",
+        "IATA Designator":"O6"
+    },
+    {
+        "Airline Name":"Azerbaijan Airlines",
+        "IATA Designator":"J2"
+    },
+    {
+        "Airline Name":"B&H Airlines",
+        "IATA Designator":"JA*"
+    },
+    {
+        "Airline Name":"Bangkok Air",
+        "IATA Designator":"PG"
+    },
+    {
+        "Airline Name":"Belavia - Belarusian Airlines",
+        "IATA Designator":"B2"
+    },
+    {
+        "Airline Name":"BH AIR",
+        "IATA Designator":"8H"
+    },
+    {
+        "Airline Name":"Biman",
+        "IATA Designator":"BG"
+    },
+    {
+        "Airline Name":"Binter Canarias",
+        "IATA Designator":"NT"
+    },
+    {
+        "Airline Name":"Blue Panorama",
+        "IATA Designator":"BV"
+    },
+    {
+        "Airline Name":"Blue1",
+        "IATA Designator":"KF"
+    },
+    {
+        "Airline Name":"bmi Regional",
+        "IATA Designator":"BM"
+    },
+    {
+        "Airline Name":"Boliviana de Aviaci\u00f3n - BoA",
+        "IATA Designator":"OB"
+    },
+    {
+        "Airline Name":"British Airways",
+        "IATA Designator":"BA"
+    },
+    {
+        "Airline Name":"Brussels Airlines",
+        "IATA Designator":"SN"
+    },
+    {
+        "Airline Name":"Bulgaria air",
+        "IATA Designator":"FB"
+    },
+    {
+        "Airline Name":"C.A.L. Cargo Airlines",
+        "IATA Designator":"5C"
+    },
+    {
+        "Airline Name":"Cargojet Airways",
+        "IATA Designator":"W8"
+    },
+    {
+        "Airline Name":"Cargolux S.A.",
+        "IATA Designator":"CV"
+    },
+    {
+        "Airline Name":"Caribbean Airlines",
+        "IATA Designator":"BW"
+    },
+    {
+        "Airline Name":"Carpatair",
+        "IATA Designator":"V3"
+    },
+    {
+        "Airline Name":"Cathay Pacific",
+        "IATA Designator":"CX"
+    },
+    {
+        "Airline Name":"China Airlines",
+        "IATA Designator":"CI"
+    },
+    {
+        "Airline Name":"China Cargo Airlines",
+        "IATA Designator":"CK"
+    },
+    {
+        "Airline Name":"China Eastern",
+        "IATA Designator":"MU"
+    },
+    {
+        "Airline Name":"China Postal Airlines",
+        "IATA Designator":"8Y*"
+    },
+    {
+        "Airline Name":"China Southern Airlines",
+        "IATA Designator":"CZ"
+    },
+    {
+        "Airline Name":"CityJet",
+        "IATA Designator":"WX"
+    },
+    {
+        "Airline Name":"Comair",
+        "IATA Designator":"MN"
+    },
+    {
+        "Airline Name":"Condor",
+        "IATA Designator":"DE"
+    },
+    {
+        "Airline Name":"COPA Airlines",
+        "IATA Designator":"CM"
+    },
+    {
+        "Airline Name":"Corendon Airlines",
+        "IATA Designator":"XC"
+    },
+    {
+        "Airline Name":"Corsair International",
+        "IATA Designator":"SS"
+    },
+    {
+        "Airline Name":"Croatia Airlines",
+        "IATA Designator":"OU"
+    },
+    {
+        "Airline Name":"Cubana",
+        "IATA Designator":"CU"
+    },
+    {
+        "Airline Name":"Cyprus Airways",
+        "IATA Designator":"CY"
+    },
+    {
+        "Airline Name":"Czech Airlines j.s.c",
+        "IATA Designator":"OK"
+    },
+    {
+        "Airline Name":"Delta Air Lines",
+        "IATA Designator":"DL"
+    },
+    {
+        "Airline Name":"DHL Air",
+        "IATA Designator":"D0"
+    },
+    {
+        "Airline Name":"DHL Aviation EEMEA B.S.C.(c)",
+        "IATA Designator":"ES*"
+    },
+    {
+        "Airline Name":"Donavia",
+        "IATA Designator":"D9"
+    },
+    {
+        "Airline Name":"Dragonair",
+        "IATA Designator":"KA"
+    },
+    {
+        "Airline Name":"Egyptair",
+        "IATA Designator":"MS"
+    },
+    {
+        "Airline Name":"EL AL",
+        "IATA Designator":"LY"
+    },
+    {
+        "Airline Name":"Emirates",
+        "IATA Designator":"EK"
+    },
+    {
+        "Airline Name":"Estonian Air",
+        "IATA Designator":"OV"
+    },
+    {
+        "Airline Name":"Ethiopian Airlines",
+        "IATA Designator":"ET"
+    },
+    {
+        "Airline Name":"Etihad Airways",
+        "IATA Designator":"EY"
+    },
+    {
+        "Airline Name":"Euroatlantic Airways",
+        "IATA Designator":"YU"
+    },
+    {
+        "Airline Name":"European Air Transport",
+        "IATA Designator":"QY"
+    },
+    {
+        "Airline Name":"Eurowings",
+        "IATA Designator":"EW"
+    },
+    {
+        "Airline Name":"EVA Air",
+        "IATA Designator":"BR"
+    },
+    {
+        "Airline Name":"Federal Express",
+        "IATA Designator":"FX"
+    },
+    {
+        "Airline Name":"Fiji Airways",
+        "IATA Designator":"FJ"
+    },
+    {
+        "Airline Name":"Finnair",
+        "IATA Designator":"AY"
+    },
+    {
+        "Airline Name":"flybe",
+        "IATA Designator":"BE"
+    },
+    {
+        "Airline Name":"Freebird Airlines",
+        "IATA Designator":"FH"
+    },
+    {
+        "Airline Name":"Garuda",
+        "IATA Designator":"GA"
+    },
+    {
+        "Airline Name":"Georgian Airways",
+        "IATA Designator":"A9"
+    },
+    {
+        "Airline Name":"Germania",
+        "IATA Designator":"ST"
+    },
+    {
+        "Airline Name":"Gulf Air",
+        "IATA Designator":"GF"
+    },
+    {
+        "Airline Name":"Hahn Air",
+        "IATA Designator":"HR*"
+    },
+    {
+        "Airline Name":"Hainan Airlines",
+        "IATA Designator":"HU"
+    },
+    {
+        "Airline Name":"Hawaiian Airlines",
+        "IATA Designator":"HA"
+    },
+    {
+        "Airline Name":"Hi Fly",
+        "IATA Designator":"5K"
+    },
+    {
+        "Airline Name":"Hong Kong Airlines",
+        "IATA Designator":"HX"
+    },
+    {
+        "Airline Name":"Hong Kong Express Airways",
+        "IATA Designator":"UO"
+    },
+    {
+        "Airline Name":"IBERIA",
+        "IATA Designator":"IB"
+    },
+    {
+        "Airline Name":"Icelandair",
+        "IATA Designator":"FI"
+    },
+    {
+        "Airline Name":"InselAir",
+        "IATA Designator":"7i"
+    },
+    {
+        "Airline Name":"Interair",
+        "IATA Designator":"D6"
+    },
+    {
+        "Airline Name":"InterSky",
+        "IATA Designator":"3L"
+    },
+    {
+        "Airline Name":"Iran Air",
+        "IATA Designator":"IR"
+    },
+    {
+        "Airline Name":"Iran Aseman Airlines",
+        "IATA Designator":"EP"
+    },
+    {
+        "Airline Name":"Israir",
+        "IATA Designator":"6H"
+    },
+    {
+        "Airline Name":"Japan Airlines",
+        "IATA Designator":"JL"
+    },
+    {
+        "Airline Name":"Jazeera Airways",
+        "IATA Designator":"J9"
+    },
+    {
+        "Airline Name":"Jet Airways",
+        "IATA Designator":"9W"
+    },
+    {
+        "Airline Name":"Jet Lite (India) Limited",
+        "IATA Designator":"S2"
+    },
+    {
+        "Airline Name":"JetBlue",
+        "IATA Designator":"B6"
+    },
+    {
+        "Airline Name":"Jordan Aviation",
+        "IATA Designator":"R5"
+    },
+    {
+        "Airline Name":"JSC Aircompany Yakutia",
+        "IATA Designator":"R3"
+    },
+    {
+        "Airline Name":"JSC Nordavia-RA",
+        "IATA Designator":"5N"
+    },
+    {
+        "Airline Name":"Juneyao Airlines",
+        "IATA Designator":"HO"
+    },
+    {
+        "Airline Name":"Kenya Airways",
+        "IATA Designator":"KQ"
+    },
+    {
+        "Airline Name":"Kish Air",
+        "IATA Designator":"Y9"
+    },
+    {
+        "Airline Name":"KLM",
+        "IATA Designator":"KL"
+    },
+    {
+        "Airline Name":"Korean Air",
+        "IATA Designator":"KE"
+    },
+    {
+        "Airline Name":"Kuwait Airways",
+        "IATA Designator":"KU"
+    },
+    {
+        "Airline Name":"LACSA",
+        "IATA Designator":"LR"
+    },
+    {
+        "Airline Name":"LAM",
+        "IATA Designator":"TM"
+    },
+    {
+        "Airline Name":"Lan Airlines",
+        "IATA Designator":"LA"
+    },
+    {
+        "Airline Name":"Lan Argentina",
+        "IATA Designator":"4M"
+    },
+    {
+        "Airline Name":"Lan Cargo",
+        "IATA Designator":"UC"
+    },
+    {
+        "Airline Name":"Lan Per\u00fa",
+        "IATA Designator":"LP"
+    },
+    {
+        "Airline Name":"LanEcuador",
+        "IATA Designator":"XL"
+    },
+    {
+        "Airline Name":"LIAT Airlines",
+        "IATA Designator":"LI"
+    },
+    {
+        "Airline Name":"Libyan Airlines",
+        "IATA Designator":"LN"
+    },
+    {
+        "Airline Name":"LLC \"NORD WIND\"",
+        "IATA Designator":"N4"
+    },
+    {
+        "Airline Name":"LOT Polish Airlines",
+        "IATA Designator":"LO"
+    },
+    {
+        "Airline Name":"Lufthansa",
+        "IATA Designator":"LH"
+    },
+    {
+        "Airline Name":"Lufthansa Cargo",
+        "IATA Designator":"LH"
+    },
+    {
+        "Airline Name":"Lufthansa CityLine",
+        "IATA Designator":"CL"
+    },
+    {
+        "Airline Name":"Luxair",
+        "IATA Designator":"LG"
+    },
+    {
+        "Airline Name":"Mahan Air",
+        "IATA Designator":"W5"
+    },
+    {
+        "Airline Name":"Malaysia Airlines",
+        "IATA Designator":"MH"
+    },
+    {
+        "Airline Name":"Malm\u00f6 Aviation",
+        "IATA Designator":"TF"
+    },
+    {
+        "Airline Name":"Martinair Cargo",
+        "IATA Designator":"MP"
+    },
+    {
+        "Airline Name":"MAS AIR",
+        "IATA Designator":"M7"
+    },
+    {
+        "Airline Name":"MEA",
+        "IATA Designator":"ME"
+    },
+    {
+        "Airline Name":"Meridiana fly",
+        "IATA Designator":"IG"
+    },
+    {
+        "Airline Name":"MIAT",
+        "IATA Designator":"OM"
+    },
+    {
+        "Airline Name":"Montenegro Airlines",
+        "IATA Designator":"YM"
+    },
+    {
+        "Airline Name":"Nesma Airlines",
+        "IATA Designator":"NE"
+    },
+    {
+        "Airline Name":"NIKI",
+        "IATA Designator":"HG"
+    },
+    {
+        "Airline Name":"Nile Air",
+        "IATA Designator":"NP"
+    },
+    {
+        "Airline Name":"Nippon Cargo Airlines (NCA)",
+        "IATA Designator":"KZ"
+    },
+    {
+        "Airline Name":"Nouvelair",
+        "IATA Designator":"BJ"
+    },
+    {
+        "Airline Name":"Olympic Air",
+        "IATA Designator":"OA"
+    },
+    {
+        "Airline Name":"Oman Air",
+        "IATA Designator":"WY"
+    },
+    {
+        "Airline Name":"Onur Air",
+        "IATA Designator":"8Q"
+    },
+    {
+        "Airline Name":"PAL",
+        "IATA Designator":"PR"
+    },
+    {
+        "Airline Name":"Pegasus Airlines",
+        "IATA Designator":"PC"
+    },
+    {
+        "Airline Name":"PGA-Portug\u00e1lia Airlines",
+        "IATA Designator":"NI"
+    },
+    {
+        "Airline Name":"PIA",
+        "IATA Designator":"PK"
+    },
+    {
+        "Airline Name":"Precision Air",
+        "IATA Designator":"PW"
+    },
+    {
+        "Airline Name":"PrivatAir",
+        "IATA Designator":"PV"
+    },
+    {
+        "Airline Name":"Qantas",
+        "IATA Designator":"QF"
+    },
+    {
+        "Airline Name":"Qatar Airways",
+        "IATA Designator":"QR"
+    },
+    {
+        "Airline Name":"Rossiya Airlines",
+        "IATA Designator":"FV"
+    },
+    {
+        "Airline Name":"Royal Air Maroc",
+        "IATA Designator":"AT"
+    },
+    {
+        "Airline Name":"Royal Brunei",
+        "IATA Designator":"BI"
+    },
+    {
+        "Airline Name":"Royal Jordanian",
+        "IATA Designator":"RJ"
+    },
+    {
+        "Airline Name":"SAA",
+        "IATA Designator":"SA"
+    },
+    {
+        "Airline Name":"Safair",
+        "IATA Designator":"FA*"
+    },
+    {
+        "Airline Name":"Safi Airways",
+        "IATA Designator":"4Q"
+    },
+    {
+        "Airline Name":"SAS",
+        "IATA Designator":"SK"
+    },
+    {
+        "Airline Name":"SATA Air A\u00e7ores",
+        "IATA Designator":"SP"
+    },
+    {
+        "Airline Name":"SATA Internacional",
+        "IATA Designator":"S4"
+    },
+    {
+        "Airline Name":"Saudi Arabian Airlines",
+        "IATA Designator":"SV"
+    },
+    {
+        "Airline Name":"Shandong Airlines",
+        "IATA Designator":"SC"
+    },
+    {
+        "Airline Name":"Shanghai Airlines",
+        "IATA Designator":"FM"
+    },
+    {
+        "Airline Name":"Shenzhen Airlines",
+        "IATA Designator":"ZH"
+    },
+    {
+        "Airline Name":"SIA",
+        "IATA Designator":"SQ"
+    },
+    {
+        "Airline Name":"SIA Cargo",
+        "IATA Designator":"SQ"
+    },
+    {
+        "Airline Name":"Siberia Airlines",
+        "IATA Designator":"S7"
+    },
+    {
+        "Airline Name":"Sichuan Airlines",
+        "IATA Designator":"3U"
+    },
+    {
+        "Airline Name":"Silkair",
+        "IATA Designator":"MI"
+    },
+    {
+        "Airline Name":"South African Express Airways",
+        "IATA Designator":"XZ"
+    },
+    {
+        "Airline Name":"SriLankan",
+        "IATA Designator":"UL"
+    },
+    {
+        "Airline Name":"Sudan Airways",
+        "IATA Designator":"SD"
+    },
+    {
+        "Airline Name":"SunExpress",
+        "IATA Designator":"XQ*"
+    },
+    {
+        "Airline Name":"Surinam Airways",
+        "IATA Designator":"PY"
+    },
+    {
+        "Airline Name":"SWISS",
+        "IATA Designator":"LX"
+    },
+    {
+        "Airline Name":"SYPHAX AIRLINES",
+        "IATA Designator":"FS"
+    },
+    {
+        "Airline Name":"Syrianair",
+        "IATA Designator":"RB"
+    },
+    {
+        "Airline Name":"TAAG - Angola Airlines",
+        "IATA Designator":"DT"
+    },
+    {
+        "Airline Name":"TACA",
+        "IATA Designator":"TA"
+    },
+    {
+        "Airline Name":"TACA Peru",
+        "IATA Designator":"T0"
+    },
+    {
+        "Airline Name":"TACV Cabo Verde Airlines",
+        "IATA Designator":"VR"
+    },
+    {
+        "Airline Name":"TAM - Transportes A\u00e9reos del Mercosur Sociedad An\u00f3nima",
+        "IATA Designator":"PZ"
+    },
+    {
+        "Airline Name":"TAM Linhas A\u00e9reas",
+        "IATA Designator":"JJ"
+    },
+    {
+        "Airline Name":"TAME - Linea A\u00e9rea del Ecuador",
+        "IATA Designator":"EQ"
+    },
+    {
+        "Airline Name":"TAP Portugal",
+        "IATA Designator":"TP"
+    },
+    {
+        "Airline Name":"TAROM",
+        "IATA Designator":"RO"
+    },
+    {
+        "Airline Name":"Tassili Airlines",
+        "IATA Designator":"SF"
+    },
+    {
+        "Airline Name":"Thai Airways International",
+        "IATA Designator":"TG"
+    },
+    {
+        "Airline Name":"THY - Turkish Airlines",
+        "IATA Designator":"TK"
+    },
+    {
+        "Airline Name":"Tianjin Airlines",
+        "IATA Designator":"GS"
+    },
+    {
+        "Airline Name":"TNT Airways S.A.",
+        "IATA Designator":"3V"
+    },
+    {
+        "Airline Name":"Transaero",
+        "IATA Designator":"UN"
+    },
+    {
+        "Airline Name":"TransAsia Airways",
+        "IATA Designator":"GE"
+    },
+    {
+        "Airline Name":"TUIfly",
+        "IATA Designator":"X3*"
+    },
+    {
+        "Airline Name":"Tunisair",
+        "IATA Designator":"TU"
+    },
+    {
+        "Airline Name":"Ukraine International Airlines",
+        "IATA Designator":"PS"
+    },
+    {
+        "Airline Name":"United Airlines",
+        "IATA Designator":"UA"
+    },
+    {
+        "Airline Name":"UPS Airlines",
+        "IATA Designator":"5X"
+    },
+    {
+        "Airline Name":"US Airways",
+        "IATA Designator":"US"
+    },
+    {
+        "Airline Name":"UTair",
+        "IATA Designator":"UT"
+    },
+    {
+        "Airline Name":"Uzbekistan Airways",
+        "IATA Designator":"HY"
+    },
+    {
+        "Airline Name":"Vietnam Airlines",
+        "IATA Designator":"VN"
+    },
+    {
+        "Airline Name":"Virgin Atlantic",
+        "IATA Designator":"VS"
+    },
+    {
+        "Airline Name":"Virgin Australia",
+        "IATA Designator":"VA"
+    },
+    {
+        "Airline Name":"VLM Airlines",
+        "IATA Designator":"VG"
+    },
+    {
+        "Airline Name":"Volaris",
+        "IATA Designator":"Y4*"
+    },
+    {
+        "Airline Name":"Volga-Dnepr Airlines",
+        "IATA Designator":"VI*"
+    },
+    {
+        "Airline Name":"VRG Linhas A\u00e9reas S.A. - Grupo GOL",
+        "IATA Designator":"G3"
+    },
+    {
+        "Airline Name":"White coloured by you",
+        "IATA Designator":"WI"
+    },
+    {
+        "Airline Name":"Wideroe",
+        "IATA Designator":"WF"
+    },
+    {
+        "Airline Name":"Xiamen Airlines",
+        "IATA Designator":"MF"
+    },
+    {
+        "Airline Name":"Yemenia",
+        "IATA Designator":"IY"
+    },
+    {
+        "Airline Name":"Silk Way Airlines",
+        "IATA Designator":"ZP"
+    },
+    {
+        "Airline Name":"Silk Way West Airlines Limited",
+        "IATA Designator":"7L"
+    }
+]

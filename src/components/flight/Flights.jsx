@@ -68,7 +68,7 @@ const Flights = () => {
                     to="/flight-list-v1"
                     className="button -outline-blue-1 px-30 h-50 text-blue-1"
                   >
-                    View Deal <div className="icon-arrow-top-right ml-15" />
+                    View More <div className="icon-arrow-top-right ml-15" />
                   </Link>
                 </div>
               </div>

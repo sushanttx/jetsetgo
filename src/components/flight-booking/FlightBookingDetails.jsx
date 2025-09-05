@@ -1,83 +1,72 @@
-const FlightBookingDetails = ({ flight, formData, segment }) => {
-  if (!flight || !formData || !segment) {
+// src/components/flight-booking/FlightBookingDetails.jsx
+import PriceBreakdown from './PriceBreakdown';
+
+const FlightBookingDetails = ({ flight, segment, searchData }) => {
+  if (!flight || !searchData) {
     return (
       <div className="px-30 py-30 border-light rounded-4">
-        <div className="text-20 fw-500 mb-30">Your booking details</div>
-        <div className="text-15 text-light-1">Flight, segment, or form data not found.</div>
+        <div className="text-20 fw-500 mb-20">Your Booking Details</div>
+        <div>Loading...</div>
       </div>
     );
   }
 
+  // Extract baggage info
+  const baggageInfo = flight.rawBaggage ? Object.entries(flight.rawBaggage) : [];
+
   return (
     <div className="px-30 py-30 border-light rounded-4">
-      <div className="text-20 fw-500 mb-30">Your booking details</div>
-      <div className="mb-20">
-        <div className="fw-500 mb-5">Flight Information</div>
-        <div className="d-flex align-items-center mb-15">
-          <img src={segment.avatar} alt="flight icon" style={{ width: 48, height: 48, borderRadius: 8, marginRight: 12 }} />
-          <div>
-            <div className="text-16 fw-600 mb-2">Segment</div>
-            <div className="text-15 mb-1"><b>From:</b> {segment.arrivalAirport} <span className="ml-5">({segment.departureTime})</span></div>
-            <div className="text-15 mb-1"><b>To:</b> {segment.departureAirport} <span className="ml-5">({segment.arrivalTime})</span></div>
-            <div className="text-15 mb-1"><b>Duration:</b> {segment.duration}</div>
-          </div>
+      <div className="text-20 fw-500 mb-30">Your Booking Details</div>
+
+      {/* --- Flight Information Section --- */}
+      <div className="row x-gap-15 y-gap-20">
+        <div className="col-auto">
+          <img src={flight.flightList?.[0]?.avatar || '/img/flights/default-flight.png'} alt="airline logo" className="size-40" />
         </div>
-        <div className="row y-gap-8 mb-2">
-          <div className="col-6 text-15"><b>Flight ID:</b> {flight.id}</div>
-          <div className="col-6 text-15"><b>Price:</b> ${flight.price}</div>
-          <div className="col-6 text-15"><b>Deals:</b> {flight.deals}</div>
+        <div className="col">
+          <div className="text-15 fw-500">{new Date(searchData.date).toDateString()}</div>
+          <div className="text-14 text-light-1">{flight.validatingCarrier}</div>
         </div>
       </div>
+
+      {flight.flightList.map((seg, index) => (
+        <div key={seg.id}>
+            <div className="border-top-light mt-20 mb-20" />
+            <div className="row y-gap-10">
+                <div className="col-12 text-15 fw-500">{seg.departureAirport} → {seg.arrivalAirport}</div>
+                <div className="col-auto"><div className="text-15 text-light-1">Depart:</div></div>
+                <div className="col-auto"><div className="text-15 fw-500">{seg.departureTime} </div></div>
+                <div className="col-auto"><div className="text-15 text-light-1">---→Arrive:</div></div>
+                <div className="col-auto"><div className="text-15 fw-500">{seg.arrivalTime}</div></div>
+                 <div className="col-12"><div className="text-14 text-light-1">{seg.duration} • {seg.airline} {seg.flightNumber}</div></div>
+            </div>
+            {seg.layoverTime && <div className="text-14 text-light-1 mt-10">Layover: {seg.layoverTime}</div>}
+        </div>
+      ))}
+      
       <div className="border-top-light mt-20 mb-20" />
-      <div className="mb-20">
-        <div className="fw-500 mb-5">Your Details</div>
-        <div className="row y-gap-8">
-          {/* One Way Form Fields */}
-          {formData.date !== undefined && (
-            <>
-              <div className="col-6 text-15"><b>From:</b> {formData.from}</div>
-              <div className="col-6 text-15"><b>To:</b> {formData.to}</div>
-              <div className="col-6 text-15"><b>Date:</b> {formData.date}</div>
-              <div className="col-6 text-15"><b>Time:</b> {formData.time}</div>
-              <div className="col-6 text-15"><b>Adults:</b> {formData.adult}</div>
-              <div className="col-6 text-15"><b>Children:</b> {formData.child}</div>
-              <div className="col-6 text-15"><b>Lap Infant:</b> {formData.lapInfant}</div>
-              <div className="col-6 text-15"><b>Seat Infant:</b> {formData.seatInfant}</div>
-              <div className="col-6 text-15"><b>Cabin Class:</b> {formData.cabinClass}</div>
-              <div className="col-6 text-15"><b>Preferred Airline 1:</b> {formData.airline1}</div>
-              <div className="col-6 text-15"><b>Preferred Airline 2:</b> {formData.airline2}</div>
-              <div className="col-6 text-15"><b>Flexible Dates:</b> {formData.flexibleDates ? "Yes" : "No"}</div>
-              <div className="col-6 text-15"><b>No Penalties:</b> {formData.noPenalties ? "Yes" : "No"}</div>
-              <div className="col-6 text-15"><b>Direct Flights:</b> {formData.directFlights ? "Yes" : "No"}</div>
-              <div className="col-6 text-15"><b>Nearby Airports:</b> {formData.nearbyAirports ? "Yes" : "No"}</div>
-            </>
-          )}
-          {/* Round Trip Form Fields */}
-          {formData.departureDate !== undefined && (
-            <>
-              <div className="col-6 text-15"><b>From:</b> {formData.from}</div>
-              <div className="col-6 text-15"><b>To:</b> {formData.to}</div>
-              <div className="col-6 text-15"><b>Departure Date:</b> {formData.departureDate}</div>
-              <div className="col-6 text-15"><b>Departure Time:</b> {formData.departureTime}</div>
-              <div className="col-6 text-15"><b>Return Date:</b> {formData.returnDate}</div>
-              <div className="col-6 text-15"><b>Return Time:</b> {formData.returnTime}</div>
-              <div className="col-6 text-15"><b>Adults:</b> {formData.adult}</div>
-              <div className="col-6 text-15"><b>Children:</b> {formData.child}</div>
-              <div className="col-6 text-15"><b>Lap Infant:</b> {formData.lapInfant}</div>
-              <div className="col-6 text-15"><b>Seat Infant:</b> {formData.seatInfant}</div>
-              <div className="col-6 text-15"><b>Cabin Class:</b> {formData.cabinClass}</div>
-              <div className="col-6 text-15"><b>Preferred Airline 1:</b> {formData.airline1}</div>
-              <div className="col-6 text-15"><b>Preferred Airline 2:</b> {formData.airline2}</div>
-              <div className="col-6 text-15"><b>Flexible Dates:</b> {formData.flexibleDates ? "Yes" : "No"}</div>
-              <div className="col-6 text-15"><b>No Penalties:</b> {formData.noPenalties ? "Yes" : "No"}</div>
-              <div className="col-6 text-15"><b>Direct Flights:</b> {formData.directFlights ? "Yes" : "No"}</div>
-              <div className="col-6 text-15"><b>Nearby Airports:</b> {formData.nearbyAirports ? "Yes" : "No"}</div>
-            </>
-          )}
-        </div>
-      </div>
+
+      {/* --- Price Breakdown Section --- */}
+      <PriceBreakdown flight={flight} searchData={searchData} />
+
+      {/* --- Baggage Information Section --- */}
+      {baggageInfo.length > 0 && (
+         <>
+            <div className="border-top-light mt-20 mb-20" />
+            <div className="text-18 fw-500 mb-10">Baggage Allowance</div>
+            {baggageInfo.map(([route, allowances]) => (
+                <div key={route}>
+                    <div className="text-15 fw-500">{route}</div>
+                    {allowances.map((allowance, i) => (
+                        <div key={i} className="text-14 text-light-1 capitalize">{allowance.type.toLowerCase()}: {allowance.noOfPieces}</div>
+                    ))}
+                </div>
+            ))}
+         </>
+      )}
+
     </div>
   );
 };
 
-export default FlightBookingDetails; 
+export default FlightBookingDetails;

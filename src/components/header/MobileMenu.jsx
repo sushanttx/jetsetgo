@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { Sidebar, Menu, MenuItem, SubMenu } from "react-pro-sidebar";
 import {
   homeItems,
@@ -12,7 +12,6 @@ import {
 import { isActiveLink } from "../../utils/linkActiveChecker";
 import Social from "../common/social/Social";
 import ContactInfo from "./ContactInfo";
-import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const MobileMenu = () => {
@@ -129,3 +128,57 @@ const MobileMenu = () => {
 };
 
 export default MobileMenu;
+
+// ADMIN MOBILE MENU
+export const AdminMobileMenu = () => {
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  return (
+    <>
+      <div className="pro-header d-flex align-items-center justify-between border-bottom-light">
+        <Link to="/" className="d-flex flex-column align-items-center">
+          <img src="/img/general/logo-dark.svg" alt="brand" />
+          <span className="text-20 fw-500 mt-10 text-dark-1">Flight Booking</span>
+        </Link>
+        <div className="fix-icon" data-bs-dismiss="offcanvas" aria-label="Close">
+          <i className="icon icon-close"></i>
+        </div>
+      </div>
+      <Sidebar width="400" backgroundColor="#fff">
+        <Menu>
+          <MenuItem
+            onClick={() => navigate("/admin-dashboard")}
+            className={pathname === "/admin-dashboard" ? "menu-active-link" : ""}
+          >
+            <img src="/img/dashboard/sidebar/airplane.svg" alt="icon" style={{width: 20, marginRight: 10, verticalAlign: 'middle'}} />
+            PNR Status
+          </MenuItem>
+          <MenuItem
+            onClick={() => navigate("/admin-dashboard/customer-management")}
+            className={pathname === "/admin-dashboard/customer-management" ? "menu-active-link" : ""}
+          >
+            <img src="/img/dashboard/sidebar/bookmark.svg" alt="icon" style={{width: 20, marginRight: 10, verticalAlign: 'middle'}} />
+            Customer Management
+          </MenuItem>
+          <MenuItem
+            onClick={() => navigate("/admin-dashboard/booking-management")}
+            className={pathname === "/admin-dashboard/booking-management" ? "menu-active-link" : ""}
+          >
+            <img src="/img/dashboard/sidebar/booking.svg" alt="icon" style={{width: 20, marginRight: 10, verticalAlign: 'middle'}} />
+            Booking Management
+          </MenuItem>
+        </Menu>
+      </Sidebar>
+      <div className="mobile-footer px-20 py-5 border-top-light"></div>
+      <div className="pro-footer">
+        <ContactInfo />
+        <div className="mt-10">
+          <h5 className="text-16 fw-500 mb-10">Follow us on social media</h5>
+          <div className="d-flex x-gap-20 items-center">
+            <Social />
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};

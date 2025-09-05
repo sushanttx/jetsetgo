@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import { addCurrentTab } from "../../../features/hero/findPlaceSlice";
-import DateSearch from "../DateSearch";
+import DateSearch from "../hero-1/DateSearch";
 import GuestSearch from "./GuestSearch";
 import LocationSearch from "./LocationSearch";
 import { useNavigate } from "react-router-dom";

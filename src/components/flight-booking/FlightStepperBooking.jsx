@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import "../../../public/sass/components/FlightStepperBooking.scss";
 import FlightCustomerInfo from "./FlightCustomerInfo";
 import FlightPaymentInfo from "./FlightPaymentInfo";
 import FlightOrderSubmittedInfo from "./FlightOrderSubmittedInfo";
@@ -22,7 +23,7 @@ const emptyPassenger = {
   alternateNumber: ""
 };
 
-const FlightStepperBooking = ({ flight, formData, segment }) => {
+const FlightStepperBooking = ({ flight, searchData, segment }) => {
   const [currentStep, setCurrentStep] = useState(0);
   const [personalDetails, setPersonalDetails] = useState({
     fullName: "",
@@ -57,6 +58,82 @@ const FlightStepperBooking = ({ flight, formData, segment }) => {
     localStorage.setItem("flightPassengers", JSON.stringify(passengers));
   }, [passengers]);
 
+
+  const renderStep = () => {
+    const { content } = steps[currentStep];
+    return <>{content}</>;
+  };
+
+  // Calculate total passengers required
+  const totalPassengersAllowed = 
+    (parseInt(searchData?.adult) || 0) + 
+    (parseInt(searchData?.child) || 0) + 
+    (parseInt(searchData?.seatInfant) || 0);
+
+  // Require all required fields for at least one passenger
+  const isPassengerFilled = (p) =>
+    p.fullName &&
+    p.email &&
+    p.nationality &&
+    p.gender &&
+    p.dateOfBirth &&
+    p.mobileNumber &&
+    p.address1 &&
+    p.state &&
+    p.zip &&
+    p.seatPreference;
+
+  // Check if all passengers are complete (all required passengers added with all required fields)
+  const areAllPassengersComplete = () => {
+    console.log('🔍 Validating passengers:', {
+      passengersLength: passengers.length,
+      totalPassengersAllowed,
+      passengers: passengers
+    });
+    
+    if (passengers.length !== totalPassengersAllowed) {
+      console.log('❌ Not all passengers added yet');
+      return false;
+    }
+    
+    const allComplete = passengers.every((passenger, index) => {
+      const requiredFields = ['fullName', 'email', 'gender', 'dateOfBirth', 'nationality', 'mobileNumber', 'address1', 'state', 'zip', 'seatPreference'];
+      const passengerComplete = requiredFields.every(field => {
+        const hasValue = passenger[field] && passenger[field].trim() !== '';
+        if (!hasValue) {
+          console.log(`❌ Passenger ${index + 1} missing field: ${field}`, passenger[field]);
+        }
+        return hasValue;
+      });
+      
+      console.log(`✅ Passenger ${index + 1} complete:`, passengerComplete);
+      return passengerComplete;
+    });
+    
+    console.log('🎯 All passengers complete:', allComplete);
+    return allComplete;
+  };
+
+  const isPassengersValid = () => areAllPassengersComplete();
+  const isCurrentPassengerFilled = () => isPassengerFilled(currentPassenger);
+  const isCurrentPassengerEmpty = () => Object.values(currentPassenger).every(v => v === "");
+
+  const nextStep = () => {
+    if (currentStep === 0) {
+      // Only proceed if all passengers are complete
+      if (!areAllPassengersComplete()) return;
+    }
+    if (currentStep < 3) { // 4 steps total (0, 1, 2, 3)
+      setCurrentStep(currentStep + 1);
+    }
+  };
+
+  const previousStep = () => {
+    if (currentStep > 0) {
+      setCurrentStep(currentStep - 1);
+    }
+  };
+
   const steps = [
     {
       title: "Passenger Details",
@@ -68,7 +145,16 @@ const FlightStepperBooking = ({ flight, formData, segment }) => {
           </div>
         </>
       ),
-      content: <FlightCustomerInfo flight={flight} formData={formData} segment={segment} personalDetails={personalDetails} setPersonalDetails={setPersonalDetails} passengers={passengers} setPassengers={setPassengers} currentPassenger={currentPassenger} setCurrentPassenger={setCurrentPassenger} />, // pass currentPassenger
+      content: <FlightCustomerInfo 
+      flight={flight} 
+      searchData={searchData}
+      personalDetails={personalDetails}
+      setPersonalDetails={setPersonalDetails}
+      passengers={passengers}
+      setPassengers={setPassengers}
+      currentPassenger={currentPassenger}
+      setCurrentPassenger={setCurrentPassenger}
+      onNextStep={nextStep} />, // pass currentPassenger and nextStep handler
     },
     {
       title: "Confirmation",
@@ -80,7 +166,7 @@ const FlightStepperBooking = ({ flight, formData, segment }) => {
           </div>
         </>
       ),
-      content: <FlightBookingConfirmation flight={flight} formData={formData} segment={segment} personalDetails={personalDetails} passengers={passengers} onConfirmAndPay={() => setCurrentStep(currentStep + 1)} />, // pass handler
+      content: <FlightBookingConfirmation flight={flight} searchData={searchData} personalDetails={personalDetails} passengers={passengers} onConfirmAndPay={() => setCurrentStep(currentStep + 1)} />, // pass handler
     },
     {
       title: "Payment Details",
@@ -102,82 +188,39 @@ const FlightStepperBooking = ({ flight, formData, segment }) => {
     },
   ];
 
-  const renderStep = () => {
-    const { content } = steps[currentStep];
-    return <>{content}</>;
-  };
-
-  // Require all required fields for at least one passenger
-  const isPassengerFilled = (p) =>
-    p.fullName &&
-    p.email &&
-    p.nationality &&
-    p.gender &&
-    p.dateOfBirth &&
-    p.mobileNumber &&
-    p.address1 &&
-    p.state &&
-    p.zip;
-
-  const isPassengersValid = () => passengers.length > 0 && passengers.every(isPassengerFilled);
-  const isCurrentPassengerFilled = () => isPassengerFilled(currentPassenger);
-  const isCurrentPassengerEmpty = () => Object.values(currentPassenger).every(v => v === "");
-
-  const nextStep = () => {
-    if (currentStep === 0) {
-      // If currentPassenger is filled and not empty, auto-add it and proceed
-      if (isCurrentPassengerFilled() && !isCurrentPassengerEmpty()) {
-        setPassengers(prev => [...prev, currentPassenger]);
-        setCurrentPassenger(emptyPassenger);
-        setCurrentStep(currentStep + 1);
-        return;
-      }
-      if (!isPassengersValid()) return;
-    }
-    if (currentStep < steps.length - 1) {
-      setCurrentStep(currentStep + 1);
-    }
-  };
-
-  const previousStep = () => {
-    if (currentStep > 0) {
-      setCurrentStep(currentStep - 1);
-    }
-  };
-
   return (
     <>
-      <div className="row x-gap-40 y-gap-30 items-center">
+      <div className="flight-stepper-header">
         {steps.map((step, index) => (
           <React.Fragment key={index}>
-            <div className="col-auto">
+            <div 
+              className={`flight-stepper-step ${index > 0 && !areAllPassengersComplete() ? 'disabled' : ''}`} 
+              onClick={() => {
+                // Only allow navigation to step 0 or if all passengers are complete
+                if (index === 0 || areAllPassengersComplete()) {
+                  setCurrentStep(index);
+                }
+              }}
+            >
               <div
-                className="d-flex items-center cursor-pointer transition"
-                onClick={() => setCurrentStep(index)}
+                className={
+                  currentStep === index
+                    ? "active size-40 rounded-full flex-center bg-blue-1"
+                    : index > 0 && !areAllPassengersComplete()
+                    ? "size-40 rounded-full flex-center bg-light-2 text-light-1"
+                    : "size-40 rounded-full flex-center bg-blue-1-05 text-blue-1 fw-500"
+                }
               >
-                <div
-                  className={
-                    currentStep === index
-                      ? "active size-40 rounded-full flex-center bg-blue-1"
-                      : "size-40 rounded-full flex-center bg-blue-1-05 text-blue-1 fw-500"
-                  }
-                >
-                  {currentStep === index ? (
-                    <>
-                      <i className="icon-check text-16 text-white"></i>
-                    </>
-                  ) : (
-                    <>
-                      <span>{step.stepNo}</span>
-                    </>
-                  )}
-                </div>
-
-                <div className="text-18 fw-500 ml-10"> {step.title}</div>
+                {currentStep === index ? (
+                  <i className="icon-check text-16 text-white"></i>
+                ) : (
+                  <span>{step.stepNo}</span>
+                )}
+              </div>
+              <div className={`text-18 fw-500 ml-10 ${index > 0 && !areAllPassengersComplete() ? 'text-light-1' : ''}`}>
+                {step.title}
               </div>
             </div>
-            {/* End .col */}
-
             {step.stepBar}
           </React.Fragment>
         ))}
@@ -203,10 +246,8 @@ const FlightStepperBooking = ({ flight, formData, segment }) => {
           <button
             className="button h-60 px-24 -dark-1 bg-blue-1 text-white"
             disabled={
-              currentStep === steps.length - 1 ||
-              (currentStep === 0 && !(
-                isPassengersValid() || (isCurrentPassengerFilled() && !isCurrentPassengerEmpty())
-              ))
+              currentStep === 3 || // 4 steps total (0, 1, 2, 3)
+              (currentStep === 0 && !areAllPassengersComplete())
             }
             onClick={nextStep}
           >

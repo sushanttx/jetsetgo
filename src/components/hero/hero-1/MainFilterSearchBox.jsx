@@ -4,7 +4,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import LocationSearch from "./LocationSearch";
-import DateSearch from "../DateSearch";
+import DateSearch from "./DateSearch";
 import ContactForm from "@/components/common/ContactForm";
 import ContactFormMultiCity from "@/components/common/ContactFormMultiCity";
 import "../../../../public/sass/components/mainSearch.scss";
@@ -37,10 +37,6 @@ const MainFilterSearchBox = () => {
     ? tabs.findIndex((tab) => tab.name === currentTab)
     : 0;
 
-  // Debugging log to verify values (optional, can remove in production)
-  useEffect(() => {
-    console.log("Current Tab:", currentTab, "Selected Index:", selectedIndex);
-  }, [currentTab, selectedIndex]);
 
   return (
     <div className="main-filter-search-box">

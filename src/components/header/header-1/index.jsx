@@ -5,9 +5,11 @@ import MainMenu from "../MainMenu";
 import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 import LanguageMegaMenu from "../LanguageMegaMenu";
 import MobileMenu from "../MobileMenu";
+import { useSelector } from "react-redux"; 
 
 const Header1 = () => {
   const [navbar, setNavbar] = useState(false);
+  const { isAuthenticated, user } = useSelector((state) => state.auth);
 
   const changeBackground = () => {
     if (window.scrollY >= 10) {
@@ -48,13 +50,32 @@ const Header1 = () => {
               <div className="d-flex items-center">
                 <div className="row x-gap-20 items-center xxl:d-none">
                   <div className="col-auto">
-                    <Link
-                      to="/admin-dashboard"
-                      className="button px-20 fw-400 text-14 border-white -outline-white h-40 text-white ml-10"
-                      style={{ minWidth: 120 }}
-                    >
-                      Admin Dashboard
-                    </Link>
+                    {isAuthenticated && user ? (
+                      // If user is LOGGED IN
+                      user.role === "admin" || user.role === "superadmin" ? (
+                        <Link
+                          to="/admin-dashboard"
+                          className="button px-20 fw-400 text-14 border-white -outline-white h-40 text-white"
+                        >
+                          Admin Dashboard
+                        </Link>
+                      ) : (
+                        <Link
+                          to="/dashboard/db-dashboard" // <-- You can change this to your regular user dashboard URL
+                          className="button px-20 fw-400 text-14 border-white -outline-white h-40 text-white"
+                        >
+                          My Dashboard
+                        </Link>
+                      )
+                    ) : (
+                      // If user is LOGGED OUT
+                      <Link
+                        to="/signup" // <-- You can change this to your sign-up or login URL
+                        className="button px-20 fw-400 text-14 border-white -outline-white h-40 text-white"
+                      >
+                        Sign Up / Register
+                      </Link>
+                    )}
                   </div>
                   <CurrenctyMegaMenu textClass="text-white" />
                   <div className="col-auto">

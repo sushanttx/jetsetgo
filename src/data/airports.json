@@ -1,0 +1,746 @@
+{
+  "airports": [
+    {
+      "code": "SYD",
+      "name": "Sydney Kingsford Smith Airport",
+      "city": "Sydney",
+      "country": "Australia",
+      "searchTerms": ["SYD", "Sydney", "Australia", "Kingsford Smith"]
+    },
+    {
+      "code": "MEL",
+      "name": "Melbourne Airport",
+      "city": "Melbourne",
+      "country": "Australia",
+      "searchTerms": ["MEL", "Melbourne", "Australia", "Tullamarine"]
+    },
+    {
+      "code": "AKL",
+      "name": "Auckland Airport",
+      "city": "Auckland",
+      "country": "New Zealand",
+      "searchTerms": ["AKL", "Auckland", "New Zealand"]
+    },
+    {
+      "code": "CHC",
+      "name": "Christchurch International Airport",
+      "city": "Christchurch",
+      "country": "New Zealand",
+      "searchTerms": ["CHC", "Christchurch", "New Zealand"]
+    },
+    {
+      "code": "CAI",
+      "name": "Cairo International Airport",
+      "city": "Cairo",
+      "country": "Egypt",
+      "searchTerms": ["CAI", "Cairo", "Egypt"]
+    },
+    {
+      "code": "ADD",
+      "name": "Addis Ababa Bole International Airport",
+      "city": "Addis Ababa",
+      "country": "Ethiopia",
+      "searchTerms": ["ADD", "Addis Ababa", "Ethiopia", "Bole"]
+    },
+    {
+      "code": "LOS",
+      "name": "Murtala Muhammed International Airport",
+      "city": "Lagos",
+      "country": "Nigeria",
+      "searchTerms": ["LOS", "Lagos", "Nigeria"]
+    },
+    {
+      "code": "JNB",
+      "name": "O.R. Tambo International Airport",
+      "city": "Johannesburg",
+      "country": "South Africa",
+      "searchTerms": ["JNB", "Johannesburg", "South Africa", "O.R. Tambo"]
+    },
+    {
+      "code": "CPT",
+      "name": "Cape Town International Airport",
+      "city": "Cape Town",
+      "country": "South Africa",
+      "searchTerms": ["CPT", "Cape Town", "South Africa"]
+    },
+    {
+      "code": "EZE",
+      "name": "Ministro Pistarini International Airport",
+      "city": "Buenos Aires",
+      "country": "Argentina",
+      "searchTerms": ["EZE", "Buenos Aires", "Argentina", "Ezeiza"]
+    },
+    {
+      "code": "SCL",
+      "name": "Arturo Merino Benítez International Airport",
+      "city": "Santiago",
+      "country": "Chile",
+      "searchTerms": ["SCL", "Santiago", "Chile"]
+    },
+    {
+      "code": "LIM",
+      "name": "Jorge Chávez International Airport",
+      "city": "Lima",
+      "country": "Peru",
+      "searchTerms": ["LIM", "Lima", "Peru", "Jorge Chávez"]
+    },
+    {
+      "code": "BOG",
+      "name": "El Dorado International Airport",
+      "city": "Bogotá",
+      "country": "Colombia",
+      "searchTerms": ["BOG", "Bogotá", "Colombia", "El Dorado"]
+    },
+    {
+      "code": "GIG",
+      "name": "Rio de Janeiro/Galeão International Airport",
+      "city": "Rio de Janeiro",
+      "country": "Brazil",
+      "searchTerms": ["GIG", "Rio de Janeiro", "Brazil", "Galeão"]
+    },
+    {
+      "code": "MIA",
+      "name": "Miami International Airport",
+      "city": "Miami",
+      "country": "United States",
+      "searchTerms": ["MIA", "Miami", "Florida"]
+    },
+    {
+      "code": "SFO",
+      "name": "San Francisco International Airport",
+      "city": "San Francisco",
+      "country": "United States",
+      "searchTerms": ["SFO", "San Francisco", "California"]
+    },
+    {
+      "code": "SEA",
+      "name": "Seattle-Tacoma International Airport",
+      "city": "Seattle",
+      "country": "United States",
+      "searchTerms": ["SEA", "Seattle", "Washington", "Tacoma"]
+    },
+    {
+      "code": "DEN",
+      "name": "Denver International Airport",
+      "city": "Denver",
+      "country": "United States",
+      "searchTerms": ["DEN", "Denver", "Colorado"]
+    },
+    {
+      "code": "YYC",
+      "name": "Calgary International Airport",
+      "city": "Calgary",
+      "country": "Canada",
+      "searchTerms": ["YYC", "Calgary", "Canada"]
+    },
+    {
+      "code": "GDL",
+      "name": "Guadalajara International Airport",
+      "city": "Guadalajara",
+      "country": "Mexico",
+      "searchTerms": ["GDL", "Guadalajara", "Mexico"]
+    },
+    {
+      "code": "MUC",
+      "name": "Munich Airport",
+      "city": "Munich",
+      "country": "Germany",
+      "searchTerms": ["MUC", "Munich", "Germany"]
+    },
+    {
+      "code": "FCO",
+      "name": "Leonardo da Vinci–Fiumicino Airport",
+      "city": "Rome",
+      "country": "Italy",
+      "searchTerms": ["FCO", "Rome", "Italy", "Fiumicino"]
+    },
+    {
+      "code": "VCE",
+      "name": "Venice Marco Polo Airport",
+      "city": "Venice",
+      "country": "Italy",
+      "searchTerms": ["VCE", "Venice", "Italy", "Marco Polo"]
+    },
+    {
+      "code": "ORY",
+      "name": "Paris Orly Airport",
+      "city": "Paris",
+      "country": "France",
+      "searchTerms": ["ORY", "Paris", "France", "Orly"]
+    },
+    {
+      "code": "BCN",
+      "name": "Barcelona–El Prat Airport",
+      "city": "Barcelona",
+      "country": "Spain",
+      "searchTerms": ["BCN", "Barcelona", "Spain", "El Prat"]
+    },
+    {
+      "code": "DUB",
+      "name": "Dublin Airport",
+      "city": "Dublin",
+      "country": "Ireland",
+      "searchTerms": ["DUB", "Dublin", "Ireland"]
+    },
+    {
+      "code": "LIS",
+      "name": "Humberto Delgado Airport",
+      "city": "Lisbon",
+      "country": "Portugal",
+      "searchTerms": ["LIS", "Lisbon", "Portugal"]
+    },
+    {
+      "code": "DOH",
+      "name": "Hamad International Airport",
+      "city": "Doha",
+      "country": "Qatar",
+      "searchTerms": ["DOH", "Doha", "Qatar", "Hamad"]
+    },
+    {
+      "code": "AUH",
+      "name": "Abu Dhabi International Airport",
+      "city": "Abu Dhabi",
+      "country": "United Arab Emirates",
+      "searchTerms": ["AUH", "Abu Dhabi", "UAE"]
+    },
+    {
+      "code": "JED",
+      "name": "King Abdulaziz International Airport",
+      "city": "Jeddah",
+      "country": "Saudi Arabia",
+      "searchTerms": ["JED", "Jeddah", "Saudi Arabia"]
+    },
+    {
+      "code": "KWI",
+      "name": "Kuwait International Airport",
+      "city": "Kuwait City",
+      "country": "Kuwait",
+      "searchTerms": ["KWI", "Kuwait", "Kuwait City"]
+    },
+    {
+      "code": "MLE",
+      "name": "Velana International Airport",
+      "city": "Malé",
+      "country": "Maldives",
+      "searchTerms": ["MLE", "Malé", "Maldives", "Velana"]
+    },
+    {
+      "code": "CMB",
+      "name": "Bandaranaike International Airport",
+      "city": "Colombo",
+      "country": "Sri Lanka",
+      "searchTerms": ["CMB", "Colombo", "Sri Lanka", "Bandaranaike"]
+    },
+    {
+      "code": "KTM",
+      "name": "Tribhuvan International Airport",
+      "city": "Kathmandu",
+      "country": "Nepal",
+      "searchTerms": ["KTM", "Kathmandu", "Nepal", "Tribhuvan"]
+    },
+    {
+      "code": "DEL",
+      "name": "Indira Gandhi International Airport",
+      "city": "Delhi",
+      "country": "India",
+      "searchTerms": ["DEL", "Delhi", "India", "Indira Gandhi"]
+    },
+    {
+      "code": "BOM",
+      "name": "Chhatrapati Shivaji Maharaj International Airport",
+      "city": "Mumbai",
+      "country": "India",
+      "searchTerms": ["BOM", "Mumbai", "India", "Chhatrapati Shivaji"]
+    },
+    {
+      "code": "BLR",
+      "name": "Kempegowda International Airport",
+      "city": "Bengaluru",
+      "country": "India",
+      "searchTerms": ["BLR", "Bengaluru", "Bangalore", "India", "Kempegowda"]
+    },
+    {
+      "code": "MAA",
+      "name": "Chennai International Airport",
+      "city": "Chennai",
+      "country": "India",
+      "searchTerms": ["MAA", "Chennai", "India"]
+    },
+    {
+      "code": "HYD",
+      "name": "Rajiv Gandhi International Airport",
+      "city": "Hyderabad",
+      "country": "India",
+      "searchTerms": ["HYD", "Hyderabad", "India", "Rajiv Gandhi"]
+    },
+    {
+      "code": "CCU",
+      "name": "Netaji Subhas Chandra Bose International Airport",
+      "city": "Kolkata",
+      "country": "India",
+      "searchTerms": ["CCU", "Kolkata", "India", "Netaji Subhas"]
+    },
+    {
+      "code": "COK",
+      "name": "Cochin International Airport",
+      "city": "Kochi",
+      "country": "India",
+      "searchTerms": ["COK", "Kochi", "Cochin", "India"]
+    },
+    {
+      "code": "AMD",
+      "name": "Sardar Vallabhbhai Patel International Airport",
+      "city": "Ahmedabad",
+      "country": "India",
+      "searchTerms": ["AMD", "Ahmedabad", "India"]
+    },
+    {
+      "code": "GOI",
+      "name": "Goa Dabolim International Airport",
+      "city": "Goa",
+      "country": "India",
+      "searchTerms": ["GOI", "Goa", "Dabolim", "India"]
+    },
+    {
+      "code": "GOX",
+      "name": "Manohar International Airport",
+      "city": "Goa",
+      "country": "India",
+      "searchTerms": ["GOX", "Goa", "Mopa", "India", "Manohar"]
+    },
+    {
+      "code": "TRV",
+      "name": "Thiruvananthapuram International Airport",
+      "city": "Thiruvananthapuram",
+      "country": "India",
+      "searchTerms": ["TRV", "Thiruvananthapuram", "Trivandrum", "India"]
+    },
+    {
+      "code": "CCJ",
+      "name": "Calicut International Airport",
+      "city": "Kozhikode",
+      "country": "India",
+      "searchTerms": ["CCJ", "Calicut", "Kozhikode", "India"]
+    },
+    {
+      "code": "PNQ",
+      "name": "Pune Airport",
+      "city": "Pune",
+      "country": "India",
+      "searchTerms": ["PNQ", "Pune", "India"]
+    },
+    {
+      "code": "NAG",
+      "name": "Dr. Babasaheb Ambedkar International Airport",
+      "city": "Nagpur",
+      "country": "India",
+      "searchTerms": ["NAG", "Nagpur", "India"]
+    },
+    {
+      "code": "BBI",
+      "name": "Biju Patnaik International Airport",
+      "city": "Bhubaneswar",
+      "country": "India",
+      "searchTerms": ["BBI", "Bhubaneswar", "India"]
+    },
+    {
+      "code": "IXC",
+      "name": "Chandigarh Airport",
+      "city": "Chandigarh",
+      "country": "India",
+      "searchTerms": ["IXC", "Chandigarh", "India"]
+    },
+    {
+      "code": "JAI",
+      "name": "Jaipur International Airport",
+      "city": "Jaipur",
+      "country": "India",
+      "searchTerms": ["JAI", "Jaipur", "India"]
+    },
+    {
+      "code": "LKO",
+      "name": "Chaudhary Charan Singh International Airport",
+      "city": "Lucknow",
+      "country": "India",
+      "searchTerms": ["LKO", "Lucknow", "India"]
+    },
+    {
+      "code": "TRZ",
+      "name": "Tiruchirappalli International Airport",
+      "city": "Tiruchirappalli",
+      "country": "India",
+      "searchTerms": ["TRZ", "Tiruchirappalli", "Trichy", "India"]
+    },
+    {
+      "code": "SXR",
+      "name": "Sheikh ul-Alam International Airport",
+      "city": "Srinagar",
+      "country": "India",
+      "searchTerms": ["SXR", "Srinagar", "India"]
+    },
+    {
+      "code": "ATQ",
+      "name": "Sri Guru Ram Das Jee International Airport",
+      "city": "Amritsar",
+      "country": "India",
+      "searchTerms": ["ATQ", "Amritsar", "India"]
+    },
+    {
+      "code": "VNS",
+      "name": "Lal Bahadur Shastri International Airport",
+      "city": "Varanasi",
+      "country": "India",
+      "searchTerms": ["VNS", "Varanasi", "India"]
+    },
+    {
+      "code": "IXR",
+      "name": "Birsa Munda Airport",
+      "city": "Ranchi",
+      "country": "India",
+      "searchTerms": ["IXR", "Ranchi", "India", "Birsa Munda"]
+    },
+    {
+      "code": "VTZ",
+      "name": "Visakhapatnam International Airport",
+      "city": "Visakhapatnam",
+      "country": "India",
+      "searchTerms": ["VTZ", "Visakhapatnam", "Vizag", "India"]
+    },
+    {
+      "code": "VGA",
+      "name": "Vijayawada International Airport",
+      "city": "Vijayawada",
+      "country": "India",
+      "searchTerms": ["VGA", "Vijayawada", "India"]
+    },
+    {
+      "code": "IXB",
+      "name": "Bagdogra International Airport",
+      "city": "Siliguri",
+      "country": "India",
+      "searchTerms": ["IXB", "Bagdogra", "Siliguri", "India"]
+    },
+    {
+      "code": "IMF",
+      "name": "Imphal International Airport",
+      "city": "Imphal",
+      "country": "India",
+      "searchTerms": ["IMF", "Imphal", "India", "Bir Tikendrajit"]
+    },
+    {
+      "code": "IXM",
+      "name": "Madurai International Airport",
+      "city": "Madurai",
+      "country": "India",
+      "searchTerms": ["IXM", "Madurai", "India"]
+    },
+    {
+      "code": "CJB",
+      "name": "Coimbatore International Airport",
+      "city": "Coimbatore",
+      "country": "India",
+      "searchTerms": ["CJB", "Coimbatore", "India"]
+    },
+    {
+      "code": "IXZ",
+      "name": "Veer Savarkar International Airport",
+      "city": "Port Blair",
+      "country": "India",
+      "searchTerms": ["IXZ", "Port Blair", "India"]
+    },
+    {
+      "code": "IXE",
+      "name": "Mangalore International Airport",
+      "city": "Mangaluru",
+      "country": "India",
+      "searchTerms": ["IXE", "Mangalore", "Mangaluru", "India"]
+    },
+    {
+      "code": "IDR",
+      "name": "Devi Ahilyabai Holkar Airport",
+      "city": "Indore",
+      "country": "India",
+      "searchTerms": ["IDR", "Indore", "India"]
+    },
+    {
+      "code": "PAT",
+      "name": "Jay Prakash Narayan International Airport",
+      "city": "Patna",
+      "country": "India",
+      "searchTerms": ["PAT", "Patna", "India"]
+    },
+    {
+      "code": "GAU",
+      "name": "Lokpriya Gopinath Bordoloi International Airport",
+      "city": "Guwahati",
+      "country": "India",
+      "searchTerms": ["GAU", "Guwahati", "India"]
+    },
+    {
+      "code": "BHO",
+      "name": "Raja Bhoj Airport",
+      "city": "Bhopal",
+      "country": "India",
+      "searchTerms": ["BHO", "Bhopal", "India"]
+    },
+    {
+      "code": "RPR",
+      "name": "Swami Vivekananda Airport",
+      "city": "Raipur",
+      "country": "India",
+      "searchTerms": ["RPR", "Raipur", "India"]
+    },
+    {
+      "code": "STV",
+      "name": "Surat International Airport",
+      "city": "Surat",
+      "country": "India",
+      "searchTerms": ["STV", "Surat", "India"]
+    },
+    {
+      "code": "IXU",
+      "name": "Aurangabad Airport",
+      "city": "Aurangabad",
+      "country": "India",
+      "searchTerms": ["IXU", "Aurangabad", "India"]
+    },
+    {
+      "code": "JDH",
+      "name": "Jodhpur Airport",
+      "city": "Jodhpur",
+      "country": "India",
+      "searchTerms": ["JDH", "Jodhpur", "India"]
+    },
+    {
+      "code": "UDR",
+      "name": "Maharana Pratap Airport",
+      "city": "Udaipur",
+      "country": "India",
+      "searchTerms": ["UDR", "Udaipur", "India"]
+    },
+    {
+      "code": "IXA",
+      "name": "Agartala Airport",
+      "city": "Agartala",
+      "country": "India",
+      "searchTerms": ["IXA", "Agartala", "India"]
+    },
+    {
+      "code": "DIB",
+      "name": "Dibrugarh Airport",
+      "city": "Dibrugarh",
+      "country": "India",
+      "searchTerms": ["DIB", "Dibrugarh", "India"]
+    },
+    {
+      "code": "IXS",
+      "name": "Silchar Airport",
+      "city": "Silchar",
+      "country": "India",
+      "searchTerms": ["IXS", "Silchar", "India"]
+    },
+    {
+      "code": "DMU",
+      "name": "Dimapur Airport",
+      "city": "Dimapur",
+      "country": "India",
+      "searchTerms": ["DMU", "Dimapur", "India"]
+    },
+    {
+      "code": "IXJ",
+      "name": "Jammu Airport",
+      "city": "Jammu",
+      "country": "India",
+      "searchTerms": ["IXJ", "Jammu", "India"]
+    },
+    {
+      "code": "IXL",
+      "name": "Kushok Bakula Rimpochee Airport",
+      "city": "Leh",
+      "country": "India",
+      "searchTerms": ["IXL", "Leh", "India", "Ladakh"]
+    },
+    {
+      "code": "DED",
+      "name": "Dehradun Airport",
+      "city": "Dehradun",
+      "country": "India",
+      "searchTerms": ["DED", "Dehradun", "India"]
+    },
+    {
+      "code": "GOP",
+      "name": "Gorakhpur Airport",
+      "city": "Gorakhpur",
+      "country": "India",
+      "searchTerms": ["GOP", "Gorakhpur", "India"]
+    },
+    {
+      "code": "JRH",
+      "name": "Jorhat Airport",
+      "city": "Jorhat",
+      "country": "India",
+      "searchTerms": ["JRH", "Jorhat", "India"]
+    },
+    {
+      "code": "IXD",
+      "name": "Allahabad Airport",
+      "city": "Allahabad",
+      "country": "India",
+      "searchTerms": ["IXD", "Allahabad", "India"]
+    },
+    {
+      "code": "BDQ",
+      "name": "Vadodara Airport",
+      "city": "Vadodara",
+      "country": "India",
+      "searchTerms": ["BDQ", "Vadodara", "India"]
+    },
+    {
+      "code": "RJA",
+      "name": "Rajahmundry Airport",
+      "city": "Rajahmundry",
+      "country": "India",
+      "searchTerms": ["RJA", "Rajahmundry", "India"]
+    },
+    {
+      "code": "TIR",
+      "name": "Tirupati Airport",
+      "city": "Tirupati",
+      "country": "India",
+      "searchTerms": ["TIR", "Tirupati", "India"]
+    },
+    {
+      "code": "IXT",
+      "name": "Pasighat Airport",
+      "city": "Pasighat",
+      "country": "India",
+      "searchTerms": ["IXT", "Pasighat", "India"]
+    },
+    {
+      "code": "IXY",
+      "name": "Kandla Airport",
+      "city": "Kandla",
+      "country": "India",
+      "searchTerms": ["IXY", "Kandla", "India"]
+    },
+    {
+      "code": "IXK",
+      "name": "Keshod Airport",
+      "city": "Keshod",
+      "country": "India",
+      "searchTerms": ["IXK", "Keshod", "India"]
+    },
+    {
+      "code": "PBD",
+      "name": "Porbandar Airport",
+      "city": "Porbandar",
+      "country": "India",
+      "searchTerms": ["PBD", "Porbandar", "India"]
+    },
+    {
+      "code": "IXW",
+      "name": "Jamshedpur Airport",
+      "city": "Jamshedpur",
+      "country": "India",
+      "searchTerms": ["IXW", "Jamshedpur", "India"]
+    },
+    {
+      "code": "JGA",
+      "name": "Jamnagar Airport",
+      "city": "Jamnagar",
+      "country": "India",
+      "searchTerms": ["JGA", "Jamnagar", "India"]
+    },
+    {
+      "code": "IXG",
+      "name": "Belgaum Airport",
+      "city": "Belgaum",
+      "country": "India",
+      "searchTerms": ["IXG", "Belgaum", "India"]
+    },
+    {
+      "code": "HBX",
+      "name": "Hubli Airport",
+      "city": "Hubli",
+      "country": "India",
+      "searchTerms": ["HBX", "Hubli", "India"]
+    },
+    {
+      "code": "IXV",
+      "name": "Along Airport",
+      "city": "Along",
+      "country": "India",
+      "searchTerms": ["IXV", "Along", "India"]
+    },
+    {
+      "code": "TEZ",
+      "name": "Tezpur Airport",
+      "city": "Tezpur",
+      "country": "India",
+      "searchTerms": ["TEZ", "Tezpur", "India"]
+    },
+    {
+      "code": "IXH",
+      "name": "Kailashahar Airport",
+      "city": "Kailashahar",
+      "country": "India",
+      "searchTerms": ["IXH", "Kailashahar", "India"]
+    },
+    {
+      "code": "MZU",
+      "name": "Muzaffarpur Airport",
+      "city": "Muzaffarpur",
+      "country": "India",
+      "searchTerms": ["MZU", "Muzaffarpur", "India"]
+    },
+    {
+      "code": "LDA",
+      "name": "Malda Airport",
+      "city": "Malda",
+      "country": "India",
+      "searchTerms": ["LDA", "Malda", "India"]
+    },
+    {
+      "code": "SHL",
+      "name": "Shillong Airport",
+      "city": "Shillong",
+      "country": "India",
+      "searchTerms": ["SHL", "Shillong", "India"]
+    },
+    {
+      "code": "TCR",
+      "name": "Tuticorin Airport",
+      "city": "Thoothukudi",
+      "country": "India",
+      "searchTerms": ["TCR", "Tuticorin", "Thoothukudi", "India"]
+    },
+    {
+      "code": "IXN",
+      "name": "Khowai Airport",
+      "city": "Khowai",
+      "country": "India",
+      "searchTerms": ["IXN", "Khowai", "India"]
+    },
+    {
+      "code": "RDP",
+      "name": "Kazi Nazrul Islam Airport",
+      "city": "Durgapur",
+      "country": "India",
+      "searchTerms": ["RDP", "Durgapur", "India"]
+    },
+    {
+      "code": "KNU",
+      "name": "Kanpur Airport",
+      "city": "Kanpur",
+      "country": "India",
+      "searchTerms": ["KNU", "Kanpur", "India"]
+    },
+    {
+      "code": "KUU",
+      "name": "Kullu-Manali Airport",
+      "city": "Bhuntar",
+      "country": "India",
+      "searchTerms": ["KUU", "Kullu", "Manali", "Bhuntar", "India"]
+    }
+  ]
+}

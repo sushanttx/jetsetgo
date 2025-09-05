@@ -1,4 +1,4 @@
-import DateSearch from "../DateSearch";
+import DateSearch from "../hero-1/DateSearch";
 import GuestSearch from "./GuestSearch";
 import FlyingFromLocation from "./FlyingFromLocation";
 import FlyingToLocation from "./FlyingToLocation";

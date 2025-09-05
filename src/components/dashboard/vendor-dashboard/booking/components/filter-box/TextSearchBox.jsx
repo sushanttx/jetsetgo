@@ -1,23 +1,43 @@
 import React from "react";
+import { useState, useEffect } from "react";
 
-const TextSearchBox = ({ value, onChange, placeholder, onReset }) => {
+const TextSearchBox = ({ value, onChange, placeholder, onReset, rotatingOptions }) => {
+  const options = rotatingOptions && rotatingOptions.length > 0
+    ? rotatingOptions
+    : ["Keyword"];
+  const [rotatingIndex, setRotatingIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setRotatingIndex((prev) => (prev + 1) % options.length);
+    }, 2000);
+    return () => clearInterval(interval);
+  }, [options]);
+
+  const dynamicPlaceholder = `Search by ${options[rotatingIndex]}`;
+
   return (
-    <form className="filterbox-textsearch single-field relative d-flex items-center" onSubmit={e => e.preventDefault()} style={{ width: '100%' }}>
-      <span className="absolute d-flex items-center h-full" style={{ left: 0, zIndex: 2 }}>
-        <i className="icon-search text-20 px-15 text-dark-1" />
-      </span>
+    <div className="text-search-box" style={{ position: 'relative', width: '100%' }}>
       <input
-        className="pl-50 bg-white text-dark-1 h-50 rounded-8 filterbox-input"
         type="text"
-        placeholder={placeholder || "Search by Customer ID, Full Name, Email, Phone Number, Number of Bookings, Total Spend"}
+        className="form-control"
         value={value}
         onChange={e => onChange(e.target.value)}
+        placeholder={dynamicPlaceholder}
         style={{ width: '100%' }}
       />
       {value && (
-        <button type="button" className="absolute d-flex items-center h-full filterbox-reset-btn" style={{ right: 0, zIndex: 2 }} onClick={onReset} title="Reset search">×</button>
+        <button
+          type="button"
+          className="text-search-reset"
+          onClick={() => onReset && onReset()}
+          style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', background: 'none', border: 'none', cursor: 'pointer', fontSize: 18 }}
+          aria-label="Clear search"
+        >
+          ×
+        </button>
       )}
-    </form>
+    </div>
   );
 };
 

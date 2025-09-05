@@ -1,148 +1,526 @@
-import { useState } from "react";
-import "../../../../public/sass/components/locationSearch.scss";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import DatePicker from "react-multi-date-picker";
+import "../../../../public/sass/components/locationSearch.scss";
+import { searchFlights } from "../../../services/api";
+import { useAutocomplete, filterAirports, filterAirlines, mapCabinClassToCode } from "../../../utils/searchHelpers";
 
 const LocationSearch = () => {
   const [form, setForm] = useState({
-    from: "",
-    to: "",
-    date: "",
-    time: "Anytime",
-    adult: 1,
-    child: 0,
-    lapInfant: 0,
-    seatInfant: 0,
-    cabinClass: "All Class Cabin",
-    airline1: "",
-    airline2: "",
-    flexibleDates: false,
-    directFlights: false,
-    noPenalties: false,
-    nearbyAirports: false,
+    from: "", to: "", date: "", time: "Anytime", adult: 1, child: 0, lapInfant: 0, seatInfant: 0, cabinClass: "All Class Cabin", airline1: "", airline2: "", flexibleDates: false, directFlights: false, noPenalties: false, nearbyAirports: false, tripType: "ONEWAY",
   });
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [loadingIcon, setLoadingIcon] = useState(0);
+
+  // Loading animation effect - cycle through different messages
+  useEffect(() => {
+    let interval;
+    if (loading) {
+      interval = setInterval(() => {
+        setLoadingIcon(prev => (prev + 1) % 7); // Cycle through 7 messages
+      }, 2000); // Change every 2 seconds for better readability
+    } else {
+      setLoadingIcon(0);
+    }
+    
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [loading]);
+
+  // Array of loading messages
+  const loadingMessages = [
+    "✈️ Searching the skies for the best flights...",
+    "🌍 Checking routes worldwide...",
+    "🛫 Preparing your boarding pass...",
+    "⏳ Almost ready for takeoff...",
+    "🧳 Loading your trip details...",
+    "🔍 Scanning airlines for the best fares...",
+    "🛬 Landing results shortly..."
+  ];
+
+  const { setInput: setFromInput, ...fromLogic } = useAutocomplete(filterAirports, (airport) => {
+    setForm((prev) => ({ ...prev, from: airport.code }));
+    setFromInput(`${airport.code} - ${airport.city}, ${airport.country}`);
+  });
+
+  const { setInput: setToInput, ...toLogic } = useAutocomplete(filterAirports, (airport) => {
+    setForm((prev) => ({ ...prev, to: airport.code }));
+    setToInput(`${airport.code} - ${airport.city}, ${airport.country}`);
+  });
+
+  const { setInput: setAirline1Input, ...airline1Logic } = useAutocomplete(filterAirlines, (airline) => {
+    setForm((prev) => ({ ...prev, airline1: airline.code }));
+    setAirline1Input(`${airline.code} - ${airline.name}`);
+  });
+
+  const { setInput: setAirline2Input, ...airline2Logic } = useAutocomplete(filterAirlines, (airline) => {
+    setForm((prev) => ({ ...prev, airline2: airline.code }));
+    setAirline2Input(`${airline.code} - ${airline.name}`);
+  });
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setForm((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+    setForm((prev) => ({ ...prev, [name]: type === "checkbox" ? checked : value }));
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    localStorage.removeItem("flightRoundTripFormData");
-    localStorage.setItem("flightFormData", JSON.stringify(form));
-    navigate("/flight");
+  const handleSubmit = async () => {
+    setError("");
+    const validationErrors = [];
+    if (!form.from) validationErrors.push("From");
+    if (!form.to) validationErrors.push("To");
+    if (!form.date) validationErrors.push("Date");
+    if (validationErrors.length > 0) {
+      setError(`${validationErrors.join(", ")} are required.`);
+      return;
+    }
+    setLoading(true);
+    try {
+      const ipRes = await fetch("https://api.ipify.org?format=json");
+      const ipData = await ipRes.json();
+      const ip = ipData.ip;
+      const cabinClassCode = mapCabinClassToCode(form.cabinClass);
+      const response = await searchFlights({
+        from: form.from, to: form.to, date: form.date, cabinClass: cabinClassCode, ip, adult: form.adult, child: form.child, lapInfant: form.lapInfant, seatInfant: form.seatInfant,
+      });
+      localStorage.setItem("flightSearchResults", JSON.stringify(response));
+      localStorage.setItem("flightSearchForm", JSON.stringify(form));
+      navigate("/flight");
+    } catch (err) {
+      if (err.message && err.message.includes('401')) {
+        // Redirect to sign in for authentication errors
+        navigate("/signup");
+        return;
+      }
+      setError(err.message || "Something went wrong");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const clearInput = (logic, fieldName) => {
+    logic.setInput('');
+    logic.setShowDropdown(false);
+    setForm(prev => ({ ...prev, [fieldName]: ''}));
   };
 
   return (
     <div className="search-menu-loc">
+      <style>
+        {`
+          .date-picker-input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            outline: none;
+            background: transparent;
+            font-family: inherit;
+            font-size: inherit;
+            color: inherit;
+            padding: 0;
+            margin: 0;
+          }
+          
+          /* DatePicker - Lowest z-index among dropdowns */
+          .rmdp-container {
+            font-family: inherit;
+            z-index: 1000 !important;
+            position: relative;
+          }
+          
+          .rmdp-calendar {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            z-index: 1000 !important;
+            position: relative;
+          }
+          
+          .rmdp-day.rmdp-selected {
+            background-color: #007bff;
+            color: white;
+          }
+          
+          .rmdp-day.rmdp-today {
+            background-color: #e3f2fd;
+            color: #007bff;
+          }
+          
+          .rmdp-day.rmdp-disabled {
+            color: #ccc;
+            background-color: #f5f5f5;
+          }
+          
+          .rmdp-header {
+            background-color: #f8f9fa;
+            border-bottom: 1px solid #ddd;
+          }
+          
+          .rmdp-arrow {
+            border-color: #007bff;
+          }
+          
+          .rmdp-arrow:hover {
+            background-color: #e3f2fd;
+          }
+          
+          /* Ensure calendar appears above tabs but below dropdowns */
+          .rmdp-panel {
+            z-index: 1000 !important;
+            position: relative;
+          }
+          
+          .rmdp-wrapper {
+            z-index: 1000 !important;
+            position: relative;
+          }
+          
+          /* Force consistent z-index for all DatePicker elements */
+          .rmdp-container,
+          .rmdp-calendar,
+          .rmdp-panel,
+          .rmdp-wrapper,
+          .rmdp-popup {
+            z-index: 1000 !important;
+            position: relative;
+          }
+          
+          /* Smooth loading text transitions */
+          .loading-text {
+            transition: all 0.5s ease-in-out;
+            opacity: 1;
+            transform: translateY(0);
+          }
+          
+          .loading-text.fade {
+            opacity: 0;
+            transform: translateY(-10px);
+          }
+          
+          /* Loading text container for smooth rotation */
+          .loading-text-container {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+            min-height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
+          
+          /* Keyframe animations for smooth text rotation */
+          @keyframes textRotateIn {
+            0% {
+              opacity: 0;
+              transform: translateY(20px) rotateX(90deg);
+            }
+            100% {
+              opacity: 1;
+              transform: translateY(0) rotateX(0deg);
+            }
+          }
+          
+          @keyframes textRotateOut {
+            0% {
+              opacity: 1;
+              transform: translateY(0) rotateX(0deg);
+            }
+            100% {
+              opacity: 0;
+              transform: translateY(-20px) rotateX(-90deg);
+            }
+          }
+          
+          /* Apply animations to loading text */
+          .loading-text {
+            animation: textRotateIn 0.6s ease-out;
+            transform-style: preserve-3d;
+            backface-visibility: hidden;
+          }
+          
+          /* Base dropdown styles */
+          .dropdown-list {
+            position: absolute !important;
+            top: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+            max-height: 200px;
+            overflow-y: auto;
+          }
+          
+          .dropdown-wrapper {
+            position: relative;
+          }
+          
+          .dropdown-item {
+            position: relative;
+          }
+          
+          /* From/To dropdowns - Highest priority */
+          .column-one .dropdown-wrapper:first-child,
+          .column-two .dropdown-wrapper:first-child {
+            z-index: 10003 !important;
+            position: relative;
+          }
+          
+          .column-one .dropdown-wrapper:first-child .dropdown-list,
+          .column-two .dropdown-wrapper:first-child .dropdown-list {
+            z-index: 10003 !important;
+            position: absolute !important;
+          }
+          
+          .column-one .dropdown-wrapper:first-child .dropdown-item,
+          .column-two .dropdown-wrapper:first-child .dropdown-item {
+            z-index: 10003 !important;
+            position: relative;
+          }
+          
+          /* Airline dropdowns - Medium priority */
+          .column-one .dropdown-wrapper:last-child,
+          .column-two .dropdown-wrapper:last-child {
+            z-index: 10002 !important;
+            position: relative;
+          }
+          
+          .column-one .dropdown-wrapper:last-child .dropdown-list,
+          .column-two .dropdown-wrapper:last-child .dropdown-list {
+            z-index: 10002 !important;
+            position: absolute !important;
+          }
+          
+          .column-one .dropdown-wrapper:last-child .dropdown-item,
+          .column-two .dropdown-wrapper:last-child .dropdown-item {
+            z-index: 10002 !important;
+            position: relative;
+          }
+          
+          /* Dynamic button width overrides */
+          .submit-button {
+            width: auto !important;
+            min-width: 200px !important;
+            max-width: none !important;
+            flex-shrink: 0 !important;
+            overflow: visible !important;
+          }
+          
+          .submit-button.loading {
+            width: auto !important;
+            min-width: 300px !important;
+          }
+          
+          /* Override parent container constraints */
+          .form-row {
+            overflow: visible !important;
+          }
+          
+          .form-row .submit-button {
+            flex: 0 0 auto !important;
+            width: auto !important;
+            max-width: none !important;
+          }
+        `}
+      </style>
       <div className="form-container">
-        <form className="flight-form" onSubmit={handleSubmit}>
+        <form className="flight-form">
+          {error && <div style={{ color: 'red', marginBottom: 8 }}>{error}</div>}
           <div className="form-main-columns">
             <div className="column-one">
-              <input type="text" name="from" placeholder="From" value={form.from} onChange={handleChange} />
-              <div className="column-row-group">
+              <div className="dropdown-wrapper" ref={fromLogic.dropdownRef} style={{ position: 'relative' }}>
                 <input
-                  type="text"
-                  name="date"
-                  placeholder="DD/MM/YYYY"
-                  value={form.date}
-                  onChange={handleChange}
-                  onFocus={(e) => (e.target.type = "date")}
-                  onBlur={(e) => (e.target.type = form.date ? "date" : "text")}
+                  type="text" name="from" placeholder="From - Enter City or Airport"
+                  value={fromLogic.input}
+                  onChange={fromLogic.handleInputChange}
+                  onFocus={() => { fromLogic.handleInputChange({ target: { value: fromLogic.input } }); fromLogic.setShowDropdown(true); }}
+                  onKeyDown={fromLogic.handleKeyDown}
+                  autoComplete="off"
                 />
-                <div className="select-wrapper">
-                  <select name="time" value={form.time} onChange={handleChange}>
-                    <option>Anytime</option>
-                    <option>Morning</option>
-                    <option>Afternoon</option>
-                    <option>Evening</option>
+                {fromLogic.input && <button 
+                type="button" 
+                aria-label="Clear from input" 
+                onClick={() => clearInput(fromLogic, 'from')} 
+                className="clear-button">
+                  ×
+                  </button>}
+                {fromLogic.showDropdown && fromLogic.suggestions.length > 0 && (
+                  <ul className="dropdown-list">
+                    {fromLogic.suggestions.map((airport, index) => (
+                      <li key={`from-${airport.code}-${index}`} className={`dropdown-item ${index === fromLogic.focusedIndex ? "focused" : ""}`} onClick={() => fromLogic.handleSelectSuggestion(airport)}>
+                        <div className="airport-code">{airport.code}</div>
+                        <div className="airport-details">
+                          <div className="airport-name">{airport.name}</div>
+                          <div className="airport-location">{airport.city}, {airport.country}</div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
+                              <div className="column-row-group">
+                  <DatePicker
+                    value={form.date}
+                    onChange={(date) => setForm(prev => ({ ...prev, date: date }))}
+                    minDate={new Date()}
+                    format="DD/MM/YYYY"
+                    placeholder="Departure Date"
+                    className="date-picker-input"
+                    inputClass="date-picker-input"
+                    containerClassName="date-picker-container"
+                    portal={true}
+                    zIndex={1000}
+                  />
+                  <div className="select-wrapper">
+                  <select name="time" value={form.time} onChange={handleChange}><option>Anytime</option>
+                  <option>Early Morning</option>
+                  <option>Morning</option>
+                  <option>Afternoon</option>
+                  <option>Evening</option>
                   </select>
                 </div>
               </div>
-              <input type="text" name="airline1" placeholder="Preferred Airline 1" value={form.airline1} onChange={handleChange} />
+              <div className="dropdown-wrapper" ref={airline1Logic.dropdownRef} style={{ position: 'relative' }}>
+                <input
+                  type="text" name="airline1" placeholder="Preferred Airline 1"
+                  value={airline1Logic.input}
+                  onChange={airline1Logic.handleInputChange}
+                  onFocus={() => { airline1Logic.handleInputChange({ target: { value: airline1Logic.input } }); airline1Logic.setShowDropdown(true); }}
+                  onKeyDown={airline1Logic.handleKeyDown}
+                  autoComplete="off"
+                />
+                {airline1Logic.input && <button type="button" aria-label="Clear airline 1 input" onClick={() => clearInput(airline1Logic, 'airline1')} className="clear-button">×</button>}
+                {airline1Logic.showDropdown && airline1Logic.suggestions.length > 0 && (
+                  <ul className="dropdown-list">
+                    {airline1Logic.suggestions.map((airline, index) => (
+                      <li key={`airline1-${airline.code}-${index}`} className={`dropdown-item ${index === airline1Logic.focusedIndex ? "focused" : ""}`} onClick={() => airline1Logic.handleSelectSuggestion(airline)}>
+                        <div className="airport-code">{airline.code}</div>
+                        <div className="airport-details">
+                          <div className="airport-name">{airline.name}</div>
+                          <div className="airport-location">{airline.country}</div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
 
             <div className="column-two">
-              <input type="text" name="to" placeholder="To" value={form.to} onChange={handleChange} />
+              <div className="dropdown-wrapper" ref={toLogic.dropdownRef} style={{ position: 'relative' }}>
+                <input
+                  type="text" name="to" placeholder="To - Enter City or Airport"
+                  value={toLogic.input}
+                  onChange={toLogic.handleInputChange}
+                  onFocus={() => { toLogic.handleInputChange({ target: { value: toLogic.input } }); toLogic.setShowDropdown(true); }}
+                  onKeyDown={toLogic.handleKeyDown}
+                  autoComplete="off"
+                />
+                {toLogic.input && <button type="button" aria-label="Clear to input" onClick={() => clearInput(toLogic, 'to')} className="clear-button">×</button>}
+                {toLogic.showDropdown && toLogic.suggestions.length > 0 && (
+                  <ul className="dropdown-list">
+                    {toLogic.suggestions.map((airport, index) => (
+                      <li key={`to-${airport.code}-${index}`} className={`dropdown-item ${index === toLogic.focusedIndex ? "focused" : ""}`} onClick={() => toLogic.handleSelectSuggestion(airport)}>
+                        <div className="airport-code">{airport.code}</div>
+                        <div className="airport-details">
+                          <div className="airport-name">{airport.name}</div>
+                          <div className="airport-location">{airport.city}, {airport.country}</div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
               <div className="column-row-group">
                 <div className="select-wrapper">
-                  <select name="lapInfant" value={form.lapInfant} onChange={handleChange}>
-                    <option value="0">0 Lap Infant</option>
-                    <option value="1">1 Lap Infant</option>
-                    <option value="2">2 Lap Infant</option>
-                    <option value="3">3 Lap Infant</option>
-                    <option value="4">4 Lap Infant</option>
-                  </select>
+                  <select name="lapInfant" value={form.lapInfant} onChange={handleChange}><option value="0">0 Lap Infant</option><option value="1">1 Lap Infant</option><option value="2">2 Lap Infant</option><option value="3">3 Lap Infant</option><option value="4">4 Lap Infant</option></select>
                 </div>
                 <div className="select-wrapper">
-                  <select name="seatInfant" value={form.seatInfant} onChange={handleChange}>
-                    <option value="0">0 Seat Infant</option>
-                    <option value="1">1 Seat Infant</option>
-                  </select>
+                  <select name="seatInfant" value={form.seatInfant} onChange={handleChange}><option value="0">0 Seat Infant</option><option value="1">1 Seat Infant</option><option value="2">2 Seat Infant</option><option value="3">3 Seat Infant</option><option value="4">4 Seat Infant</option></select>
                 </div>
               </div>
-              <input type="text" name="airline2" placeholder="Preferred Airline 2" value={form.airline2} onChange={handleChange} />
+              <div className="dropdown-wrapper" ref={airline2Logic.dropdownRef} style={{ position: 'relative' }}>
+                <input
+                  type="text" name="airline2" placeholder="Preferred Airline 2"
+                  value={airline2Logic.input}
+                  onChange={airline2Logic.handleInputChange}
+                  onFocus={() => { airline2Logic.handleInputChange({ target: { value: airline2Logic.input } }); airline2Logic.setShowDropdown(true); }}
+                  onKeyDown={airline2Logic.handleKeyDown}
+                  autoComplete="off"
+                />
+                {airline2Logic.input && <button type="button" aria-label="Clear airline 2 input" onClick={() => clearInput(airline2Logic, 'airline2')} className="clear-button">×</button>}
+                {airline2Logic.showDropdown && airline2Logic.suggestions.length > 0 && (
+                  <ul className="dropdown-list">
+                    {airline2Logic.suggestions.map((airline, index) => (
+                      <li key={`airline2-${airline.code}-${index}`} className={`dropdown-item ${index === airline2Logic.focusedIndex ? "focused" : ""}`} onClick={() => airline2Logic.handleSelectSuggestion(airline)}>
+                        <div className="airport-code">{airline.code}</div>
+                        <div className="airport-details">
+                          <div className="airport-name">{airline.name}</div>
+                          <div className="airport-location">{airline.country}</div>
+                        </div>
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </div>
             </div>
 
             <div className="column-three">
               <div className="column-row-group">
                 <div className="select-wrapper">
-                  <select name="adult" value={form.adult} onChange={handleChange}>
-                    <option value="1">1 Adult</option>
-                    <option value="2">2 Adults</option>
-                    <option value="3">3 Adults</option>
-                    <option value="4">4 Adults</option>
-                    <option value="5">5 Adults</option>
-                    <option value="6">6 Adults</option>
-                    <option value="7">7 Adults</option>
-                    <option value="8">8 Adults</option>
-                  </select>
+                  <select name="adult" value={form.adult} onChange={handleChange}><option value="1">1 Adult</option><option value="2">2 Adults</option><option value="3">3 Adults</option><option value="4">4 Adults</option><option value="5">5 Adults</option><option value="6">6 Adults</option><option value="7">7 Adults</option><option value="8">8 Adults</option></select>
                 </div>
                 <div className="select-wrapper">
-                  <select name="child" value={form.child} onChange={handleChange}>
-                    <option value="0">0 Child</option>
-                    <option value="1">1 Child</option>
-                    <option value="2">2 Children</option>
-                    <option value="3">3 Children</option>
-                    <option value="4">4 Children</option>
-                    <option value="5">5 Children</option>
-                    <option value="6">6 Children</option>
-                    <option value="7">7 Children</option>
-                  </select>
+                  <select name="child" value={form.child} onChange={handleChange}><option value="0">0 Child</option><option value="1">1 Child</option><option value="2">2 Children</option><option value="3">3 Children</option><option value="4">4 Children</option><option value="5">5 Children</option><option value="6">6 Children</option><option value="7">7 Children</option></select>
                 </div>
               </div>
               <div className="select-wrapper">
-                <select name="cabinClass" value={form.cabinClass} onChange={handleChange}>
-                  <option>All Class Cabin</option>
-                  <option>Economy/Coach</option>
-                  <option>Premium Economy</option>
-                  <option>Business</option>
+                <select name="cabinClass" value={form.cabinClass} onChange={handleChange}><option>All Class Cabin</option>
+                <option>Economy/Coach</option>
+                <option>Business Class</option>
+                <option>First Class</option>
+                <option>Premium</option>
                 </select>
               </div>
               <div className="checkbox-grid">
-                <label>
-                  <input type="checkbox" name="flexibleDates" checked={form.flexibleDates} onChange={handleChange} /> Flexible dates
-                </label>
-                <label>
-                  <input type="checkbox" name="noPenalties" checked={form.noPenalties} onChange={handleChange} /> Fares with no penalties
-                </label>
-                <label>
-                  <input type="checkbox" name="directFlights" checked={form.directFlights} onChange={handleChange} /> Direct flights
-                </label>
-                <label>
-                  <input type="checkbox" name="nearbyAirports" checked={form.nearbyAirports} onChange={handleChange} /> Nearby airports
-                </label>
+                <label><input type="checkbox" name="flexibleDates" checked={form.flexibleDates} onChange={handleChange} /> Flexible dates</label>
+                <label><input type="checkbox" name="noPenalties" checked={form.noPenalties} onChange={handleChange} /> Fares with no penalties</label>
+                <label><input type="checkbox" name="directFlights" checked={form.directFlights} onChange={handleChange} /> Direct flights</label>
+                <label><input type="checkbox" name="nearbyAirports" checked={form.nearbyAirports} onChange={handleChange} /> Nearby airports</label>
               </div>
             </div>
           </div>
           <div className="form-row">
-            <button type="submit" className="submit-button">
-              Search Flights
-            </button>
+            <div 
+              className={`submit-button ${loading ? 'loading' : ''}`}
+              onClick={!loading ? handleSubmit : undefined}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' && !loading) {
+                  handleSubmit();
+                }
+              }}
+              tabIndex={loading ? -1 : 0}
+              role="button"
+              aria-label="Search Flights"
+              style={{ cursor: loading ? 'default' : 'pointer' }}
+            >
+              {loading ? (
+                                  <>
+                    <span 
+                      key={loadingIcon} 
+                      className="text-18 mr-10 loading-text" 
+                      style={{ fontFamily: 'monospace', fontSize: '16px' }}
+                    >
+                      {loadingMessages[loadingIcon]}
+                    </span>
+                  </>
+              ) : (
+                "Search Flights"
+              )}
+            </div>
           </div>
         </form>
       </div>

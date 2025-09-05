@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import DateSearch from "../DateSearch";
+import DateSearch from "../hero-1/DateSearch";
 import GuestSearch from "./GuestSearch";
 import LocationSearch from "./LocationSearch";
 

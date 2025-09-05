@@ -141,7 +141,7 @@ const PNRStatusTable = () => {
             <table className="table-3 -border-bottom col-12">
               <thead className="bg-light-2">
                 <tr>
-                  <th></th>
+                  <th style={{ textAlign: 'center' }}>Actions</th>
                   <th>PNR Number</th>
                   <th>Booking ID</th>
                   <th>Passenger Name</th>
@@ -156,8 +156,10 @@ const PNRStatusTable = () => {
               <tbody>
                 {paginatedRows.map((row, idx) => (
                   <tr key={row.pnr + row.bookingId}>
-                    <td>
-                      <button className="view-btn button px-15 py-5 text-14 bg-blue-1 text-white rounded-4">View</button>
+                    <td style={{ textAlign: 'center' }}>
+                      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+                        <button className="view-btn button px-15 py-5 text-14 bg-blue-1 text-white rounded-4">View</button>
+                      </div>
                     </td>
                     <td>{row.pnr}</td>
                     <td>{row.bookingId}</td>

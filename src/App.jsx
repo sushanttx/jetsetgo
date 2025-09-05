@@ -1,6 +1,7 @@
 import Aos from "aos";
 import { useEffect } from "react";
 import SrollTop from "./components/common/ScrollTop";
+import { logHostingInfo } from "./config/hosting";
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -10,6 +11,7 @@ import "aos/dist/aos.css";
 import "./styles/index.scss";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 if (typeof window !== "undefined") {
   import("bootstrap");
@@ -85,6 +87,9 @@ import BookingManagementPage from "./pages/dashboard/vendor-dashboard/booking-ma
 
 function App() {
   useEffect(() => {
+    // Log hosting configuration on app startup
+    logHostingInfo();
+    
     Aos.init({
       duration: 1200,
       once: true,
@@ -127,21 +132,57 @@ function App() {
               <Route path="destinations" element={<Destinations />} />
               <Route path="enquiry" element={<Enquiry />} />
 
+              {/* Protected User Dashboard Routes */}
               <Route path="dashboard">
-                <Route path="db-dashboard" element={<DBDashboard />} />
-                <Route path="db-booking" element={<DBBooking />} />
-                <Route path="db-wishlist" element={<DBWishlist />} />
-                <Route path="db-settings" element={<DBSettings />} />
+                <Route path="db-dashboard" element={
+                  <ProtectedRoute allowedRoles={['user', 'admin', 'superadmin']}>
+                    <DBDashboard />
+                  </ProtectedRoute>
+                } />
+                <Route path="db-booking" element={
+                  <ProtectedRoute allowedRoles={['user', 'admin', 'superadmin']}>
+                    <DBBooking />
+                  </ProtectedRoute>
+                } />
+                <Route path="db-wishlist" element={
+                  <ProtectedRoute allowedRoles={['user', 'admin', 'superadmin']}>
+                    <DBWishlist />
+                  </ProtectedRoute>
+                } />
+                <Route path="db-settings" element={
+                  <ProtectedRoute allowedRoles={['user', 'admin', 'superadmin']}>
+                    <DBSettings />
+                  </ProtectedRoute>
+                } />
               </Route>
 
+              {/* Protected Admin Dashboard Routes */}
               <Route path="admin-dashboard">
-                {/* <Route path="" element={<VendorDashboard />} /> */}
-                {/* <Route path="add-flight" element={<VendorAddHotel />} /> */}
-                <Route path="" element={<VendorBooking />} />
-                <Route path="customer-management" element={<CustomerManagementPage />} />
-                <Route path="booking-management" element={<BookingManagementPage />} />
-                <Route path="all-flights" element={<BVVendorHotel />} />
-                <Route path="recovery" element={<BDVendorRecovery />} />
+                <Route path="" element={
+                  <ProtectedRoute allowedRoles={['admin', 'superadmin']}>
+                    <VendorBooking />
+                  </ProtectedRoute>
+                } />
+                <Route path="customer-management" element={
+                  <ProtectedRoute allowedRoles={['admin', 'superadmin']}>
+                    <CustomerManagementPage />
+                  </ProtectedRoute>
+                } />
+                <Route path="booking-management" element={
+                  <ProtectedRoute allowedRoles={['admin', 'superadmin']}>
+                    <BookingManagementPage />
+                  </ProtectedRoute>
+                } />
+                <Route path="all-flights" element={
+                  <ProtectedRoute allowedRoles={['admin', 'superadmin']}>
+                    <BVVendorHotel />
+                  </ProtectedRoute>
+                } />
+                <Route path="recovery" element={
+                  <ProtectedRoute allowedRoles={['admin', 'superadmin']}>
+                    <BDVendorRecovery />
+                  </ProtectedRoute>
+                } />
               </Route>
 
               <Route path="hotel-list-v1" element={<HotelListPage1 />} />
@@ -194,7 +235,7 @@ function App() {
               />
 
               <Route path="flight" element={<FlightListPage1 />} />
-              <Route path="flight/booking/:id/:segmentId" element={<FlightBookingPage />} />
+              <Route path="flight/booking/:id" element={<FlightBookingPage />} />
             </Route>
           </Routes>
           <ScrollTopBehaviour />
