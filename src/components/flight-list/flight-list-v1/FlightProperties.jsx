@@ -149,7 +149,7 @@ const FlightProperties = ({ flights, loading }) => {
                   <div className={`row y-gap-10 items-center${idx > 0 ? ' pt-30' : ''}`} key={segment.id}>
                         <div className="col text-center">
                           <div className="row x-gap-20 items-end" style={{ flexWrap: 'nowrap' }}>
-                            <div className="col-auto col-sm-auto">
+                            <div className="col-auto col-sm-auto col-fixed-icon">
                               <AirlineLogo 
                                 className="size-40"
                                 alt="flight icon"
@@ -181,7 +181,7 @@ const FlightProperties = ({ flights, loading }) => {
                       <div className={`row y-gap-10 items-center${idx > 0 ? ' pt-30' : ''}`} key={segment.id}>
                         <div className="col text-center">
                           <div className="row x-gap-20 items-end" style={{ flexWrap: 'nowrap' }}>
-                            <div className="col-sm-auto">
+                            <div className="col-auto col-sm-auto col-fixed-icon">
                               <AirlineLogo 
                                 className="size-40"
                                 alt="flight icon"
@@ -214,7 +214,7 @@ const FlightProperties = ({ flights, loading }) => {
                     <div className={`row y-gap-10 items-center${idx > 0 ? ' pt-30' : ''}`} key={segment.id}>
                       <div className="col">
                         <div className="row x-gap-20 items-end" style={{ flexWrap: 'nowrap' }}>
-                          <div className="col-sm-auto">
+                          <div className="col-auto col-sm-auto col-fixed-icon">
                             <AirlineLogo 
                               className="size-40"
                               alt="flight icon"

@@ -10091,3 +10091,9 @@ button:disabled {
   -webkit-transform: translateX(-150px) !important;
   -ms-transform: translateX(-150px) !important;
 }
+
+.col-fixed-icon {
+  flex: 0 0 auto !important;
+  width: 40px !important;
+  max-width: 40px !important;
+}
