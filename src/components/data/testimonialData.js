@@ -1,7 +1,7 @@
 export const testimonial1 = [
   {
     id: 1,
-    avatar: "/img/avatars/testimonials/1.png",
+    avatar: "/img/team/1.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `The place is in a great location in Gumbet. The area is safe and
@@ -11,7 +11,7 @@ export const testimonial1 = [
   },
   {
     id: 2,
-    avatar: "/img/avatars/testimonials/2.png",
+    avatar: "/img/team/2.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `The place is in a great location in Gumbet. The area is safe and
@@ -21,7 +21,7 @@ export const testimonial1 = [
   },
   {
     id: 3,
-    avatar: "/img/avatars/testimonials/3.png",
+    avatar: "/img/team/3.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `The place is in a great location in Gumbet. The area is safe and
@@ -31,7 +31,7 @@ export const testimonial1 = [
   },
   {
     id: 4,
-    avatar: "/img/avatars/testimonials/1.png",
+    avatar: "/img/team/1.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `The place is in a great location in Gumbet. The area is safe and
@@ -44,7 +44,7 @@ export const testimonial2 = [
   {
     id: 1,
     meta: "Hotel Equatorial Melaka",
-    avatar: "/img/avatars/testimonials/1.png",
+    avatar: "/img/team/1.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `"Our family was traveling via bullet train between cities in
@@ -55,7 +55,7 @@ export const testimonial2 = [
   {
     id: 2,
     meta: "Hotel Equatorial Melaka",
-    avatar: "/img/avatars/testimonials/2.png",
+    avatar: "/img/team/2.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `"Our family was traveling via bullet train between cities in
@@ -66,7 +66,7 @@ export const testimonial2 = [
   {
     id: 3,
     meta: "Hotel Equatorial Melaka",
-    avatar: "/img/avatars/testimonials/3.png",
+    avatar: "/img/team/3.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `"Our family was traveling via bullet train between cities in
@@ -77,7 +77,7 @@ export const testimonial2 = [
   {
     id: 4,
     meta: "Hotel Equatorial Melaka",
-    avatar: "/img/avatars/testimonials/4.png",
+    avatar: "/img/team/4.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `"Our family was traveling via bullet train between cities in
@@ -88,7 +88,7 @@ export const testimonial2 = [
   {
     id: 5,
     meta: "Hotel Equatorial Melaka",
-    avatar: "/img/avatars/testimonials/5.png",
+    avatar: "/img/team/5.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `"Our family was traveling via bullet train between cities in
@@ -102,7 +102,7 @@ export const testimonial3 = [
   {
     id: 1,
     meta: "Hotel Equatorial Melaka",
-    avatar: "/img/testimonials/2/1.png",
+    avatar: "/img/testimonials/2/1.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `"Our family was traveling via bullet train between cities in
@@ -112,7 +112,7 @@ export const testimonial3 = [
   {
     id: 2,
     meta: "Hotel Equatorial Melaka",
-    avatar: "/img/testimonials/2/2.png",
+    avatar: "/img/testimonials/2/2.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `"Our family was traveling via bullet train between cities in
@@ -122,7 +122,7 @@ export const testimonial3 = [
   {
     id: 3,
     meta: "Hotel Equatorial Melaka",
-    avatar: "/img/testimonials/2/3.png",
+    avatar: "/img/testimonials/2/3.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `"Our family was traveling via bullet train between cities in
@@ -132,7 +132,7 @@ export const testimonial3 = [
   {
     id: 4,
     meta: "Hotel Equatorial Melaka",
-    avatar: "/img/testimonials/2/4.png",
+    avatar: "/img/testimonials/2/4.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `"Our family was traveling via bullet train between cities in
@@ -142,7 +142,7 @@ export const testimonial3 = [
   {
     id: 5,
     meta: "Hotel Equatorial Melaka",
-    avatar: "/img/testimonials/2/5.png",
+    avatar: "/img/testimonials/2/5.webp",
     name: "Annette Black",
     designation: "UX / UI Designer",
     text: `"Our family was traveling via bullet train between cities in

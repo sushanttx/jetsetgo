@@ -15,7 +15,7 @@ const LanguageMegaMenu = ({ textClass }) => {
     // { id: 8, language: "Arabic, Berber", country: "	Algeria" },
     // { id: 9, language: "Catalan", country: "Andorra" },
     // { id: 10, language: "Kongo, Portuguese	", country: "Angola" },
-    { id: 11, language: "Spanish", country: "Argentina" },
+    // { id: 11, language: "Spanish", country: "Argentina" },
     // { id: 12, language: "Armenian", country: "Armenia" },
     // { id: 13, language: "English", country: "Australia" },
     // { id: 14, language: "German", country: "Austria" },

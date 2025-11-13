@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import MainFilterSearchBox from "./MainFilterSearchBox";
-
+//i love sushi and ramen 
 const Index = () => {
   const backgroundImages = [
     "/img/masthead/1/bg.webp",
@@ -55,6 +55,7 @@ const Index = () => {
               <h1 className="text-white mt-6 md:mt-10 mobile-hide" data-aos="fade-up" data-aos-delay="100">
                 Discover amazing places at exclusive deals
               </h1>
+              {/* <p className="text-white"></p> */}
             </div>
 
             <div className="tabs -underline mt-60 md:mt-60 mobile-spacing js-tabs" data-aos="fade-up" data-aos-delay="200">

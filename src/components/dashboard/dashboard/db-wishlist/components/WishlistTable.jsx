@@ -2,6 +2,9 @@ import { useState, useEffect } from "react";
 import Pagination from "../../common/Pagination";
 import Properties from "./Properties";
 import { fetchWishlist, removeFromWishlist } from "../../../../../services/wishlistService";
+import { isTokenExpired, handle403Error } from "../../../../../utils/authUtils";
+import { useBatchAirlineLogos } from "../../../../../services/batchLogoService";
+import AirlineLogo from "../../../../common/AirlineLogo";
 
 const WishlistTable = () => {
   const [activeTab, setActiveTab] = useState(0);
@@ -10,6 +13,9 @@ const WishlistTable = () => {
   const [error, setError] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage] = useState(10); // Show 1 flight per page for testing
+  
+  // Batch logo service for wishlist items
+  const { logoMap, loading: logoLoading, error: logoError } = useBatchAirlineLogos(wishlistData);
 
   const handleTabClick = (index) => {
     setActiveTab(index);
@@ -32,6 +38,13 @@ const WishlistTable = () => {
       console.log('WishlistTable: No token found, setting error');
       setError('Please log in to view your wishlist');
       setLoading(false);
+      return;
+    }
+
+    // Check if token is expired
+    if (isTokenExpired(token)) {
+      console.log('WishlistTable: Token is expired, redirecting to login');
+      handle403Error({ status: 403 }, window.location.pathname);
       return;
     }
     
@@ -244,23 +257,15 @@ const WishlistTable = () => {
               <div className="col-md-auto">
                 <div className="cardImage ratio ratio-1:1 w-200 md:w-1/1 rounded-4">
                   <div className="cardImage__content">
-                    {item.itineraryData?.avatar ? (
-                      <img
-                        className="rounded-4 col-12 js-lazy"
-                        src={item.itineraryData.avatar}
-                        alt="Flight"
-                        onError={(e) => {
-                          e.target.style.display = 'none';
-                          e.target.nextSibling.style.display = 'flex';
-                        }}
-                      />
-                    ) : null}
-                    <div 
-                      className="rounded-4 col-12 d-flex items-center justify-center text-14 text-light-1 bg-light-3"
-                      style={{ display: item.itineraryData?.avatar ? 'none' : 'flex' }}
-                    >
-                      Flight
-                    </div>
+                    <AirlineLogo 
+                      className="rounded-4 col-12"
+                      alt="Flight"
+                      fallbackImage={item.itineraryData?.avatar}
+                      validatingCarrierCode={item.itineraryData?.validatingCarrierCode}
+                      airlineLogoUrl={item.itineraryData?.airlineLogo}
+                      logoMap={logoMap}
+                      logoLoading={logoLoading}
+                    />
                   </div>
                   <div className="cardImage__wishlist">
                     <button 

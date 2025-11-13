@@ -48,7 +48,7 @@ const MainMenu = ({ style = "" }) => {
 
         <li
           className={
-            isActiveParent
+            pathname === "/flight" || pathname.startsWith("/flight/")
               ? "menu-item-has-children -has-mega-menu current"
               : "menu-item-has-children -has-mega-menu"
           }
@@ -73,10 +73,10 @@ const MainMenu = ({ style = "" }) => {
             isActiveParentChaild(blogItems, pathname) ? "current" : ""
           } menu-item-has-children`}
         >
-          <Link to="/blog">
+          {/* <Link to="/blog">
             <span className="mr-10">Blog</span>
-            {/* <i className="icon icon-chevron-sm-down" /> */}
-          </Link>
+            <i className="icon icon-chevron-sm-down" />
+          </Link> */}
           {/* <ul className="subnav">
             {blogItems.map((menu, i) => (
               <li
@@ -94,7 +94,9 @@ const MainMenu = ({ style = "" }) => {
 
         <li
           className={`${
-            isActiveParentChaild(pageItems, pathname) ? "current" : ""
+            (isActiveParentChaild(pageItems, pathname) && 
+             pathname !== "/login" && 
+             pathname !== "/signup") ? "current" : ""
           } menu-item-has-children`}
         >
           <Link to="/about">

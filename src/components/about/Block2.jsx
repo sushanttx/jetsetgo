@@ -9,13 +9,13 @@ const Block2 = () => {
       id: 1,
       icon: "/img/featureIcons/1/1.svg",
       title: "Best Price Guarantee",
-      text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
+      text: `Just Trust Me Bro.`,
     },
     {
       id: 2,
       icon: "/img/featureIcons/1/2.svg",
       title: "Easy & Quick Booking",
-      text: `Lorem ipsum dolor sit amet, consectetur adipiscing elit.`,
+      text: `Done by the moment you blink.`,
     },
     {
       id: 3,

@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { FiPhone, FiMail } from "react-icons/fi"; // ✅ Import the icons
+import { FiPhone, FiMail, FiLinkedin, FiType } from "react-icons/fi"; // ✅ Import the icons
 import MainMenu from "../MainMenu";
 import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 import LanguageMegaMenu from "../LanguageMegaMenu";
@@ -32,8 +32,8 @@ const Header1 = () => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 <Link to="/" className="header-logo mr-20">
-                  <img src="/img/general/logo-dark.svg" alt="logo icon" />
-                  <img src="/img/general/logo-dark.svg" alt="logo icon" />
+                  <img src="/img/general/birb.png" alt="logo icon" />
+                  <img src="/img/general/birb.png" alt="logo icon" />
                 </Link>
 
                 <div className="header-menu">
@@ -47,21 +47,39 @@ const Header1 = () => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 <div className="row x-gap-20 items-center xxl:d-none">
-                  <CurrenctyMegaMenu textClass="text-dark-1" />
-                  <div className="col-auto">
-                    <div className="w-1 h-20 bg-white-20" />
-                  </div>
+                  {/* <CurrenctyMegaMenu textClass="text-dark-1" /> */}
                   <LanguageMegaMenu textClass="text-dark-1" />
+                  <div className="col-auto">
+                    <div className="w-1 h-20 bg-black-20" />
+                  </div>
                 </div>
 
                 
                 {/* Buttons */}
-                <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
+                <div className="d-flex items-center ml-5 is-menu-opened-hide md:d-none">
                   <Link
-                    to="tel:+918882817640"
-                    className="button px-30 fw-400 text-14 -outline-blue-1 h-50 text-blue-1 ml-20"
+                    to="mailto:sushant.langhi05@gmail.com"
+                    className="gap-2 button px-15 fw-400 text-14 -outline-blue-1 h-50 text-blue-1 ml-5"
                   >
-                    <FiPhone /> {" "}+918882817640
+                    <FiMail /> Mail
+                  </Link>
+                </div>
+
+                <div className="d-flex items-center ml-5 is-menu-opened-hide md:d-none">
+                  <Link
+                    to="tel:+919022864373"
+                    className="gap-2 button px-15 fw-400 text-14 -outline-blue-1 h-50 text-blue-1 ml-5"
+                  >
+                    <FiPhone /> Contact
+                  </Link>
+                </div>
+                
+                <div className="d-flex items-center ml-5 is-menu-opened-hide md:d-none">
+                  <Link
+                    to="tel:+919022864373"
+                    className="gap-2 button px-15 fw-400 text-14 -outline-blue-1 h-50 text-blue-1 ml-5"
+                  >
+                    <FiType /> WhatsApp
                   </Link>
                 </div>
 

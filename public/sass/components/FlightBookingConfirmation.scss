@@ -20,6 +20,7 @@
   transition: border-color 0.2s, box-shadow 0.2s;
   background: #fff;
   border-radius: 18px;
+
   height: 100%;
   padding-left: 2.5rem;
   padding-right: 2.5rem;
@@ -217,6 +218,15 @@
     max-width: 100% !important;
     flex: 1 1 100% !important;
     margin-bottom: 10px;
+    position: sticky;
+    top: 5px;
+    z-index: 10;
+    
+    > div {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
   }
 }
 
@@ -225,7 +235,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 30px;
+  // margin-bottom: 30px;
   gap: 16px;
 }
 
@@ -241,6 +251,8 @@
   padding: 0 20px;
   font-weight: 500;
   border-radius: 8px;
+  border-bottom-left-radius: 0;  
+  border-bottom-right-radius: 0;
   transition: all 0.3s ease;
   cursor: pointer;
   min-width: 120px;
@@ -363,12 +375,25 @@
   box-sizing: border-box;
   overflow-x: hidden;
   max-width: 100vw;
+  position: relative;
 }
 
 .confirmation-sidebar {
   width: 200px;
   min-width: 150px;
   max-width: 200px;
+  align-self: flex-start;
+  height: fit-content;
+  position: sticky;
+  top: 20px;
+  z-index: 10;
+  
+  > div {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    position: relative;
+  }
 }
 
 .confirmation-content {
@@ -384,6 +409,7 @@
   border-radius: 8px;
   padding: 30px;
   border: 1px solid #e5e7eb;
+  border-top-left-radius: 0;  
   background: white;
   box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
   height: 100%;
@@ -482,8 +508,35 @@
 .trip-details-grid {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: 1fr 1fr;
+  // grid-template-rows: 1fr 1fr;
   gap: 1.5rem;
+}
+
+// Route & Dates 2x2 Grid
+.route-dates-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+// Passengers & Class 2x2 Grid
+.passengers-class-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+// Preferences 2x2 Grid
+.preferences-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.grid-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
 }
 
 .trip-details-item {
@@ -528,7 +581,7 @@
   padding: 15px;
   border: 1px solid #e5e7eb;
   border-radius: 8px;
-  background-color: #f8f9fa;
+  background-color: #fff;
   justify-content: space-between;
 }
 
@@ -894,6 +947,15 @@
     max-width: 100% !important;
     flex: 1 1 100% !important;
     margin-bottom: 16px;
+    position: sticky;
+    top: 10px;
+    z-index: 10;
+    
+    > div {
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
   }
   
   .confirmation-info-grid {
@@ -903,6 +965,27 @@
   .trip-details-grid {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto;
+  }
+  
+  .route-dates-grid {
+    .grid-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+  
+  .passengers-class-grid {
+    .grid-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
+  }
+  
+  .preferences-grid {
+    .grid-row {
+      grid-template-columns: 1fr;
+      gap: 0.5rem;
+    }
   }
   
   .flight-segment-details {
@@ -966,3 +1049,8 @@
     }
   }
 } 
+
+.text-center.text-lg-start {
+  padding-left: 20px;
+  padding-right: 20px;
+}

@@ -15,8 +15,8 @@ import SelectFilter from "@/components/hotels/filter-tabs/SelectFilter";
 import MetaComponent from "@/components/common/MetaComponent";
 
 const metadata = {
-  title: "Home || Flight Booking",
-  description: "Flight Booking",
+  title: "Home || JetSetGo",
+  description: "JetSetGo",
 };
 
 const Home_1 = () => {
@@ -142,7 +142,7 @@ const Home_1 = () => {
                   Get inspiration for your next trip
                 </h2>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
-                  Interdum et malesuada fames
+                  Check out our blogs
                 </p>
               </div>
             </div>

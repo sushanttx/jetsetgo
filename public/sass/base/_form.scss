@@ -133,7 +133,7 @@
     }
 
     &:hover input ~ .radio__mark {
-      // background-color: rgba(black, 0.05);
+      background-color: rgba(0, 0, 0, 0.05);
     }
   }
 }
@@ -205,6 +205,111 @@
       @include media-below(lg) {
         width: 100%;
       }
+    }
+  }
+}
+
+// Modern Credit Card Form Styling
+.form-input {
+  position: relative;
+  margin-bottom: 20px;
+
+  input, select {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid #E0E0E0;
+    border-radius: 5px;
+    padding: 20px 15px 15px 15px;
+    font-size: 16px;
+    color: #333333;
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box;
+
+    &:focus {
+      border-color: #4A90E2;
+      box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.1);
+    }
+
+    &:focus + label,
+    &:not(:placeholder-shown) + label {
+      transform: translateY(-8px) scale(0.8);
+      color: #4A90E2;
+      background: #FFFFFF;
+      padding: 0 5px;
+    }
+
+    &::placeholder {
+      color: transparent;
+    }
+  }
+
+  label {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    // transform: translateY(-50%);
+    font-size: 16px;
+    color: #A0A0A0;
+    pointer-events: none;
+    transition: all 0.3s ease;
+    background: transparent;
+    transform-origin: left center;
+    z-index: 1;
+  }
+
+  // Special styling for credit card form
+  &.credit-card-form {
+    input, select {
+      // padding: 20px 15px 15px 15px;
+      font-size: 16px;
+      // font-weight: 400;
+      // letter-spacing: 0.5px;
+
+      &:focus {
+        border-color: #4A90E2;
+        box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.1);
+      }
+
+      &:focus + label,
+      &:not(:placeholder-shown) + label {
+        // transform: translateY(-12px) scale(0.75);
+        color: #4A90E2;
+        // font-weight: 500;
+      }
+    }
+
+    label {
+      // font-size: 16px;
+      color: #A0A0A0;
+      font-weight: 400;
+    }
+  }
+
+  // Expiry date and CVV styling
+  &.expiry-cvv {
+    input {
+      text-align: center;
+      // letter-spacing: 1px;
+      // font-family: 'Courier New', monospace;
+    }
+  }
+}
+
+// Enhanced form layout for credit card section
+.credit-card-form-section {
+  .form-input {
+    margin-bottom: 25px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  // Row layout for expiry and CVV
+  .row {
+    .form-input {
+      margin-bottom: 0;
     }
   }
 }

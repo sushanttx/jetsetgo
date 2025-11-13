@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState, useEffect } from "react";
-import { fetchWishlist, addToWishlist, removeFromWishlist } from "../../../services/wishlistService";
-import { getAirlineLogoUrl, preloadAirlineLogos } from "../../../services/airlineLogoService";
+import { useSelector } from "react-redux";
+// Removed backend wishlist service calls
+import AirlineLogo from "../../common/AirlineLogo";
+import LoginPromptModal from "../../common/LoginPromptModal";
+import { storePostLoginAction } from "../../../utils/authUtils";
 
 const calculateDuration = (startTime, endTime) => {
   const start = new Date(startTime);
@@ -13,167 +16,58 @@ const calculateDuration = (startTime, endTime) => {
   return `${diffHrs}h ${diffMins}m`;
 };
 
-// Component for handling airline logos with fallback
-const AirlineLogo = ({ flightLogoName, className = "size-40", alt = "flight icon", fallbackImage = null }) => {
-  const [logoUrl, setLogoUrl] = useState(fallbackImage || '/img/flights/default-flight.png');
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    const fetchLogo = async () => {
-      console.log('🛩️ AirlineLogo Debug:', {
-        flightLogoName,
-        fallbackImage,
-        hasLogoName: !!flightLogoName
-      });
-
-      if (!flightLogoName) {
-        console.log('❌ No flightLogoName provided, using fallback');
-        setLogoUrl(fallbackImage || '/img/flights/default-flight.png');
-        setLoading(false);
-        return;
-      }
-
-      try {
-        setLoading(true);
-        setError(false);
-        console.log('🔄 Fetching logo for:', flightLogoName);
-        const url = await getAirlineLogoUrl(flightLogoName, fallbackImage);
-        console.log('✅ Logo URL received:', url);
-        setLogoUrl(url);
-      } catch (err) {
-        console.warn('❌ Failed to load airline logo:', err);
-        setError(true);
-        setLogoUrl(fallbackImage || '/img/flights/default-flight.png');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchLogo();
-  }, [flightLogoName, fallbackImage]);
-
-  const handleImageError = (e) => {
-    if (!error) {
-      setError(true);
-      setLogoUrl(fallbackImage || '/img/flights/default-flight.png');
-    }
-  };
-
-  return (
-    <img
-      className={className}
-      src={logoUrl}
-      alt={alt}
-      onError={handleImageError}
-      style={{ 
-        opacity: loading ? 0.5 : 1,
-        transition: 'opacity 0.3s ease'
-      }}
-    />
-  );
-};
 
 const FlightProperties = ({ flights, loading }) => {
   const navigate = useNavigate();
+  const { isAuthenticated } = useSelector((state) => state.auth);
   const [wishlistItems, setWishlistItems] = useState(new Set());
   const [wishlistLoading, setWishlistLoading] = useState(new Set());
+  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
 
-  // Get user's wishlist on component mount
-  useEffect(() => {
-    handleFetchWishlist();
-  }, []);
-
-  // Preload airline logos when flights change
-  useEffect(() => {
-    if (flights && flights.length > 0) {
-      const logoNames = [];
-      
-      console.log('🔍 Debugging flight data structure:', flights[0]);
-      
-      flights.forEach(item => {
-        // Collect logos from all flight segments
-        if (item.flightListOutbound) {
-          item.flightListOutbound.forEach(segment => {
-            console.log('🛩️ Outbound segment:', segment.FlightLogoName, segment);
-            if (segment.FlightLogoName) {
-              logoNames.push(segment.FlightLogoName);
-            }
-          });
-        }
-        
-        if (item.flightListReturn) {
-          item.flightListReturn.forEach(segment => {
-            console.log('🛩️ Return segment:', segment.FlightLogoName, segment);
-            if (segment.FlightLogoName) {
-              logoNames.push(segment.FlightLogoName);
-            }
-          });
-        }
-        
-        if (item.flightList) {
-          item.flightList.forEach(segment => {
-            console.log('🛩️ One-way segment:', segment.FlightLogoName, segment);
-            if (segment.FlightLogoName) {
-              logoNames.push(segment.FlightLogoName);
-            }
-          });
-        }
-      });
-      
-      // Remove duplicates and preload
-      const uniqueLogoNames = [...new Set(logoNames)];
-      console.log('📋 Unique logo names found:', uniqueLogoNames);
-      if (uniqueLogoNames.length > 0) {
-        preloadAirlineLogos(uniqueLogoNames);
-      } else {
-        console.log('⚠️ No FlightLogoName found in any segments!');
-        console.log('💡 This might be because the flight data was cached before the fix.');
-        console.log('💡 Try clearing localStorage and doing a fresh search:');
-        console.log('💡 localStorage.removeItem("flightSearchResults");');
+  // Mock wishlist functionality - no backend calls
+  const handleFetchWishlist = () => {
+    // Get wishlist from localStorage instead of backend
+    const localWishlist = localStorage.getItem('userWishlist');
+    if (localWishlist) {
+      try {
+        const wishlistData = JSON.parse(localWishlist);
+        const wishlistIds = new Set(wishlistData.map(item => item.itineraryId || item.id));
+        setWishlistItems(wishlistIds);
+      } catch (error) {
+        console.error('Error parsing local wishlist:', error);
+        setWishlistItems(new Set());
       }
-    }
-  }, [flights]);
-
-  const handleFetchWishlist = async () => {
-    try {
-      const response = await fetchWishlist();
-      console.log('Wishlist response:', response);
-      
-      // Handle different response formats
-      let wishlistData = [];
-      if (Array.isArray(response)) {
-        wishlistData = response;
-      } else if (response && Array.isArray(response.data)) {
-        wishlistData = response.data;
-      } else if (response && Array.isArray(response.wishlist)) {
-        wishlistData = response.wishlist;
-      } else if (response && response.items && Array.isArray(response.items)) {
-        wishlistData = response.items;
-      } else {
-        console.warn('Unexpected wishlist response format:', response);
-        wishlistData = [];
-      }
-      
-      const wishlistIds = new Set(wishlistData.map(item => item.itineraryId));
-      setWishlistItems(wishlistIds);
-    } catch (error) {
-      console.error('Error fetching wishlist:', error);
-      setWishlistItems(new Set()); // Set empty set on error
     }
   };
 
   const handleAddToWishlist = async (itineraryId, itineraryData) => {
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      // Store the wishlist action for after login
+      storePostLoginAction('wishlist', itineraryId, itineraryData);
+      setShowLoginPrompt(true);
+      return;
+    }
+
     try {
       setWishlistLoading(prev => new Set(prev).add(itineraryId));
 
-      const result = await addToWishlist(itineraryId, itineraryData);
+      // Mock wishlist functionality - use localStorage
+      const localWishlist = JSON.parse(localStorage.getItem('userWishlist') || '[]');
+      const existingItem = localWishlist.find(item => item.itineraryId === itineraryId || item.id === itineraryId);
       
-      if (result.success) {
+      if (!existingItem) {
+        localWishlist.push({
+          itineraryId: itineraryId,
+          id: itineraryId,
+          ...itineraryData,
+          addedAt: new Date().toISOString()
+        });
+        localStorage.setItem('userWishlist', JSON.stringify(localWishlist));
         setWishlistItems(prev => new Set(prev).add(itineraryId));
-        console.log(result.message);
-      } else if (result.status === 409) {
-        console.log(result.message);
+        console.log('Added to wishlist successfully');
+      } else {
+        console.log('Item already in wishlist');
       }
     } catch (error) {
       console.error('Error adding to wishlist:', error);
@@ -186,20 +80,31 @@ const FlightProperties = ({ flights, loading }) => {
     }
   };
 
-    const handleRemoveFromWishlist = async (itineraryId) => {
+  const handleRemoveFromWishlist = async (itineraryId) => {
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      // Store the wishlist action for after login
+      storePostLoginAction('wishlist', itineraryId);
+      setShowLoginPrompt(true);
+      return;
+    }
+
     try {
       setWishlistLoading(prev => new Set(prev).add(itineraryId));
 
-      const result = await removeFromWishlist(itineraryId);
+      // Mock wishlist functionality - use localStorage
+      const localWishlist = JSON.parse(localStorage.getItem('userWishlist') || '[]');
+      const updatedWishlist = localWishlist.filter(item => 
+        item.itineraryId !== itineraryId && item.id !== itineraryId
+      );
+      localStorage.setItem('userWishlist', JSON.stringify(updatedWishlist));
       
-      if (result.success) {
-        setWishlistItems(prev => {
-          const newSet = new Set(prev);
-          newSet.delete(itineraryId);
-          return newSet;
-        });
-        console.log(result.message);
-      }
+      setWishlistItems(prev => {
+        const newSet = new Set(prev);
+        newSet.delete(itineraryId);
+        return newSet;
+      });
+      console.log('Removed from wishlist successfully');
     } catch (error) {
       console.error('Error removing from wishlist:', error);
     } finally {
@@ -246,10 +151,11 @@ const FlightProperties = ({ flights, loading }) => {
                           <div className="row x-gap-20 items-end" style={{ flexWrap: 'nowrap' }}>
                             <div className="col-sm-auto">
                               <AirlineLogo 
-                                flightLogoName={segment.FlightLogoName}
                                 className="size-40"
                                 alt="flight icon"
                                 fallbackImage={`${segment.avatarBase}.png`}
+                                validatingCarrierCode={item.validatingCarrierCode}
+                                airlineLogoUrl={item.airlineLogo}
                               />
                             </div>
                             <div className="col" style={{ minWidth: 0 }}>
@@ -277,10 +183,11 @@ const FlightProperties = ({ flights, loading }) => {
                           <div className="row x-gap-20 items-end" style={{ flexWrap: 'nowrap' }}>
                             <div className="col-sm-auto">
                               <AirlineLogo 
-                                flightLogoName={segment.FlightLogoName}
                                 className="size-40"
                                 alt="flight icon"
                                 fallbackImage={`${segment.avatarBase}.png`}
+                                validatingCarrierCode={item.validatingCarrierCode}
+                                airlineLogoUrl={item.airlineLogo}
                               />
                             </div>
                             <div className="col text-center" style={{ minWidth: 0 }}>
@@ -309,10 +216,11 @@ const FlightProperties = ({ flights, loading }) => {
                         <div className="row x-gap-20 items-end" style={{ flexWrap: 'nowrap' }}>
                           <div className="col-sm-auto">
                             <AirlineLogo 
-                              flightLogoName={segment.FlightLogoName}
                               className="size-40"
                               alt="flight icon"
                               fallbackImage={`${segment.avatarBase}.png`}
+                              validatingCarrierCode={item.validatingCarrierCode}
+                              airlineLogoUrl={item.airlineLogo}
                             />
                           </div>
                           <div className="col" style={{ minWidth: 0 }}>
@@ -362,9 +270,13 @@ const FlightProperties = ({ flights, loading }) => {
                         </button>
                     </div>
                     <div className="d-flex items-center">
+                        {/* <i className="icon-luggage text-18 mr-5"></i> */}
+                        <div className="text-15 lh-16 text-light-1">{item.OperatingAirlineName}</div>
+                    </div>
+                    <div className="d-flex items-center">
                         <i className="icon-luggage text-18 mr-5"></i>
                         <div className="text-15 lh-16 text-light-1">{item.baggageInfo}</div>
-                      </div>
+                    </div>
                     <div>
                       <div className="text-18 lh-16 fw-500">US${Math.ceil(item.price)}</div>
                       <div className="text-12 lh-12 text-light-1 text-right">(incl. taxes)</div>
@@ -424,10 +336,11 @@ const FlightProperties = ({ flights, loading }) => {
                                 <div className="text-14 text-light-1">{segment.cabinClass === 'E' ? 'Economy' : segment.cabinClass}</div>
                                 <div className="d-flex items-center mb-15">
                                   <div className="w-28 d-flex justify-center mr-15"><AirlineLogo 
-                                      flightLogoName={segment.FlightLogoName}
                                       className="size-20"
                                       alt="flight icon"
                                       fallbackImage={segment.avatar}
+                                      validatingCarrierCode={item.validatingCarrierCode}
+                                      airlineLogoUrl={item.airlineLogo}
                                     /></div>
                                   <div className="text-14 text-light-1">{segment.airline} {segment.flightNumber}</div>
                                 </div>
@@ -497,10 +410,11 @@ const FlightProperties = ({ flights, loading }) => {
                                 <div className="text-14 text-light-1">{segment.cabinClass === 'E' ? 'Economy' : segment.cabinClass}</div>
                                 <div className="d-flex items-center mb-15">
                                   <div className="w-28 d-flex justify-center mr-15"><AirlineLogo 
-                                      flightLogoName={segment.FlightLogoName}
                                       className="size-20"
                                       alt="flight icon"
                                       fallbackImage={segment.avatar}
+                                      validatingCarrierCode={item.validatingCarrierCode}
+                                      airlineLogoUrl={item.airlineLogo}
                                     /></div>
                                   <div className="text-14 text-light-1">{segment.airline} {segment.flightNumber}</div>
                                 </div>
@@ -575,10 +489,11 @@ const FlightProperties = ({ flights, loading }) => {
                           <div className="text-14 text-light-1">{segment.cabinClass === 'E' ? 'Economy' : segment.cabinClass}</div>
                           <div className="d-flex items-center mb-15">
                             <div className="w-28 d-flex justify-center mr-15"><AirlineLogo 
-                                      flightLogoName={segment.FlightLogoName}
                                       className="size-20"
                                       alt="flight icon"
                                       fallbackImage={segment.avatar}
+                                      validatingCarrierCode={item.validatingCarrierCode}
+                                      airlineLogoUrl={item.airlineLogo}
                                     /></div>
                             <div className="text-14 text-light-1">{segment.airline} {segment.flightNumber}</div>
                           </div>
@@ -719,7 +634,20 @@ const FlightProperties = ({ flights, loading }) => {
 
 
               <div style={{ display: "flex", justifyContent: "flex-end", marginTop: 16 }}>
-                <button className="button -dark-1 px-30 h-50 bg-blue-1 text-white" onClick={() => navigate(`/flight/booking/${item.id}`)}>
+                <button 
+                  className="button -dark-1 px-30 h-50 bg-blue-1 text-white" 
+                  onClick={() => {
+                    // Check if user is authenticated
+                    if (!isAuthenticated) {
+                      // Store the booking action for after login
+                      storePostLoginAction('booking', item.id);
+                      setShowLoginPrompt(true);
+                      return;
+                    }
+                    // Navigate to booking page if authenticated
+                    navigate(`/flight/booking/${item.id}`);
+                  }}
+                >
                   Book Now
                 </button>
               </div>
@@ -727,6 +655,14 @@ const FlightProperties = ({ flights, loading }) => {
           </div>
         </div>
       ))}
+      
+      {/* Login Prompt Modal */}
+      <LoginPromptModal
+        isOpen={showLoginPrompt}
+        onClose={() => setShowLoginPrompt(false)}
+        title="Login Required"
+        message="Please log in to book flights, add to wishlist, and access your account features."
+      />
     </>
   );
 };

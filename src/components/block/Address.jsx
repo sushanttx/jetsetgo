@@ -5,28 +5,27 @@ const Address = () => {
       colClass: "col-lg-3",
       title: "Address",
       content: (
-        <>1550 Calle Don Juan
-1550 Calle Don Juan, La Habra, CA 90631, USA</>
+        <>Pune, India.</>
       ),
     },
     {
       id: 2,
       colClass: "col-auto",
-      title: "Toll Free Customer Care",
+      title: "Call me for inquiry",
       content: (
         <>
-          <a href="tel:+4733378901">+91 8882817640</a>
+          <a href="tel:+919022864373">+91 9022864373</a>
         </>
       ),
     },
     {
       id: 3,
       colClass: "col-auto",
-      title: "Need live support?",
+      title: "Wanna Hire me?",
       content: (
         <>
           {" "}
-          <a href="mailto:dheerajnarang2050@gmail.com">dheerajnarang2050@gmail.com</a>
+          <a href="mailto:sushant.langhi05@gmail.com">sushant.langhi05@gmail.com</a>
         </>
       ),
     },

@@ -4,6 +4,7 @@ import FlightCustomerInfo from "./FlightCustomerInfo";
 import FlightPaymentInfo from "./FlightPaymentInfo";
 import FlightOrderSubmittedInfo from "./FlightOrderSubmittedInfo";
 import FlightBookingConfirmation from "./FlightBookingConfirmation";
+import { validateBookingPayload, submitBooking, buildBookingPayload } from "../../services/bookingService";
 
 const emptyPassenger = {
   fullName: "",
@@ -37,6 +38,32 @@ const FlightStepperBooking = ({ flight, searchData, segment }) => {
   });
   const [passengers, setPassengers] = useState([]);
   const [currentPassenger, setCurrentPassenger] = useState(emptyPassenger);
+  const [paymentDetails, setPaymentDetails] = useState({
+    paymentType: 'HOLD', // HOLD, CC, CK
+    // Credit Card fields
+    cardType: '',
+    cardNumber: '',
+    cvv: '',
+    expiryDate: '',
+    bankPhoneNum: '',
+    billingPhoneNum: '',
+    // Billing Address fields (for CC and CK)
+    billingName: '',
+    billingAddress1: '',
+    billingAddress2: '',
+    billingZipCode: '',
+    billingCity: '',
+    billingCountry: '',
+    billingState: ''
+  });
+  const [bookingStatus, setBookingStatus] = useState({
+    isLoading: false,
+    isValidating: false,
+    error: null,
+    success: false,
+    bookingResult: null
+  });
+  const [termsAccepted, setTermsAccepted] = useState(false);
 
   // Load from localStorage on mount
   useEffect(() => {
@@ -134,6 +161,161 @@ const FlightStepperBooking = ({ flight, searchData, segment }) => {
     }
   };
 
+  // Handle test validation (VALIDATION ONLY)
+  const handleTestValidation = async () => {
+    try {
+      setBookingStatus(prev => ({ ...prev, isValidating: true, error: null }));
+      
+      // Build the booking payload
+      const payload = buildBookingPayload(flight, searchData, passengers, personalDetails, paymentDetails);
+      
+      console.log('🔍 Testing validation with payload:', payload);
+      
+      // Submit validation request to backend
+      const validationResult = await validateBookingPayload(payload);
+      console.log('✅ Validation result:', validationResult);
+      
+      setBookingStatus(prev => ({ 
+        ...prev, 
+        isValidating: false, 
+        bookingResult: {
+          ...validationResult,
+          testMode: true,
+          message: 'Validation successful! Your booking data is valid.'
+        }
+      }));
+      
+    } catch (error) {
+      console.error('❌ Validation error:', error);
+      setBookingStatus(prev => ({ 
+        ...prev, 
+        isValidating: false, 
+        error: error.message || 'Validation failed'
+      }));
+    }
+  };
+
+  // Handle booking submission (ACTUAL BOOKING)
+  const handleBookingSubmission = async () => {
+    try {
+      setBookingStatus(prev => ({ ...prev, isLoading: true, error: null }));
+      
+      // Build the booking payload
+      const payload = buildBookingPayload(flight, searchData, passengers, personalDetails, paymentDetails);
+      
+      console.log('📋 Submitting actual booking with payload:', payload);
+      
+      // Submit actual booking to backend
+      const bookingResult = await submitBooking(payload);
+      console.log('✅ Booking result:', bookingResult);
+      console.log('📊 Booking result structure:', {
+        success: bookingResult.success,
+        hasData: !!bookingResult.data,
+        directFields: Object.keys(bookingResult).filter(key => key !== 'success' && key !== 'data'),
+        PNR: bookingResult.PNR,
+        bookingId: bookingResult.bookingId,
+        contactEmail: bookingResult.contactEmail
+      });
+      
+      // Process the booking result from backend
+      if (bookingResult.success) {
+        // The backend sends data directly in the response, not nested under 'booking'
+        const bookingData = bookingResult;
+        
+        setBookingStatus(prev => ({ 
+          ...prev, 
+          isLoading: false, 
+          success: true, 
+          bookingResult: {
+            testMode: false,
+            message: 'Your booking has been successfully submitted!',
+            // Pass the raw booking data so FlightOrderSubmittedInfo can access all fields
+            data: bookingData,
+            // Also keep individual fields for backward compatibility
+            pnr: bookingData.PNR || bookingData.pnr,
+            orderNumber: bookingData.bookingId || bookingData.ReferenceNumber || bookingData.referenceNumber || bookingData.id,
+            bookingDate: bookingData.createdAt || new Date().toISOString(),
+            // Add missing fields from original booking data
+            contactEmail: passengers[0]?.email || personalDetails?.email,
+            contactPhone: passengers[0]?.mobileNumber || passengers[0]?.phone || personalDetails?.phone,
+            passengersCount: passengers.length,
+            airline: flight?.airline || flight?.carrierName,
+            paymentType: paymentDetails?.paymentType,
+            
+            // Debug logging
+            debugInfo: {
+              passengersLength: passengers.length,
+              firstPassengerEmail: passengers[0]?.email,
+              firstPassengerPhone: passengers[0]?.mobileNumber,
+              personalDetailsEmail: personalDetails?.email,
+              personalDetailsPhone: personalDetails?.phone,
+              paymentType: paymentDetails?.paymentType,
+              airline: flight?.airline,
+              carrierName: flight?.carrierName
+            },
+            totalAmount: (() => {
+              // Calculate proper total based on passenger count and fares
+              if (!flight || !flight.rawFares || !searchData) return '0.00';
+              
+              const adults = parseInt(searchData.adult) || 0;
+              const children = parseInt(searchData.child) || 0;
+              const infants = parseInt(searchData.lapInfant) || 0;
+              
+              const adultFare = flight.rawFares.find(f => f.PaxType === 'ADT');
+              const childFare = flight.rawFares.find(f => f.PaxType === 'CHD');
+              const infantFare = flight.rawFares.find(f => f.PaxType === 'INF');
+              
+              const adultBaseFare = adultFare?.BaseFare || 0;
+              const adultTaxes = adultFare?.Taxes || 0;
+              const adultTotal = adultBaseFare + adultTaxes;
+              
+              const childBaseFare = childFare?.BaseFare || adultBaseFare;
+              const childTaxes = childFare?.Taxes || adultTaxes;
+              const childTotal = childBaseFare + childTaxes;
+              
+              const infantBaseFare = infantFare?.BaseFare || 0;
+              const infantTaxes = infantFare?.Taxes || 0;
+              const infantTotal = infantBaseFare + infantTaxes;
+              
+              const totalBaseFare = (adults * adultBaseFare) + (children * childBaseFare) + (infants * infantBaseFare);
+              const totalTaxes = (adults * adultTaxes) + (children * childTaxes) + (infants * infantTaxes);
+              const grandTotal = totalBaseFare + totalTaxes;
+              
+              return grandTotal.toFixed(2);
+            })(),
+            paymentType: bookingData.paymentType || paymentDetails.paymentType,
+            email: bookingData.contactEmail || personalDetails.email,
+            phone: personalDetails.phone || personalDetails.mobileNumber,
+            route: `${flight?.from} → ${flight?.to}`,
+            airline: flight?.airline || 'Airline',
+            passengerCount: bookingData.passengersCount || passengers.length,
+            bookingReference: bookingData.ReferenceNumber || bookingData.referenceNumber,
+            status: bookingData.bookingStatus || 'Confirmed',
+            customerName: personalDetails.fullName || passengers[0]?.fullName,
+            // Additional fields from backend response
+            tripId: bookingData.tripId,
+            productId: bookingData.productId,
+            origin: bookingData.origin,
+            destination: bookingData.destination
+          }
+        }));
+        
+        // Move to final step to show booking results
+        setCurrentStep(3);
+      } else {
+        throw new Error(bookingResult.message || 'Booking failed');
+      }
+      
+    } catch (error) {
+      console.error('❌ Booking error:', error);
+      setBookingStatus(prev => ({ 
+        ...prev, 
+        isLoading: false, 
+        error: error.message || 'Booking failed. Please try again.' 
+      }));
+    }
+  };
+
   const steps = [
     {
       title: "Passenger Details",
@@ -154,7 +336,10 @@ const FlightStepperBooking = ({ flight, searchData, segment }) => {
       setPassengers={setPassengers}
       currentPassenger={currentPassenger}
       setCurrentPassenger={setCurrentPassenger}
-      onNextStep={nextStep} />, // pass currentPassenger and nextStep handler
+      onNextStep={nextStep}
+      onPreviousStep={previousStep}
+      currentStep={currentStep}
+      totalSteps={3} />, // pass navigation handlers
     },
     {
       title: "Confirmation",
@@ -166,7 +351,17 @@ const FlightStepperBooking = ({ flight, searchData, segment }) => {
           </div>
         </>
       ),
-      content: <FlightBookingConfirmation flight={flight} searchData={searchData} personalDetails={personalDetails} passengers={passengers} onConfirmAndPay={() => setCurrentStep(currentStep + 1)} />, // pass handler
+      content: <FlightBookingConfirmation 
+        flight={flight} 
+        searchData={searchData} 
+        personalDetails={personalDetails} 
+        passengers={passengers} 
+        onConfirmAndPay={nextStep}
+        onPreviousStep={previousStep}
+        currentStep={currentStep}
+        totalSteps={3}
+        termsAccepted={termsAccepted}
+        setTermsAccepted={setTermsAccepted} />, // pass navigation handlers
     },
     {
       title: "Payment Details",
@@ -178,13 +373,33 @@ const FlightStepperBooking = ({ flight, searchData, segment }) => {
           </div>
         </>
       ),
-      content: <FlightPaymentInfo personalDetails={personalDetails} />,
+      content: <FlightPaymentInfo 
+        personalDetails={personalDetails} 
+        paymentDetails={paymentDetails}
+        setPaymentDetails={setPaymentDetails}
+        bookingStatus={bookingStatus}
+        onBookingSubmit={handleBookingSubmission}
+        onTestValidation={handleTestValidation}
+        flight={flight}
+        searchData={searchData}
+        onNextStep={nextStep}
+        onPreviousStep={previousStep}
+        currentStep={currentStep}
+        totalSteps={3}
+      />,
     },
     {
       title: "Final Step",
       stepNo: "4",
       stepBar: "",
-      content: <FlightOrderSubmittedInfo />,
+      content: <FlightOrderSubmittedInfo 
+        bookingResult={bookingStatus.bookingResult}
+        onPreviousStep={previousStep}
+        currentStep={currentStep}
+        totalSteps={3}
+        flight={flight}
+        searchData={searchData}
+      />,
     },
   ];
 
@@ -194,10 +409,25 @@ const FlightStepperBooking = ({ flight, searchData, segment }) => {
         {steps.map((step, index) => (
           <React.Fragment key={index}>
             <div 
-              className={`flight-stepper-step ${index > 0 && !areAllPassengersComplete() ? 'disabled' : ''}`} 
+              className={`flight-stepper-step ${
+                (currentStep === 3 && index < 3) || // Disable all previous tabs when on final step
+                (index > 0 && !areAllPassengersComplete()) || 
+                (index >= 2 && !termsAccepted) ||
+                (index === 3 && !bookingStatus.success) ? 'disabled' : ''
+              }`} 
               onClick={() => {
+                // If we're on final step (3), disable all previous tabs
+                if (currentStep === 3) {
+                  return; // Disable all tab clicks when on final step
+                }
+                
                 // Only allow navigation to step 0 or if all passengers are complete
-                if (index === 0 || areAllPassengersComplete()) {
+                // For steps 2+ (Payment Details, Final Step), also require terms acceptance
+                // For Final Step (index 3), also require successful booking submission
+                if (index === 0 || 
+                    (index === 1 && areAllPassengersComplete()) || 
+                    (index === 2 && areAllPassengersComplete() && termsAccepted) ||
+                    (index === 3 && areAllPassengersComplete() && termsAccepted && bookingStatus.success)) {
                   setCurrentStep(index);
                 }
               }}
@@ -206,7 +436,7 @@ const FlightStepperBooking = ({ flight, searchData, segment }) => {
                 className={
                   currentStep === index
                     ? "active size-40 rounded-full flex-center bg-blue-1"
-                    : index > 0 && !areAllPassengersComplete()
+                    : (index > 0 && !areAllPassengersComplete()) || (index >= 2 && !termsAccepted) || (index === 3 && !bookingStatus.success)
                     ? "size-40 rounded-full flex-center bg-light-2 text-light-1"
                     : "size-40 rounded-full flex-center bg-blue-1-05 text-blue-1 fw-500"
                 }
@@ -217,7 +447,9 @@ const FlightStepperBooking = ({ flight, searchData, segment }) => {
                   <span>{step.stepNo}</span>
                 )}
               </div>
-              <div className={`text-18 fw-500 ml-10 ${index > 0 && !areAllPassengersComplete() ? 'text-light-1' : ''}`}>
+              <div className={`text-18 fw-500 ml-10 ${
+                (index > 0 && !areAllPassengersComplete()) || (index >= 2 && !termsAccepted) || (index === 3 && !bookingStatus.success) ? 'text-light-1' : ''
+              }`}>
                 {step.title}
               </div>
             </div>
@@ -230,33 +462,6 @@ const FlightStepperBooking = ({ flight, searchData, segment }) => {
       <div className="row">{renderStep()}</div>
       {/* End main content */}
 
-      <div className="row x-gap-20 y-gap-20 pt-20">
-        <div className="col-auto">
-          <button
-            className="button h-60 px-24 -blue-1 bg-light-2"
-            disabled={currentStep === 0}
-            onClick={previousStep}
-          >
-            Previous
-          </button>
-        </div>
-        {/* End prvious btn */}
-
-        <div className="col-auto">
-          <button
-            className="button h-60 px-24 -dark-1 bg-blue-1 text-white"
-            disabled={
-              currentStep === 3 || // 4 steps total (0, 1, 2, 3)
-              (currentStep === 0 && !areAllPassengersComplete())
-            }
-            onClick={nextStep}
-          >
-            Next <div className="icon-arrow-top-right ml-15" />
-          </button>
-        </div>
-        {/* End next btn */}
-      </div>
-      {/* End stepper button */}
     </>
   );
 };

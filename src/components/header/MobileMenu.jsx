@@ -43,7 +43,7 @@ const MobileMenu = () => {
     <>
       <div className="pro-header d-flex align-items-center justify-between border-bottom-light">
         <Link to="/" className="d-flex flex-column align-items-center">
-          <img src="/img/general/logo-dark.svg" alt="brand" />
+          <img src="/img/general/birb.png" alt="brand" />
           <span className="text-20 fw-500 mt-10 text-dark-1">Flight Booking</span>
         </Link>
         {/* End logo */}
@@ -118,7 +118,7 @@ const MobileMenu = () => {
             className=" button -dark-1 px-30 fw-400 text-14 bg-blue-1 h-50 text-white"
             to="/login"
           >
-            dheerajnarang2050@gmail.com
+            sushant.langhi05@gmail.com
           </Link> 
         </div> */}
       </div>
@@ -137,7 +137,7 @@ export const AdminMobileMenu = () => {
     <>
       <div className="pro-header d-flex align-items-center justify-between border-bottom-light">
         <Link to="/" className="d-flex flex-column align-items-center">
-          <img src="/img/general/logo-dark.svg" alt="brand" />
+          <img src="/img/general/birb.png" alt="brand" />
           <span className="text-20 fw-500 mt-10 text-dark-1">Flight Booking</span>
         </Link>
         <div className="fix-icon" data-bs-dismiss="offcanvas" aria-label="Close">

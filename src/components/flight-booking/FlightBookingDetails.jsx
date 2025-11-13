@@ -1,7 +1,18 @@
 // src/components/flight-booking/FlightBookingDetails.jsx
+import React, { useMemo } from 'react';
 import PriceBreakdown from './PriceBreakdown';
+import { useBatchAirlineLogos } from '../../services/batchLogoService';
+import AirlineLogo from '../common/AirlineLogo';
 
 const FlightBookingDetails = ({ flight, segment, searchData }) => {
+  // Memoize the flights array to prevent infinite re-renders
+  const flightsArray = useMemo(() => {
+    return flight ? [flight] : [];
+  }, [flight]);
+
+  // Batch logo service for flight
+  const { logoMap, loading: logoLoading, error: logoError } = useBatchAirlineLogos(flightsArray);
+
   if (!flight || !searchData) {
     return (
       <div className="px-30 py-30 border-light rounded-4">
@@ -21,7 +32,15 @@ const FlightBookingDetails = ({ flight, segment, searchData }) => {
       {/* --- Flight Information Section --- */}
       <div className="row x-gap-15 y-gap-20">
         <div className="col-auto">
-          <img src={flight.flightList?.[0]?.avatar || '/img/flights/default-flight.png'} alt="airline logo" className="size-40" />
+          <AirlineLogo 
+            className="size-40"
+            alt="airline logo"
+            fallbackImage={flight.flightList?.[0]?.avatar || '/img/flights/default-flight.png'}
+            validatingCarrierCode={flight.validatingCarrierCode}
+            airlineLogoUrl={flight.airlineLogo}
+            logoMap={logoMap}
+            logoLoading={logoLoading}
+          />
         </div>
         <div className="col">
           <div className="text-15 fw-500">{new Date(searchData.date).toDateString()}</div>

@@ -2,15 +2,15 @@ const ContactInfo = () => {
   const contactContent = [
     {
       id: 1,
-      title: "Toll Free Customer Care",
-      action: "tel:+918882817640",
-      text: "+91 8882817640",
+      title: "Contact for Hiring Me",
+      action: "tel:+919022864373",
+      text: "+91 9022864373",
     },
     {
       id: 2,
-      title: "Need live support?",
-      action: "mailto:dheerajnarang2050@gmail.com",
-      text: "dheerajnarang2050@gmail.com",
+      title: "Mail to Hire Me",
+      action: "mailto:sushant.langhi05@gmail.com",
+      text: "sushant.langhi05@gmail.com",
     },
   ];
   return (

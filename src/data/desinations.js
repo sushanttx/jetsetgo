@@ -156,7 +156,7 @@ export const destinations4 = [
   },
   {
     id: 5,
-    img: "/img/destinations/3/5.webp",
+    img: "/img/destinations/3/2.webp",
     location: "Spain",
     properties: "4,090",
     delayAnimation: "400",

@@ -1,8 +1,9 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import FlightBookingDetails from "./FlightBookingDetails";
 import { useState } from "react";
 import "../../../public/sass/components/FlightCustomerInfo.scss";
 import DatePicker from "react-multi-date-picker";
+import countriesData from "../../data/countries.json";
 
 const emptyPassenger = {
   fullName: "",
@@ -16,15 +17,19 @@ const emptyPassenger = {
   gender: "",
   dateOfBirth: "",
   passportNumber: "",
+  passportExpiryDate: "",
   nationality: "",
   seatPreference: "",
   mobileNumber: "",
   alternateNumber: ""
 };
 
-const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDetails, passengers, setPassengers, currentPassenger, setCurrentPassenger, onNextStep }) => {
+const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDetails, passengers, setPassengers, currentPassenger, setCurrentPassenger, onNextStep, onPreviousStep, currentStep, totalSteps }) => {
+  const navigate = useNavigate();
   const [datePickerFocused, setDatePickerFocused] = useState(false);
   const [datePickerFocusedArr, setDatePickerFocusedArr] = useState([]); // for mapped passengers
+  const [passportExpiryFocused, setPassportExpiryFocused] = useState(false);
+  const [passportExpiryFocusedArr, setPassportExpiryFocusedArr] = useState([]); // for mapped passengers
   const [genderSelectFocused, setGenderSelectFocused] = useState(false);
   const [seatSelectFocused, setSeatSelectFocused] = useState(false);
   const [genderSelectFocusedArr, setGenderSelectFocusedArr] = useState([]);
@@ -154,6 +159,17 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
     }
   };
 
+  const scrollToPassengerDetails = () => {
+    const element = document.getElementById('passenger-details-section');
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+        inline: 'nearest'
+      });
+    }
+  };
+
   const handleAddPassenger = () => {
     // Only add if at least one field is filled
     if (passengers.length >= totalPassengersAllowed) {
@@ -164,6 +180,11 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
     if (!hasData) return;
     setPassengers((prev) => [...prev, currentPassenger]);
     setCurrentPassenger(emptyPassenger);
+    
+    // Scroll to passenger details section after adding passenger
+    setTimeout(() => {
+      scrollToPassengerDetails();
+    }, 100); // Small delay to ensure state update is complete
   };
 
   return (
@@ -178,7 +199,7 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
         </div> */}
         {/* End register notify */}
 
-        <div className="row y-gap-20 items-center justify-between mt-40 md:mt-24">
+        <div id="passenger-details-section" className="row y-gap-20 items-center justify-between mt-40 md:mt-24">
           <div className="col-auto">
             <h2 className="text-22 fw-500">
               Passenger Details
@@ -192,13 +213,21 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
                 <br />You have added <b>{passengers.length}</b> so far.
                 {passengers.length === totalPassengersAllowed && (
                   <div className="text-14 mt-2">
-                    ✅ All passengers added! Please proceed.
+                    All passengers added! Please proceed.
                   </div>
                 )}
               </div>
             )}
           </div>
           <div className="col-auto d-flex items-center" style={{ gap: '16px' }}>
+            <button
+              className="button h-60 px-24 -blue-1 bg-light-2"
+              style={{ marginTop: 0 }}
+              onClick={() => navigate('/flight')}
+              type="button"
+            >
+              Previous
+            </button>
             <button
               className="button h-60 px-24 -dark-1 bg-blue-1 text-white"
               style={{ marginTop: 0 }}
@@ -210,24 +239,8 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
             </button>
             {areAllPassengersComplete() && (
               <button
-                className="button h-60 px-30 fw-600"
-                style={{ 
-                  marginTop: 0,
-                  background: 'transparent',
-                  border: '2px solid #3b82f6',
-                  color: '#3b82f6',
-                  borderRadius: '8px',
-                  transition: 'all 0.3s ease',
-                  cursor: 'pointer'
-                }}
-                onMouseEnter={(e) => {
-                  e.target.style.background = '#3b82f6';
-                  e.target.style.color = 'white';
-                }}
-                onMouseLeave={(e) => {
-                  e.target.style.background = 'transparent';
-                  e.target.style.color = '#3b82f6';
-                }}
+                className="button h-60 px-24 -dark-1 bg-blue-1 text-white"
+                style={{ marginTop: 0 }}
                 onClick={() => {
                   console.log('Next button clicked - all passengers complete');
                   if (onNextStep) {
@@ -236,7 +249,7 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
                 }}
                 type="button"
               >
-                Next Step
+                Next <div className="icon-arrow-top-right ml-15" />
               </button>
             )}
           </div>
@@ -325,14 +338,19 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
 
               <div className="col-md-6">
                 <div className="form-input ">
-                  <input 
-                    type="text" 
+                  <select 
                     name="nationality" 
                     value={currentPassenger.nationality} 
                     onChange={handleChange} 
                     required 
-                    placeholder=" "
-                  />
+                  >
+                    <option value="">Select Nationality</option>
+                    {countriesData.map((country) => (
+                      <option key={country.code} value={country.code}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
                   <label className="lh-1 text-16 text-light-1">Nationality<span style={{ color: "red" }}>*</span></label>
                 </div>
               </div>
@@ -367,7 +385,7 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
               </div>
               {/* End col-md-6 */}
 
-              <div className="col-md-6">
+              <div className="col-md-4">
                 <div className="form-input ">
                   <input 
                     type="text" 
@@ -376,12 +394,35 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
                     onChange={handleChange} 
                     placeholder=" "
                   />
-                  <label className="lh-1 text-16 text-light-1">Passport Number (if required)</label>
+                  <label className="lh-1 text-16 text-light-1">Passport Number</label>
                 </div>
               </div>
               {/* End col-md-6 */}
 
-              <div className="col-md-6">
+              <div className="col-md-4">
+                <div className={`form-input date-picker-field ${passportExpiryFocused || Boolean(currentPassenger.passportExpiryDate) ? " active" : ""}`}>
+                  <DatePicker
+                    name="passportExpiryDate"
+                    value={currentPassenger.passportExpiryDate}
+                    onChange={(date) => {
+                      const formattedDate = date ? date.format("MM/DD/YYYY") : "";
+                      handleChange({ target: { name: "passportExpiryDate", value: formattedDate } });
+                    }}
+                    onOpen={() => setPassportExpiryFocused(true)}
+                    onClose={() => setPassportExpiryFocused(false)}
+                    format="MM/DD/YYYY"
+                    placeholder=" "
+                    className="custom-date-picker"
+                    containerStyle={{ width: "100%" }}
+                    inputClass="custom_input-picker"
+                    minDate={new Date()}
+                  />
+                  <label className="lh-1 text-16 text-light-1">Passport Expiry Date</label>
+                </div>
+              </div>
+              {/* End col-md-6 */}
+
+              <div className="col-md-4">
                 <div className={`form-input${seatSelectFocused || Boolean(currentPassenger.seatPreference) ? " active" : ""}`}>
                   <label className="seat-label">Seat Preference<span style={{ color: "red" }}>*</span></label>
                   <select
@@ -503,7 +544,7 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
                 <div className="row y-gap-20 items-center justify-between">
                   <div className="col-auto">
                     <div className="text-14 text-light-1">
-                      By proceeding with this booking, I agree to GoTrip Terms of
+                      By proceeding with this booking, I agree to JetSetGo Terms of
                       Use and Privacy Policy.
                     </div>
                   </div>
@@ -527,7 +568,7 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
             <div className="text-18 fw-600 mb-10">
               {getPassengerTypeAndNumber(idx)}
               {isComplete ? (
-                <span className="text-14 text-green-1 ml-10">✅ Complete</span>
+                <span className="text-14 text-green-2 ml-10">Complete</span>
               ) : (
                 <span className="text-14 text-orange-1 ml-10">
                   ⚠️ Missing: {missingFields.join(', ')}
@@ -600,14 +641,19 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
               </div>
               <div className="col-md-6">
                 <div className="form-input ">
-                  <input 
-                    type="text" 
+                  <select 
                     name="nationality" 
                     value={passenger.nationality} 
                     onChange={e => handleChange(e, idx)} 
                     required 
-                    placeholder=" "
-                  />
+                  >
+                    <option value="">Select Nationality</option>
+                    {countriesData.map((country) => (
+                      <option key={country.code} value={country.code}>
+                        {country.name}
+                      </option>
+                    ))}
+                  </select>
                   <label className="lh-1 text-16 text-light-1">Nationality</label>
                 </div>
               </div>
@@ -645,7 +691,36 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
                     onChange={e => handleChange(e, idx)} 
                     placeholder=" "
                   />
-                  <label className="lh-1 text-16 text-light-1">Passport Number (if required)</label>
+                  <label className="lh-1 text-16 text-light-1">Passport Number</label>
+                </div>
+              </div>
+              <div className="col-md-6">
+                <div className={`form-input${passportExpiryFocusedArr[idx] || Boolean(passenger.passportExpiryDate) ? " active" : ""}`}>
+                  <DatePicker
+                    name="passportExpiryDate"
+                    value={passenger.passportExpiryDate}
+                    onChange={(date) => {
+                      const formattedDate = date ? date.format("MM/DD/YYYY") : "";
+                      handleChange({ target: { name: "passportExpiryDate", value: formattedDate } }, idx);
+                    }}
+                    onOpen={() => {
+                      const newFocused = [...passportExpiryFocusedArr];
+                      newFocused[idx] = true;
+                      setPassportExpiryFocusedArr(newFocused);
+                    }}
+                    onClose={() => {
+                      const newFocused = [...passportExpiryFocusedArr];
+                      newFocused[idx] = false;
+                      setPassportExpiryFocusedArr(newFocused);
+                    }}
+                    format="MM/DD/YYYY"
+                    placeholder=" "
+                    className="custom-date-picker"
+                    containerStyle={{ width: "100%" }}
+                    inputClass="form-control"
+                    minDate={new Date()}
+                  />
+                  <label className="lh-1 text-16 text-light-1">Passport Expiry Date (if passport provided)</label>
                 </div>
               </div>
               <div className="col-md-6">
@@ -745,6 +820,31 @@ const FlightCustomerInfo = ({ flight, searchData, personalDetails, setPersonalDe
         </div>
       </div>
       {/* End .col-xl-5 */}
+
+      {/* Navigation Buttons */}
+      <div className="row x-gap-20 y-gap-20 pt-20">
+        <div className="col-auto">
+          <button
+            className="button h-60 px-24 -blue-1 bg-light-2"
+            disabled={currentStep === 0}
+            onClick={onPreviousStep}
+            type="button"
+          >
+            Previous
+          </button>
+        </div>
+
+        <div className="col-auto">
+          <button
+            className="button h-60 px-24 -dark-1 bg-blue-1 text-white"
+            disabled={currentStep === totalSteps || !areAllPassengersComplete()}
+            onClick={onNextStep}
+            type="button"
+          >
+            Next <div className="icon-arrow-top-right ml-15" />
+          </button>
+        </div>
+      </div>
     </>
   );
 };

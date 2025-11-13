@@ -2,28 +2,20 @@ import Social from "../../common/social/Social";
 
 const Copyright = () => {
   return (
-    <div className="row justify-between items-center y-gap-10">
+    <div className="row items-center y-gap-10 justify-center">
       <div className="col-auto">
         <div className="row x-gap-30 y-gap-10">
           <div className="col-auto">
             <div className="d-flex items-center">
-              © {new Date().getFullYear()} by
+              © {new Date().getFullYear()} 
+              . All rights reserved 
               <a
-                // href="https://themeforest.net/user/ib-themes"
+                href="https://www.linkedin.com/in/sushantlanghi/"
                 className="mx-2"
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                FlightBooking
-              </a>
-              All rights reserved. By 
-              <a
-                href="https://createntropy.com/"
-                className="mx-2"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                Createntropy
+                Sushant Langhi
               </a>
             </div>
           </div>
@@ -31,9 +23,9 @@ const Copyright = () => {
 
           <div className="col-auto">
             <div className="d-flex x-gap-15">
-              <a href="#">Privacy</a>
+              {/* <a href="#">Privacy</a>
               <a href="#">Terms</a>
-              <a href="#">Site Map</a>
+              <a href="#">Site Map</a> */}
             </div>
           </div>
           {/* End .col */}
@@ -44,7 +36,7 @@ const Copyright = () => {
 
       <div className="col-auto">
         <div className="row y-gap-10 items-center">
-          <div className="col-auto">
+          {/* <div className="col-auto">
             <div className="d-flex items-center">
               <button className="d-flex items-center text-14 fw-500 text-dark-1 mr-10">
                 <i className="icon-globe text-16 mr-10" />
@@ -55,7 +47,7 @@ const Copyright = () => {
                 <span className="underline">USD</span>
               </button>
             </div>
-          </div>
+          </div> */}
           {/* End .col */}
 
           <div className="col-auto">

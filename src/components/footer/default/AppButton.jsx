@@ -1,37 +1,23 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
-import { useEffect } from "react";
-const TawkToWidget = () => {
-  useEffect(() => {
-    const script = document.createElement("script");
-    script.src = "https://embed.tawk.to/68500e403f2d67190d834de6/1itsbfbm5";
-    script.async = true;
-    script.charset = "UTF-8";
-    script.setAttribute("crossorigin", "*");
-    document.body.appendChild(script);
-  }, []);
-
-  return null;
-};
-
 const AppButton = () => {
   const appContent = [
     {
       id: 1,
-      icon: "fa-solid fa-comments", // Use your actual live chat icon class here
-      // link: "https://www.livechat.com/", // Replace with your Live Chat URL
-      text: "Chat with us on",
-      market: "Live Chat",
+      icon: "icon-linkedin", // Use your actual live chat icon class here
+      link: "https://www.linkedin.com/in/sushantlanghi/", // Replace with your Live Chat URL
+      text: "Hit me up on",
+      market: "LinkedIn",
       colClass: "",
     },
     {
       id: 2,
       icon: "fa-brands fa-whatsapp", // Use your actual WhatsApp icon class here
-      link: "https://wa.me/+918882817640", // Replace with your WhatsApp number link
-      text: "Message us on",
+      link: "https://wa.me/+919022864373", // Replace with your WhatsApp number link
+      text: "Text on",
       market: "WhatsApp",
       colClass: "mt-20",
-    },
+    },  
   ];
 
   return (
@@ -46,7 +32,6 @@ const AppButton = () => {
             <div className="text-14 text-light-1">{item.text}</div>
             <div className="text-15 lh-1 fw-500">{item.market}</div>
           </a>
-          <TawkToWidget />
         </div>
       ))}
     </>

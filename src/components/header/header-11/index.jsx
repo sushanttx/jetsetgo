@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { FiPhone, FiMail } from "react-icons/fi"; // ✅ Import icons
+import { FiPhone, FiMail, FiType } from "react-icons/fi"; // ✅ Import icons
 import MainMenu from "../MainMenu";
 import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 import LanguageMegaMenu from "../LanguageMegaMenu";
@@ -32,8 +32,8 @@ const Header1 = () => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 <Link to="/" className="header-logo ">
-                  <img src="/img/general/logo-dark.svg" alt="logo icon" />
-                  <img src="/img/general/logo-dark.svg" alt="logo icon" />
+                  <img src="/img/general/birb.png" alt="logo icon" />
+                  <img src="/img/general/birb.png" alt="logo icon" />
                 </Link>
 
                 <div className="header-menu">
@@ -47,22 +47,42 @@ const Header1 = () => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 <div className="row x-gap-20 items-center xxl:d-none">
-                  <CurrenctyMegaMenu textClass="text-white" />
-                  <div className="col-auto">
-                    <div className="w-1 h-20 bg-white-20" />
-                  </div>
+                  {/* <CurrenctyMegaMenu textClass="text-white" /> */}
                   <LanguageMegaMenu textClass="text-white" />
+                  <div className="col-auto">
+                    <div className="w-1 h-20 bg-black-20" />
+                  </div>
                 </div>
 
 
                 {/* ✅ Sign In / Register Button */}
                 <div className="d-flex items-center  ">
                   <Link
-                    to="tel:+918882817640"
-                    aria-label="Call us"
-                    className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
+                    to="mailto:sushant.langhi05@gmail.com"
+                    aria-label="Call Me"
+                    className="button px-15 gap-2 fw-400 text-14 border-white -outline-white h-50 text-white ml-5"
                   >
-                  <FiPhone />{" "}+918882817640 
+                  <FiMail />{" "}Mail 
+                  </Link>
+                </div>
+
+                <div className="d-flex items-center  ">
+                  <Link
+                    to="tel:+919022864373"
+                    aria-label="Call Me"
+                    className="button px-15 gap-2 fw-400 text-14 border-white -outline-white h-50 text-white ml-5"
+                  >
+                  <FiPhone />{" "}Contact 
+                  </Link>
+                </div>
+                
+                <div className="d-flex items-center  ">
+                  <Link
+                    to="tel:+919022864373"
+                    aria-label="Text"
+                    className="button px-15 gap-2 fw-400 text-14 border-white -outline-white h-50 text-white ml-5"
+                  >
+                  <FiType />{" "}WhatsApp 
                   </Link>
                 </div>
 

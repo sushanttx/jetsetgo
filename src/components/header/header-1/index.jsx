@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { FiPhone, FiMail } from "react-icons/fi";
+import { FiPhone, FiMail, FiType } from "react-icons/fi";
 import MainMenu from "../MainMenu";
 import CurrenctyMegaMenu from "../CurrenctyMegaMenu";
 import LanguageMegaMenu from "../LanguageMegaMenu";
@@ -34,8 +34,8 @@ const Header1 = () => {
             <div className="col-auto">
               <div className="d-flex items-center">
                 <Link to="/" className="header-logo ">
-                  <img src="/img/general/logo-dark.svg" alt="logo icon" />
-                  <img src="/img/general/logo-dark.svg" alt="logo icon" />
+                  <img src="/img/general/birb.png" alt="logo icon" />
+                  <img src="/img/general/birb.png" alt="logo icon" />
                 </Link>
 
                 <div className="header-menu">
@@ -48,8 +48,8 @@ const Header1 = () => {
 
             <div className="col-auto">
               <div className="d-flex items-center">
-                <div className="row x-gap-20 items-center xxl:d-none">
-                  <div className="col-auto">
+                <div className="row x-gap-20 items-center xxl:d-none gap">
+                  {/* <div className="col-auto">
                     {isAuthenticated && user ? (
                       // If user is LOGGED IN
                       user.role === "admin" || user.role === "superadmin" ? (
@@ -76,12 +76,12 @@ const Header1 = () => {
                         Sign Up / Register
                       </Link>
                     )}
-                  </div>
-                  <CurrenctyMegaMenu textClass="text-white" />
+                  </div> */}
+                  {/* <CurrenctyMegaMenu textClass="text-white" /> */}
+                  <LanguageMegaMenu textClass="text-white" />
                   <div className="col-auto">
                     <div className="w-1 h-20 bg-white-20" />
                   </div>
-                  <LanguageMegaMenu textClass="text-white" />
                 </div>
 
 
@@ -89,11 +89,32 @@ const Header1 = () => {
                 {/* Buttons */}
                 <div className="d-flex items-center ">
                   <Link
-                    to="tel:+918882817640"
-                    aria-label="Call us"
-                    className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
+                    to="mailto:sushant.langhi05@gmail.com"
+                    aria-label="Mail"
+                    className="button px-15 fw-400 text-14 border-white -outline-white h-50 text-white ml-5 gap-2"
                   >
-                    <FiPhone />{" "} +91 8882817640
+                    <FiMail />{" "} Mail
+                  </Link>
+                </div>
+
+                <div className="d-flex items-center ">
+                  <Link
+                    to="tel:+919022864373"
+                    aria-label="Call"
+                    className="button px-15 fw-400 text-14 border-white -outline-white h-50 text-white ml-5 gap-2"
+                  >
+                    <FiPhone />{" "} Contact
+                  </Link>
+                </div>
+                
+                
+                <div className="d-flex items-center ">
+                  <Link
+                    to="tel:+919022864373"
+                    aria-label="WhatsApp"
+                    className="button px-15 fw-400 text-14 border-white -outline-white h-50 text-white ml-5 gap-2"
+                  >
+                    <FiType />{" "} WhatsApp
                   </Link>
                 </div>
 
@@ -107,11 +128,11 @@ const Header1 = () => {
                   </div> */}
                   {/* <div d-flex items-center ml-20>
                   <Link
-                    to="tel:+918882817640"
+                    to="tel:+919022864373"
                     className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20 "
                     // className="button px-30 fw-200 text-14 -outline-blue-1 h-50 text-blue-1 ml-20"
                   >
-                    <FiPhone /> {" "}+918882817640
+                    <FiPhone /> {" "}+919022864373
                   </Link>
                 </div> */}
                   <div>

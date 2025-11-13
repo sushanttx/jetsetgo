@@ -39,7 +39,7 @@ const Testimonial = () => {
       <div className="d-flex items-center mt-60 sm:mt-20 js-testimonials-slider-pag">
         <div className="text-dark-1 fw-500 js-current">01</div>
         <div className="slider-scrollbar bg-border ml-20 mr-20 w-max-300 js-scrollbar" />
-        <div className="text-dark-1 fw-500 js-all">03</div>
+        <div className="text-dark-1 fw-500 js-all">02</div>
       </div>
     </>
   );

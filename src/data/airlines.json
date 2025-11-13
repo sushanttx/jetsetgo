@@ -183,25 +183,11 @@
         "searchTerms": ["9I", "Alliance Air", "India", "Delhi"]
       },
       {
-        "code": "S5",
-        "name": "Star Air",
-        "country": "India",
-        "alliance": "None",
-        "searchTerms": ["S5", "Star Air", "India", "Bengaluru"]
-      },
-      {
         "code": "G8",
         "name": "Go First",
         "country": "India",
         "alliance": "None",
         "searchTerms": ["G8", "Go First", "India", "Mumbai"]
-      },
-      {
-        "code": "Qantas",
-        "name": "Qantas Airways",
-        "country": "Australia",
-        "alliance": "oneworld",
-        "searchTerms": ["QF", "Qantas", "Australia", "Sydney"]
       },
       {
         "code": "VA",

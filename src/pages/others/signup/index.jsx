@@ -7,8 +7,8 @@ import SignUpForm from "@/components/common/SignUpForm";
 import MetaComponent from "@/components/common/MetaComponent";
 
 const metadata = {
-  title: "Sign Up || Flight Booking",
-  description: "Flight Booking",
+  title: "Sign Up || JetSetGo",
+  description: "JetSetGo",
 };
 
 const SignUp = () => {

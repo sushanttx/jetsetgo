@@ -40,8 +40,8 @@ const Header1 = () => {
 
             <div className="col-auto">
               <Link to="/" className="header-logo">
-                <img src="/img/general/logo-dark.svg" alt="logo icon" />
-                <img src="/img/general/logo-dark.svg" alt="logo icon" />
+                <img src="/img/general/birb.png" alt="logo icon" />
+                <img src="/img/general/birb.png" alt="logo icon" />
               </Link>
               {/* End logo */}
             </div>
@@ -52,11 +52,11 @@ const Header1 = () => {
                 {/* Start btn-group */}
                 <div className="d-flex items-center ">
                   <Link
-                    to="tel:+918882817640"
+                    to="tel:+919022864373"
                     aria-label="Call us"
                     className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
                   >
-                    <FiPhone />{" "} +918882817640
+                    <FiPhone />{" "} +919022864373
                   </Link>
                 </div>
                 {/* End btn-group */}

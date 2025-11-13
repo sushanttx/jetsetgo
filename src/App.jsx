@@ -1,7 +1,7 @@
 import Aos from "aos";
 import { useEffect } from "react";
 import SrollTop from "./components/common/ScrollTop";
-import { logHostingInfo } from "./config/hosting";
+// Removed hosting import for Vercel deployment
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
@@ -12,10 +12,9 @@ import "./styles/index.scss";
 import { Provider } from "react-redux";
 import { store } from "./store/store";
 import ProtectedRoute from "./components/common/ProtectedRoute";
+import PostLoginActionHandler from "./components/common/PostLoginActionHandler";
 
-if (typeof window !== "undefined") {
-  import("bootstrap");
-}
+import "bootstrap/dist/js/bootstrap.bundle.min.js";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import ScrollTopBehaviour from "./components/common/ScrollTopBehaviour";
 import Home from "./pages";
@@ -87,8 +86,7 @@ import BookingManagementPage from "./pages/dashboard/vendor-dashboard/booking-ma
 
 function App() {
   useEffect(() => {
-    // Log hosting configuration on app startup
-    logHostingInfo();
+    // No hosting logs for Vercel deployment
     
     Aos.init({
       duration: 1200,
@@ -100,21 +98,13 @@ function App() {
     <main>
       <Provider store={store}>
         <BrowserRouter>
+          <PostLoginActionHandler />
           <Routes>
             <Route path="/">
               <Route index element={<Home />} />
               <Route path="home_1" element={<Home_1 />} />
-              {/* <Route path="home_2" element={<Home_2 />} /> 
-              <Route path="home_3" element={<Home_3 />} />
-              <Route path="home_4" element={<Home_4 />} />
-              <Route path="home_5" element={<Home_5 />} />
-              <Route path="home_6" element={<Home_6 />} />
-              <Route path="home_7" element={<Home_7 />} />
-              <Route path="home_8" element={<Home_8 />} />
-              <Route path="home_9" element={<Home_9 />} />
-              <Route path="home_10" element={<Home_10 />} />*/}
 
-              <Route path="blog" element={<BlogListV1 />} />
+              {/* <Route path="blog" element={<BlogListV1 />} /> */}
               <Route path="blog-list-v2" element={<BlogListV2 />} />
               <Route path="blog-details/:id" element={<BlogSingleDynamic />} />
 

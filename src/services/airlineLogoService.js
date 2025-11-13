@@ -1,9 +1,14 @@
 // src/services/airlineLogoService.js
 // Handles airline logo fetching with caching functionality
+// UPDATED: Only uses ValidatingCarrierCode with .png extension
 
-const AIRLINE_LOGO_BASE_URL = "https://images.trippro.com/AirlineImages/AirLine/GDS/images/70X70";
+// Backend proxy endpoint for airline logos
+const AIRLINE_LOGO_BASE_URL = "/api/airline-logos";
 const CACHE_KEY_PREFIX = "airline_logo_";
 const CACHE_EXPIRY_DAYS = 30; // Cache logos for 30 days
+
+// Configuration flags
+let ENABLE_EXTERNAL_API = true;
 
 // Helper function to get cache key
 const getCacheKey = (logoName) => `${CACHE_KEY_PREFIX}${logoName}`;
@@ -117,194 +122,104 @@ const extractAirlineCode = (logoName) => {
   return null;
 };
 
-// Main function to get airline logo URL
-export const getAirlineLogoUrl = async (flightLogoName, fallbackImage = null) => {
-  console.log('🚀 getAirlineLogoUrl called with:', { flightLogoName, fallbackImage });
-  
-  // If no logo name provided, return fallback
-  if (!flightLogoName || flightLogoName.trim() === '') {
-    console.log('❌ No logo name provided, returning fallback');
-    return fallbackImage || getFallbackImage();
-  }
-
-  // Clean the logo name (remove any extra spaces, convert to proper format)
-  const cleanLogoName = flightLogoName.trim();
-  console.log('🧹 Cleaned logo name:', cleanLogoName);
-  
-  // Check cache first
-  const cachedUrl = getFromCache(cleanLogoName);
-  if (cachedUrl) {
-    console.log('💾 Found in cache:', cachedUrl);
-    return cachedUrl;
-  }
-
-  // Construct the API URL
-  const apiUrl = `${AIRLINE_LOGO_BASE_URL}/${cleanLogoName}`;
-  console.log('🌐 API URL:', apiUrl);
-  
-  try {
-    // Test if the image exists by making a HEAD request
-    console.log('🔄 Making HEAD request to:', apiUrl);
-    const response = await fetch(apiUrl, { 
-      method: 'HEAD',
-      mode: 'cors'
-    });
-    
-    console.log('📡 Response status:', response.status, response.ok);
-    
-    if (response.ok) {
-      // Image exists, save to cache and return URL
-      console.log('✅ Image found, saving to cache');
-      saveToCache(cleanLogoName, apiUrl);
-      return apiUrl;
-    } else if (response.status === 404) {
-      // 404 - Image doesn't exist, try alternative strategies
-      console.log('❌ 404 - Image not found, trying alternative strategies');
-      
-      // Strategy 1: Try with different extensions
-      const extensions = ['.png', '.jpg', '.jpeg', '.gif', '.svg'];
-      for (const ext of extensions) {
-        const testUrl = `${AIRLINE_LOGO_BASE_URL}/${cleanLogoName.replace(/\.[^/.]+$/, '')}${ext}`;
-        console.log('🔄 Trying extension:', ext, testUrl);
-        try {
-          const testResponse = await fetch(testUrl, { 
-            method: 'HEAD',
-            mode: 'cors'
-          });
-          if (testResponse.ok) {
-            console.log('✅ Found with extension:', ext);
-            saveToCache(cleanLogoName, testUrl);
-            return testUrl;
-          }
-        } catch (testError) {
-          console.log('❌ Extension failed:', ext, testError);
-          // Continue to next extension
-          continue;
-        }
-      }
-      
-      // Strategy 2: Try with airline code extraction (e.g., "VIRGINATLANTIC.gif" -> "VS")
-      const airlineCode = extractAirlineCode(cleanLogoName);
-      if (airlineCode && airlineCode !== cleanLogoName) {
-        console.log('🔄 Trying airline code:', airlineCode);
-        const codeUrl = `${AIRLINE_LOGO_BASE_URL}/${airlineCode}.png`;
-        try {
-          const codeResponse = await fetch(codeUrl, { 
-            method: 'HEAD',
-            mode: 'cors'
-          });
-          if (codeResponse.ok) {
-            console.log('✅ Found with airline code:', airlineCode);
-            saveToCache(cleanLogoName, codeUrl);
-            return codeUrl;
-          }
-        } catch (codeError) {
-          console.log('❌ Airline code failed:', airlineCode, codeError);
-        }
-      }
-      
-      // Strategy 3: Try common variations
-      const variations = [
-        cleanLogoName.toLowerCase(),
-        cleanLogoName.toUpperCase(),
-        cleanLogoName.replace(/[^a-zA-Z0-9]/g, ''),
-        cleanLogoName.replace(/[^a-zA-Z0-9]/g, '').toLowerCase()
-      ];
-      
-      for (const variation of variations) {
-        if (variation !== cleanLogoName) {
-          const variationUrl = `${AIRLINE_LOGO_BASE_URL}/${variation}.png`;
-          console.log('🔄 Trying variation:', variation, variationUrl);
-          try {
-            const variationResponse = await fetch(variationUrl, { 
-              method: 'HEAD',
-              mode: 'cors'
-            });
-            if (variationResponse.ok) {
-              console.log('✅ Found with variation:', variation);
-              saveToCache(cleanLogoName, variationUrl);
-              return variationUrl;
-            }
-          } catch (variationError) {
-            console.log('❌ Variation failed:', variation, variationError);
-          }
-        }
-      }
-      
-      // If no image found with any strategy, save null to cache to avoid repeated requests
-      console.log('❌ No image found with any strategy, using fallback');
-      saveToCache(cleanLogoName, null);
-      return fallbackImage || getFallbackImage();
-    } else {
-      // Other HTTP errors
-      console.log('❌ HTTP error:', response.status, 'using fallback');
-      saveToCache(cleanLogoName, null);
-      return fallbackImage || getFallbackImage();
-    }
-  } catch (error) {
-    console.warn(`❌ Failed to fetch airline logo for ${cleanLogoName}:`, error);
-    // Save null to cache to avoid repeated failed requests
-    saveToCache(cleanLogoName, null);
-    return fallbackImage || getFallbackImage();
-  }
+// Function to enable/disable external API calls
+export const setExternalApiEnabled = (enabled) => {
+  ENABLE_EXTERNAL_API = enabled;
+  console.log(`🔧 External API ${enabled ? 'enabled' : 'disabled'}`);
 };
 
-// Function to preload multiple airline logos
-export const preloadAirlineLogos = async (logoNames) => {
-  if (!Array.isArray(logoNames) || logoNames.length === 0) {
+// DEPRECATED: This function is no longer used
+// The backend now automatically provides airline logos in the flight data
+// Use item.airlineLogo directly from the API response instead
+export const getAirlineLogoUrl = async (flightLogoName, fallbackImage = null, validatingCarrierCode = null) => {
+  console.warn('⚠️ DEPRECATED: getAirlineLogoUrl is no longer used. Backend now provides logos automatically.');
+  console.warn('💡 Use item.airlineLogo from the API response instead.');
+  return fallbackImage || getFallbackImage();
+};
+
+// Function to preload multiple airline logos using ValidatingCarrierCode
+export const preloadAirlineLogos = async (validatingCarrierCodes) => {
+  if (!Array.isArray(validatingCarrierCodes) || validatingCarrierCodes.length === 0) {
     return;
   }
 
-  const preloadPromises = logoNames.map(async (logoName) => {
+  const preloadPromises = validatingCarrierCodes.map(async (carrierCode) => {
     try {
-      await getAirlineLogoUrl(logoName);
+      await getAirlineLogoUrl(null, null, carrierCode);
     } catch (error) {
-      console.warn(`Failed to preload logo for ${logoName}:`, error);
+      console.warn(`Failed to preload logo for ${carrierCode}:`, error);
     }
   });
 
   await Promise.allSettled(preloadPromises);
 };
 
-// Function to preload common airline logos
+// Function to preload common airline logos using ValidatingCarrierCode
 export const preloadCommonAirlineLogos = async () => {
-  const commonLogos = [
-    'AirIndia_logo.gif',
-    'IndiGo_logo.png',
-    'SpiceJet_logo.png',
-    'Vistara_logo.png',
-    'GoAir_logo.png',
-    'AirAsia_logo.png',
-    'Emirates_logo.png',
-    'Qatar_logo.png',
-    'Singapore_logo.png',
-    'Lufthansa_logo.png',
-    'British_logo.png',
-    'American_logo.png',
-    'Delta_logo.png',
-    'United_logo.png'
+  const commonCarrierCodes = [
+    'AI',   // Air India
+    '6E',   // IndiGo
+    'SG',   // SpiceJet
+    'UK',   // Vistara
+    'G8',   // GoAir
+    'AK',   // AirAsia
+    'EK',   // Emirates
+    'QR',   // Qatar
+    'SQ',   // Singapore
+    'LH',   // Lufthansa
+    'BA',   // British Airways
+    'AA',   // American Airlines
+    'DL',   // Delta
+    'UA',   // United
+    'EI',   // Aer Lingus
+    'SU',   // Aeroflot
+    'AM',   // Aeromexico
+    'AC',   // Air Canada
+    'AF',   // Air France
+    'NZ',   // Air New Zealand
+    'AS'    // Alaska Airlines
   ];
 
-  await preloadAirlineLogos(commonLogos);
+  await preloadAirlineLogos(commonCarrierCodes);
 };
 
-// Function to test TripPro API with common airline codes
+// Function to test TripPro API with ValidatingCarrierCode
 export const testTripProApi = async () => {
   const testCodes = [
-    'VS', 'SK', 'AI', '6E', 'SG', 'UK', 'G8', 'AK', 
-    'EK', 'QR', 'SQ', 'LH', 'BA', 'AA', 'DL', 'UA',
-    'VIRGINATLANTIC.gif', 'skandinavian.gif', 'AirIndia_logo.gif'
+    'EI', 'SU', 'AM', 'AC', 'AF', 'AI', 'NZ', 'AS',
+    'VS', 'SK', '6E', 'SG', 'UK', 'G8', 'AK', 
+    'EK', 'QR', 'SQ', 'LH', 'BA', 'AA', 'DL', 'UA'
   ];
   
-  console.log('🧪 Testing TripPro API with common codes...');
+  console.log('🧪 Testing TripPro API with ValidatingCarrierCode...');
   
   for (const code of testCodes) {
-    const testUrl = `${AIRLINE_LOGO_BASE_URL}/${code}`;
+    const testUrl = `${AIRLINE_LOGO_BASE_URL}/${code}.png`;
     try {
       const response = await fetch(testUrl, { method: 'HEAD', mode: 'cors' });
       console.log(`${response.ok ? '✅' : '❌'} ${code}: ${response.status} - ${testUrl}`);
     } catch (error) {
       console.log(`❌ ${code}: Error - ${error.message}`);
+    }
+  }
+};
+
+// Function to test the new ValidatingCarrierCode functionality
+export const testValidatingCarrierCode = async () => {
+  console.log('🧪 Testing ValidatingCarrierCode functionality...');
+  
+  const testCases = [
+    'EI', 'SU', 'AM', 'AC', 'AF', 'AI', 'NZ', 'AS',
+    'BA', 'AA', 'EK', 'LH', 'QR', 'SQ', 'DL', 'UA'
+  ];
+  
+  for (const carrierCode of testCases) {
+    console.log(`\n🔄 Testing carrier code: ${carrierCode}`);
+    try {
+      const url = await getAirlineLogoUrl(null, null, carrierCode);
+      console.log(`✅ Result: ${url}`);
+    } catch (error) {
+      console.log(`❌ Error: ${error.message}`);
     }
   }
 };
@@ -435,9 +350,11 @@ export const useAirlineLogo = (flightLogoName, fallbackImage = null) => {
 // Default export for easy importing
 export default {
   getAirlineLogoUrl,
+  setExternalApiEnabled,
   preloadAirlineLogos,
   preloadCommonAirlineLogos,
   testTripProApi,
+  testValidatingCarrierCode,
   clearAirlineLogoCache,
   getCacheStats,
   cleanExpiredCache,

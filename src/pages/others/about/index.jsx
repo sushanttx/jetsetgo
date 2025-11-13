@@ -13,8 +13,8 @@ import Brand from "@/components/brand/Brand";
 import MetaComponent from "@/components/common/MetaComponent";
 
 const metadata = {
-  title: "About || Flight Booking",
-  description: "Flight Booking",
+  title: "About || JetSetGo",
+  description: "JetSetGo",
 };
 
 const About = () => {
@@ -101,7 +101,7 @@ const About = () => {
               <div className="sectionTitle -md">
                 <h2 className="sectionTitle__title">Our Team</h2>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
-                  Lorem ipsum dolor sit amet
+                  Our league of professionals
                 </p>
               </div>
             </div>

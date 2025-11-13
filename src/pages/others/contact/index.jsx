@@ -10,8 +10,8 @@ import LocationTopBar from "@/components/common/LocationTopBar";
 import MetaComponent from "@/components/common/MetaComponent";
 
 const metadata = {
-  title: "Contact || Flight Booking",
-  description: "Flight Booking",
+  title: "Contact || JetSetGo",
+  description: "JetSetGo",
 };
 
 const Contact = () => {
@@ -58,7 +58,7 @@ const Contact = () => {
 
             <div className="col-auto">
               <div className="text-14 text-light-1">
-                Follow us on social media
+                Connect with Me
               </div>
               <div className="d-flex x-gap-20 items-center mt-10">
                 <Social />

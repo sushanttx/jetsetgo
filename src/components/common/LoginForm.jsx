@@ -2,6 +2,7 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { loginUser, clearError } from "../../features/auth/authSlice";
+import { getRedirectAfterLogin, getPostLoginAction } from "../../utils/authUtils";
 
 const LoginForm = () => {
   const [formData, setFormData] = useState({
@@ -19,7 +20,18 @@ const LoginForm = () => {
   // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated && user) {
-      const from = location.state?.from?.pathname || "/";
+      // Check for post-login action first
+      const postLoginAction = getPostLoginAction();
+      if (postLoginAction) {
+        // If there's a post-login action, let PostLoginActionHandler deal with it
+        // Just redirect to the flight page where the action was initiated
+        navigate('/flight', { replace: true });
+        return;
+      }
+
+      // Check for stored redirect path from 403 error
+      const storedRedirect = getRedirectAfterLogin();
+      const from = storedRedirect || location.state?.from?.pathname || "/";
       
       // Redirect based on user role
       if (user.role === 'admin' || user.role === 'superadmin') {

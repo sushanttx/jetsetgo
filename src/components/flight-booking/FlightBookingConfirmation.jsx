@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import FlightBookingDetails from "./FlightBookingDetails";
 import "../../../public/sass/components/FlightBookingConfirmation.scss";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
-import { getAirlineLogoUrl } from "../../services/airlineLogoService";
+import { useBatchAirlineLogos } from "../../services/batchLogoService";
+import AirlineLogo from "../common/AirlineLogo";
 
 // Responsive hook
 function useMediaQuery(query) {
@@ -17,27 +18,18 @@ function useMediaQuery(query) {
   return matches;
 }
 
-const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetails, passengers = [], onConfirmAndPay }) => {
-  const [termsAccepted, setTermsAccepted] = useState(false);
-  const [airlineLogoUrl, setAirlineLogoUrl] = useState('/img/flights/default-flight.png');
+const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetails, passengers = [], onConfirmAndPay, onPreviousStep, currentStep, totalSteps, termsAccepted, setTermsAccepted }) => {
   const [activePassengerTab, setActivePassengerTab] = useState(0);
   const isDesktop = useMediaQuery('(min-width: 901px)');
   const isMobile = useMediaQuery('(max-width: 900px)');
 
-  // Load airline logo
-  useEffect(() => {
-    const loadAirlineLogo = async () => {
-      if (flight?.flightList?.[0]?.FlightLogoName) {
-        try {
-          const logoUrl = await getAirlineLogoUrl(flight.flightList[0].FlightLogoName);
-          setAirlineLogoUrl(logoUrl);
-        } catch (error) {
-          console.warn('Failed to load airline logo:', error);
-        }
-      }
-    };
-    loadAirlineLogo();
+  // Memoize the flights array to prevent infinite re-renders
+  const flightsArray = useMemo(() => {
+    return flight ? [flight] : [];
   }, [flight]);
+
+  // Batch logo service for flight
+  const { logoMap, loading: logoLoading, error: logoError } = useBatchAirlineLogos(flightsArray);
 
   return (
     <div className="container py-40">
@@ -51,19 +43,19 @@ const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetail
             <div className="px-15 py-30 rounded-8 border-light bg-white shadow-sm text-center">
               <TabList className="tabs__controls row y-gap-15 js-tabs-controls">
                 <Tab className="col-12 tabs__button js-tabs-button">
-                  <div className="d-flex items-center justify-center y-gap-8">
+                  <div className="d-flex items-center justify-center" style={{ gap: '8px' }}>
                     <i className="icon-user text-16 text-blue-1"></i>
                     <span className="text-14 fw-500">Passenger Details</span>
                   </div>
                 </Tab>
                 <Tab className="col-12 tabs__button js-tabs-button">
-                  <div className="d-flex items-center justify-center y-gap-8">
+                  <div className="d-flex items-center justify-center" style={{ gap: '8px' }}>
                     <i className="icon-calendar text-16 text-blue-1"></i>
                     <span className="text-14 fw-500">Trip Details</span>
                   </div>
                 </Tab>
                 <Tab className="col-12 tabs__button js-tabs-button">
-                  <div className="d-flex items-center justify-center y-gap-8">
+                  <div className="d-flex items-center justify-center" style={{ gap: '8px' }}>
                     <i className="icon-airplane text-16 text-blue-1"></i>
                     <span className="text-14 fw-500">Flight & Pricing</span>
                   </div>
@@ -97,16 +89,6 @@ const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetail
                       ))}
                     </div>
                     
-                    {/* Next Button */}
-                    <button
-                      className="passenger-next-button"
-                      onClick={() => {
-                        // Handle next step logic here
-                        console.log('Next step from passenger details');
-                      }}
-                    >
-                      Next Step
-                    </button>
                         </div>
 
                   {/* Active Passenger Details Card */}
@@ -209,41 +191,52 @@ const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetail
                 </div>
                 {/* 2x2 grid for details */}
                 <div className="trip-details-grid">
-                  {/* Upper Left - Route & Dates */}
-                  <div>
-                    <div className="confirmation-info-item">
-                      <span className="confirmation-info-label">Route</span>
-                      <span className="confirmation-info-value">{searchData.from} → {searchData.to}</span>
-                    </div>
-                    <div className="confirmation-info-item">
-                      <span className="confirmation-info-label">Trip Type</span>
-                      <span className="confirmation-info-value">
-                        <span className={`trip-type-badge ${searchData.tripType === 'ONEWAY' ? 'oneway' : 'roundtrip'}`}>
-                          {searchData.tripType === 'ONEWAY' ? 'One Way' : 'Round Trip'}
+                  {/* Upper Left - Route & Dates - 2x2 Grid */}
+                  <div className="route-dates-grid">
+                    {/* Row 1 */}
+                    <div className="grid-row">
+                      <div className="confirmation-info-item">
+                        <span className="confirmation-info-label">Route</span>
+                        <span className="confirmation-info-value">{searchData.from} → {searchData.to}</span>
+                      </div>
+                      <div className="confirmation-info-item">
+                        <span className="confirmation-info-label">Trip Type</span>
+                        <span className="confirmation-info-value">
+                          <span className={`trip-type-badge ${searchData.tripType === 'ONEWAY' ? 'oneway' : 'roundtrip'}`}>
+                            {searchData.tripType === 'ONEWAY' ? 'One Way' : 'Round Trip'}
+                          </span>
                         </span>
-                      </span>
                     </div>
-                    {searchData.tripType === 'ONEWAY' ? (
-                      <>
-                        <div className="confirmation-info-item">
-                          <span className="confirmation-info-label">Departure Date</span>
-                          <span className="confirmation-info-value">{searchData.date}</span>
+                    </div>
+                    {/* Row 2 */}
+                    <div className="grid-row">
+                      {searchData.tripType === 'ONEWAY' ? (
+                        <>
+                          <div className="confirmation-info-item">
+                            <span className="confirmation-info-label">Departure Date</span>
+                            <span className="confirmation-info-value">{new Date(searchData.date).toLocaleDateString()}</span>
                         </div>
-                        <div className="confirmation-info-item">
-                          <span className="confirmation-info-label">Departure Time</span>
-                          <span className="confirmation-info-value">{searchData.time || 'Anytime'}</span>
+                          <div className="confirmation-info-item">
+                            <span className="confirmation-info-label">Departure Time</span>
+                            <span className="confirmation-info-value">{searchData.time || 'Anytime'}</span>
                         </div>
                       </>
                     ) : (
                       <>
-                        <div className="confirmation-info-item">
-                          <span className="confirmation-info-label">Departure Date</span>
-                          <span className="confirmation-info-value">{searchData.departureDate}</span>
-                        </div>
-                        <div className="confirmation-info-item">
-                          <span className="confirmation-info-label">Return Date</span>
-                          <span className="confirmation-info-value">{searchData.returnDate}</span>
-                        </div>
+                          <div className="confirmation-info-item">
+                            <span className="confirmation-info-label">Departure Date</span>
+                            <span className="confirmation-info-value">{new Date(searchData.departureDate).toLocaleDateString()}</span>
+                          </div>
+                          <div className="confirmation-info-item">
+                            <span className="confirmation-info-label">Return Date</span>
+                            <span className="confirmation-info-value">{new Date(searchData.returnDate).toLocaleDateString()}</span>
+                          </div>
+                        </>
+                      )}
+                    </div>
+                    {/* Row 3 for Round Trip - Return Time */}
+                    {searchData.tripType === 'ROUNDTRIP' && (
+                      <div className="grid-row">
                         <div className="confirmation-info-item">
                           <span className="confirmation-info-label">Departure Time</span>
                           <span className="confirmation-info-value">{searchData.departureTime || 'Anytime'}</span>
@@ -252,76 +245,54 @@ const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetail
                           <span className="confirmation-info-label">Return Time</span>
                           <span className="confirmation-info-value">{searchData.returnTime || 'Anytime'}</span>
                         </div>
-                      </>
+                      </div>
                     )}
-                  </div>
-                  {/* Upper Right - Passengers & Class */}
-                  <div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Total Passengers</span>
-                      <span className="trip-details-value">
-                        {(parseInt(searchData.adult) || 0) + (parseInt(searchData.child) || 0) + (parseInt(searchData.seatInfant) || 0)}
+                    {/* Row 4: Preferred Airlines */}
+                    <div className="grid-row single-item">
+                      <div className="confirmation-info-item">
+                        <span className="confirmation-info-label">Preferred Airlines</span>
+                        <span className="confirmation-info-value">
+                          {[searchData.airline1, searchData.airline2].filter(Boolean).join(', ') || 'Any'}
                       </span>
                     </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Adults</span>
-                      <span className="trip-details-value">{searchData.adult || 0}</span>
-                    </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Children</span>
-                      <span className="trip-details-value">{searchData.child || 0}</span>
-                    </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Lap Infants</span>
-                      <span className="trip-details-value">{searchData.lapInfant || 0}</span>
-                    </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Seat Infants</span>
-                      <span className="trip-details-value">{searchData.seatInfant || 0}</span>
-                    </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Cabin Class</span>
-                      <span className="trip-details-value">{searchData.cabinClass || 'Economy'}</span>
                     </div>
                   </div>
-                  {/* Bottom Left - Preferences */}
-                  <div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Preferred Airlines</span>
-                      <span className="trip-details-value">
-                        {[searchData.airline1, searchData.airline2].filter(Boolean).join(', ') || 'Any'}
+                  {/* Upper Right - Passengers & Class - 2x2 Grid */}
+                  <div className="passengers-class-grid">
+                    {/* Row 1: Total Passengers & Cabin Class */}
+                    <div className="grid-row">
+                      <div className="confirmation-info-item">
+                        <span className="confirmation-info-label">Total Passengers</span>
+                        <span className="confirmation-info-value">
+                          {(parseInt(searchData.adult) || 0) + (parseInt(searchData.child) || 0) + (parseInt(searchData.seatInfant) || 0)}
                       </span>
                     </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Direct Flights Only</span>
-                      <span className="trip-details-value">{searchData.directFlights ? "Yes" : "No"}</span>
+                      <div className="confirmation-info-item">
+                        <span className="confirmation-info-label">Cabin Class</span>
+                        <span className="confirmation-info-value">{searchData.cabinClass || 'Economy'}</span>
                     </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Flexible Dates</span>
-                      <span className="trip-details-value">{searchData.flexibleDates ? "Yes" : "No"}</span>
                     </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Nearby Airports</span>
-                      <span className="trip-details-value">{searchData.nearbyAirports ? "Yes" : "No"}</span>
+                    {/* Row 2: Adults & Children */}
+                    <div className="grid-row">
+                      <div className="confirmation-info-item">
+                        <span className="confirmation-info-label">Adults</span>
+                        <span className="confirmation-info-value">{searchData.adult || 0}</span>
                     </div>
+                      <div className="confirmation-info-item">
+                        <span className="confirmation-info-label">Children</span>
+                        <span className="confirmation-info-value">{searchData.child || 0}</span>
                   </div>
-                  {/* Bottom Right - Additional Options */}
-                  <div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">No Penalties</span>
-                      <span className="trip-details-value">{searchData.noPenalties ? "Yes" : "No"}</span>
                     </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Search Date</span>
-                      <span className="trip-details-value">{new Date().toLocaleDateString()}</span>
+                    {/* Row 3: Lap Infants & Seat Infants */}
+                    <div className="grid-row">
+                      <div className="confirmation-info-item">
+                        <span className="confirmation-info-label">Lap Infants</span>
+                        <span className="confirmation-info-value">{searchData.lapInfant || 0}</span>
                     </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Booking Reference</span>
-                      <span className="trip-details-value">{flight?.id || 'Pending'}</span>
+                      <div className="confirmation-info-item">
+                        <span className="confirmation-info-label">Seat Infants</span>
+                        <span className="confirmation-info-value">{searchData.seatInfant || 0}</span>
                     </div>
-                    <div className="trip-details-item">
-                      <span className="trip-details-label">Validating Carrier</span>
-                      <span className="trip-details-value">{flight?.validatingCarrier || 'N/A'}</span>
                     </div>
                   </div>
                 </div>
@@ -346,7 +317,15 @@ const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetail
                                               <div className="row y-gap-15">
                           <div className="col-12">
                             <div className="flight-airline-info">
-                              <img src={airlineLogoUrl} alt="Airline Logo" className="flight-airline-logo" />
+                              <AirlineLogo 
+                                className="flight-airline-logo"
+                                alt="Airline Logo"
+                                fallbackImage="/img/flights/default-flight.png"
+                                validatingCarrierCode={flight.validatingCarrierCode}
+                                airlineLogoUrl={flight.airlineLogo}
+                                logoMap={logoMap}
+                                logoLoading={logoLoading}
+                              />
                               <div className="flight-airline-details">
                                 <div className="airline-name">{flight.airline || flight.validatingCarrier}</div>
                                 <div className="airline-type">Operating Carrier</div>
@@ -542,7 +521,7 @@ const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetail
                                       )}
                                     </div>
                                   )}
-                                </div>
+                    </div>
                               )}
                               
                               {/* Grand Total */}
@@ -552,11 +531,11 @@ const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetail
                                   <div className="confirmation-info-item">
                                     <span className="confirmation-info-label">Total Base Fare</span>
                                     <span className="confirmation-info-value">${totalBaseFare.toFixed(2)}</span>
-                                  </div>
+                    </div>
                                   <div className="confirmation-info-item">
                                     <span className="confirmation-info-label">Total Taxes & Fees</span>
                                     <span className="confirmation-info-value">${totalTaxes.toFixed(2)}</span>
-                                  </div>
+                    </div>
                     </div>
                                 <div className="pricing-total grand-total">
                                   <span className="pricing-total-label">Total Amount</span>
@@ -569,41 +548,6 @@ const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetail
                     </div>
                     )}
 
-                    {/* Total Price */}
-                    <div className="total-price-section">
-                      <div className="total-price-card">
-                        <div className="total-price-row">
-                          <span className="total-price-label">Total Price</span>
-                          <span className="total-price-value">${flight.price?.toFixed(2)}</span>
-                    </div>
-                        <div className="total-price-note">All prices in USD. Taxes and fees included.</div>
-                    </div>
-                    </div>
-
-                    {/* Terms and Confirm Button */}
-                    <div className="terms-confirm-section">
-                      <div className="terms-checkbox">
-                        <input
-                          type="checkbox"
-                          id="termsCheckbox"
-                          checked={termsAccepted}
-                          onChange={e => setTermsAccepted(e.target.checked)}
-                        />
-                        <div className="form-checkbox__mark">
-                          <div className="form-checkbox__icon icon-check" />
-                        </div>
-                        <label htmlFor="termsCheckbox" className="terms-label">
-                          I agree to the <a href="#">Terms & Conditions</a>
-                        </label>
-                      </div>
-                      <button
-                        className="confirm-pay-button"
-                        disabled={!termsAccepted}
-                        onClick={onConfirmAndPay}
-                      >
-                        Confirm & Pay ${flight.price?.toFixed(2)}
-                      </button>
-                    </div>
                   </>
                 ) : (
                   <div className="text-15 text-light-1">Flight or segment data not found.</div>
@@ -613,8 +557,139 @@ const FlightBookingConfirmation = ({ flight, searchData, segment, personalDetail
           </div>
         </div>
       </Tabs>
-      <div className="text-center mt-40">
-        <div className="text-18 text-light-1">If all details are correct, click <span className="fw-600 text-blue-1">Next</span> to proceed to payment.</div>
+      
+      
+      {/* Terms and Confirm Button */}
+      <div className="terms-confirm-section mt-40">
+        <div className="row justify-center">
+          <div className="col-12">
+            <div className="terms-confirm-wrapper bg-light-2 rounded-12 p-30">
+              <div className="row y-gap-20 items-center">
+                {/* Left Side - Title and Description */}
+                <div className="col-lg-4 col-md-6">
+                  <div className="text-center text-lg-start">
+                    <h4 className="text-20 fw-600 text-dark-1 mb-10">Ready to Book?</h4>
+                    <p className="text-14 text-light-1">Review and accept the terms to proceed with your booking.</p>
+                  </div>
+                </div>
+                
+                {/* Middle - Terms Checkbox */}
+                <div className="col-lg-4 col-md-6">
+                  <div className="terms-checkbox">
+                    <div className="form-checkbox d-flex items-center">
+                      <input
+                        type="checkbox"
+                        id="termsCheckbox"
+                        checked={termsAccepted}
+                        onChange={e => setTermsAccepted(e.target.checked)}
+                      />
+                      <div className="form-checkbox__mark">
+                        <div className="form-checkbox__icon icon-check" />
+                      </div>
+                      <label htmlFor="termsCheckbox" className="text-15 text-dark-1 ml-10">
+                        I agree to the <a href="#" className="text-blue-1 fw-500">Terms & Conditions.</a>
+                      </label>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Right Side - Confirm & Pay Button */}
+                <div className="col-lg-4 col-md-12">
+                  <div className="text-center text-lg-start d-flex items-center justify-center justify-lg-start" style={{ height: '100%' }}>
+                    <button
+                      className="confirm-pay-button button h-60 px-40 -dark-1 text-white fw-600"
+                      disabled={!termsAccepted}
+                      onClick={onConfirmAndPay}
+                      style={{
+                        opacity: (!termsAccepted) ? 0.6 : 1,
+                        cursor: (!termsAccepted) ? 'not-allowed' : 'pointer',
+                        border: 'none',
+                        borderRadius: '8px',
+                        fontSize: '16px',
+                        transition: 'all 0.3s ease'
+                      }}
+                    >
+                      <i className="icon-credit-card mr-10"></i>
+                      Confirm & Pay ${(() => {
+                        // Calculate the same total as in the pricing breakdown
+                        const adults = parseInt(searchData.adult) || 0;
+                        const children = parseInt(searchData.child) || 0;
+                        const infants = parseInt(searchData.lapInfant) || 0;
+                        
+                        const adultFare = flight.rawFares?.find(f => f.PaxType === 'ADT');
+                        const childFare = flight.rawFares?.find(f => f.PaxType === 'CHD');
+                        const infantFare = flight.rawFares?.find(f => f.PaxType === 'INF');
+                        
+                        const adultBaseFare = adultFare?.BaseFare || 0;
+                        const adultTaxes = adultFare?.Taxes || 0;
+                        const adultTotal = adultBaseFare + adultTaxes;
+                        
+                        const childBaseFare = childFare?.BaseFare || adultBaseFare;
+                        const childTaxes = childFare?.Taxes || adultTaxes;
+                        const childTotal = childBaseFare + childTaxes;
+                        
+                        const infantBaseFare = infantFare?.BaseFare || 0;
+                        const infantTaxes = infantFare?.Taxes || 0;
+                        const infantTotal = infantBaseFare + infantTaxes;
+                        
+                        const totalBaseFare = (adults * adultBaseFare) + (children * childBaseFare) + (infants * infantBaseFare);
+                        const totalTaxes = (adults * adultTaxes) + (children * childTaxes) + (infants * infantTaxes);
+                        const grandTotal = totalBaseFare + totalTaxes;
+                        
+                        return grandTotal.toFixed(2);
+                      })()}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      {/* Status Message */}
+      <div className="text-center mt-30">
+        <div className={`text-16 ${!termsAccepted ? 'text-red-1' : 'text-green-1'} fw-500`}>
+          {!termsAccepted ? (
+            <>
+              <i className="icon-warning mr-8"></i>
+              Please review all information and accept the Terms & Conditions to proceed.
+            </>
+          ) : (
+            <>
+              {/* <i className="icon-check mr-8"></i> */}
+              {/* Ready to proceed to payment */}
+            </>
+          )}
+        </div>
+      </div>
+      {/* Navigation Buttons */}
+      <div className="row x-gap-20 y-gap-20 pt-20">
+        <div className="col-auto">
+          <button
+            className="button h-60 px-24 -blue-1 bg-light-2"
+            disabled={currentStep === 0}
+            onClick={onPreviousStep}
+            type="button"
+          >
+            Previous
+          </button>
+        </div>
+
+        {/* <div className="col-auto">
+          <button
+            className="button h-60 px-24 -dark-1 bg-blue-1 text-white"
+            disabled={currentStep === totalSteps || !termsAccepted}
+            onClick={onConfirmAndPay}
+            type="button"
+            style={{
+              opacity: (!termsAccepted) ? 0.5 : 1,
+              cursor: (!termsAccepted) ? 'not-allowed' : 'pointer'
+            }}
+          >
+            Next <div className="icon-arrow-top-right ml-15" />
+          </button>
+        </div> */}
       </div>
     </div>
   );

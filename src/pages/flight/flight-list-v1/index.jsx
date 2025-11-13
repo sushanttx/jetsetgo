@@ -6,13 +6,14 @@ import FlightProperties from "@/components/flight-list/flight-list-v1/FlightProp
 import Pagination from "@/components/flight-list/common/Pagination";
 import Sidebar from "@/components/flight-list/flight-list-v1/Sidebar";
 import { useState, useEffect, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 import MetaComponent from "@/components/common/MetaComponent";
 import { transformFlightData } from "@/utils/flight-helpers";
 import airlinesData from "@/data/airlines.json";
 
 const metadata = {
-  title: "Flight || Flight Booking",
-  description: "Flight Booking",
+  title: "Flight || JetSetGo",
+  description: "JetSetGo",
 };
 
 // NEW: Default structure for the search form
@@ -33,6 +34,7 @@ const formatDuration = (durationString) => durationString ? durationString.repla
 
 
 const FlightListPage1 = () => {
+  const navigate = useNavigate();
   // MODIFICATION: Initialize state with the default object instead of null
   const [searchForm, setSearchForm] = useState(defaultSearchForm);
   const [flightData, setFlightData] = useState([]);
@@ -60,84 +62,7 @@ const FlightListPage1 = () => {
   const flightsPerPage = 10;
 
   useEffect(() => {
-    const formData = localStorage.getItem("flightSearchForm");
-    if (formData) {
-      try {
-        const parsedForm = JSON.parse(formData);
-        setSearchForm(parsedForm);
-        
-        // Apply search form preferences as initial filters
-        const initialFilters = {
-          stops: [],
-          airlines: [],
-          price: { min: 0, max: 10000 },
-          departureTimes: [],
-          cabinClass: [],
-          preferredAirlines: [],
-        };
-
-        // Store search preferences separately (these will be shown as checked but not restrictive)
-        const searchPrefs = {
-          cabinClass: [],
-          preferredAirlines: [],
-          departureTimes: [],
-        };
-
-        // Apply cabin class preference if specified
-        if (parsedForm.cabinClass && parsedForm.cabinClass !== "All Class Cabin") {
-          searchPrefs.cabinClass = [parsedForm.cabinClass];
-        }
-
-        // Apply preferred airlines if specified
-        const preferredAirlines = [];
-        if (parsedForm.airline1) preferredAirlines.push(parsedForm.airline1);
-        if (parsedForm.airline2) preferredAirlines.push(parsedForm.airline2);
-        if (preferredAirlines.length > 0) {
-          searchPrefs.preferredAirlines = preferredAirlines;
-        }
-
-        // Apply departure time preference if specified
-        if (parsedForm.departureTime && parsedForm.departureTime !== "Anytime") {
-          const timeMapping = {
-            "Early Morning": "0-6",
-            "Morning": "6-12", 
-            "Afternoon": "12-18",
-            "Evening": "18-24"
-          };
-          if (timeMapping[parsedForm.departureTime]) {
-            searchPrefs.departureTimes = [timeMapping[parsedForm.departureTime]];
-          }
-        }
-
-        // Apply return time preference if specified (for round-trip searches)
-        if (parsedForm.returnTime && parsedForm.returnTime !== "Anytime") {
-          const timeMapping = {
-            "Early Morning": "0-6",
-            "Morning": "6-12", 
-            "Afternoon": "12-18",
-            "Evening": "18-24"
-          };
-          if (timeMapping[parsedForm.returnTime]) {
-            searchPrefs.arrivalTimes = [timeMapping[parsedForm.returnTime]];
-          }
-        }
-
-        // Note: Direct flights preference is handled separately for display purposes only
-        // It doesn't automatically filter results - user can manually select Nonstop if they want
-
-        // Note: Preferred airlines are handled separately for display purposes only
-        // They don't automatically filter results - user can manually select them if they want
-
-        // Store search preferences
-        window.__searchPreferences = searchPrefs;
-
-        // Store initial filters to apply after flight data is loaded
-        window.__initialFilters = initialFilters;
-      } catch (error) {
-        console.error("Error parsing search form:", error);
-      }
-    }
-
+    // Check if we have search results from faker
     const searchResults = localStorage.getItem("flightSearchResults");
     if (searchResults) {
       try {
@@ -150,8 +75,8 @@ const FlightListPage1 = () => {
           const minPrice = Math.min(...prices);
           const maxPrice = Math.max(...prices);
           
-          // Apply initial filters from search form if they exist
-          const finalFilters = window.__initialFilters || {
+          // Set initial filters based on faker data
+          const initialFilters = {
             stops: [],
             airlines: [],
             price: { min: minPrice, max: maxPrice },
@@ -160,17 +85,16 @@ const FlightListPage1 = () => {
             preferredAirlines: [],
           };
           
-          // Update price range
-          finalFilters.price = { min: minPrice, max: maxPrice };
-          setFilters(finalFilters);
-          
-          // Clean up
-          delete window.__initialFilters;
+          setFilters(initialFilters);
         }
       } catch (error) {
         console.error("Error parsing flight data:", error);
         setFlightData([]);
       }
+    } else {
+      // If no search results, show message to search first
+      console.log("No search results found. Please search for flights first.");
+      setFlightData([]);
     }
     setLoading(false);
   }, []);
@@ -368,7 +292,7 @@ const FlightListPage1 = () => {
               <div className="col-auto">
                 <button 
                   className="button -outline-white text-white px-30 h-50"
-                  onClick={() => window.history.back()}
+                  onClick={() => navigate('/')}
                 >
                   Modify Search
                 </button>

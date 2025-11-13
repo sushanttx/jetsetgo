@@ -78,32 +78,39 @@ const LocationSearch = () => {
     }
     setLoading(true);
     try {
-      const ipRes = await fetch("https://api.ipify.org?format=json");
-      const ipData = await ipRes.json();
-      const ip = ipData.ip;
+      // No API calls - using faker directly
       const cabinClassCode = mapCabinClassToCode(form.cabinClass);
       const response = await searchFlights({
-        from: form.from, to: form.to, date: form.date, cabinClass: cabinClassCode, ip, adult: form.adult, child: form.child, lapInfant: form.lapInfant, seatInfant: form.seatInfant,
+        from: form.from, to: form.to, date: form.date, cabinClass: cabinClassCode, ip: "127.0.0.1", adult: form.adult, child: form.child, lapInfant: form.lapInfant, seatInfant: form.seatInfant,
       });
       localStorage.setItem("flightSearchResults", JSON.stringify(response));
       localStorage.setItem("flightSearchForm", JSON.stringify(form));
       navigate("/flight");
     } catch (err) {
-      if (err.message && err.message.includes('401')) {
-        // Redirect to sign in for authentication errors
-        navigate("/signup");
-        return;
-      }
       setError(err.message || "Something went wrong");
     } finally {
       setLoading(false);
     }
   };
 
-  const clearInput = (logic, fieldName) => {
-    logic.setInput('');
-    logic.setShowDropdown(false);
+  const clearInput = (fieldName) => {
+    // Clear the form state
     setForm(prev => ({ ...prev, [fieldName]: ''}));
+    
+    // Clear the input display and hide dropdown based on field
+    if (fieldName === 'from') {
+      setFromInput('');
+      fromLogic.setShowDropdown(false);
+    } else if (fieldName === 'to') {
+      setToInput('');
+      toLogic.setShowDropdown(false);
+    } else if (fieldName === 'airline1') {
+      setAirline1Input('');
+      airline1Logic.setShowDropdown(false);
+    } else if (fieldName === 'airline2') {
+      setAirline2Input('');
+      airline2Logic.setShowDropdown(false);
+    }
   };
 
   return (
@@ -340,13 +347,47 @@ const LocationSearch = () => {
                   onKeyDown={fromLogic.handleKeyDown}
                   autoComplete="off"
                 />
-                {fromLogic.input && <button 
+                {fromLogic.input && (
+                  <button 
                 type="button" 
                 aria-label="Clear from input" 
-                onClick={() => clearInput(fromLogic, 'from')} 
-                className="clear-button">
-                  ×
-                  </button>}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      clearInput('from');
+                    }} 
+                    className="clear-button"
+                    style={{
+                      position: 'absolute',
+                      right: '8px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      fontSize: '18px',
+                      cursor: 'pointer',
+                      color: '#666',
+                      zIndex: 10,
+                      padding: '4px',
+                      borderRadius: '50%',
+                      width: '24px',
+                      height: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = '#f0f0f0';
+                      e.target.style.color = '#333';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = 'transparent';
+                      e.target.style.color = '#666';
+                    }}
+                  >
+                    ×
+                  </button>
+                )}
                 {fromLogic.showDropdown && fromLogic.suggestions.length > 0 && (
                   <ul className="dropdown-list">
                     {fromLogic.suggestions.map((airport, index) => (
@@ -392,7 +433,47 @@ const LocationSearch = () => {
                   onKeyDown={airline1Logic.handleKeyDown}
                   autoComplete="off"
                 />
-                {airline1Logic.input && <button type="button" aria-label="Clear airline 1 input" onClick={() => clearInput(airline1Logic, 'airline1')} className="clear-button">×</button>}
+                {airline1Logic.input && (
+                  <button 
+                    type="button" 
+                    aria-label="Clear airline 1 input" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      clearInput('airline1');
+                    }} 
+                    className="clear-button"
+                    style={{
+                      position: 'absolute',
+                      right: '8px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      fontSize: '18px',
+                      cursor: 'pointer',
+                      color: '#666',
+                      zIndex: 10,
+                      padding: '4px',
+                      borderRadius: '50%',
+                      width: '24px',
+                      height: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = '#f0f0f0';
+                      e.target.style.color = '#333';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = 'transparent';
+                      e.target.style.color = '#666';
+                    }}
+                  >
+                    ×
+                  </button>
+                )}
                 {airline1Logic.showDropdown && airline1Logic.suggestions.length > 0 && (
                   <ul className="dropdown-list">
                     {airline1Logic.suggestions.map((airline, index) => (
@@ -419,7 +500,47 @@ const LocationSearch = () => {
                   onKeyDown={toLogic.handleKeyDown}
                   autoComplete="off"
                 />
-                {toLogic.input && <button type="button" aria-label="Clear to input" onClick={() => clearInput(toLogic, 'to')} className="clear-button">×</button>}
+                {toLogic.input && (
+                  <button 
+                    type="button" 
+                    aria-label="Clear to input" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      clearInput('to');
+                    }} 
+                    className="clear-button"
+                    style={{
+                      position: 'absolute',
+                      right: '8px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      fontSize: '18px',
+                      cursor: 'pointer',
+                      color: '#666',
+                      zIndex: 10,
+                      padding: '4px',
+                      borderRadius: '50%',
+                      width: '24px',
+                      height: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = '#f0f0f0';
+                      e.target.style.color = '#333';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = 'transparent';
+                      e.target.style.color = '#666';
+                    }}
+                  >
+                    ×
+                  </button>
+                )}
                 {toLogic.showDropdown && toLogic.suggestions.length > 0 && (
                   <ul className="dropdown-list">
                     {toLogic.suggestions.map((airport, index) => (
@@ -451,7 +572,47 @@ const LocationSearch = () => {
                   onKeyDown={airline2Logic.handleKeyDown}
                   autoComplete="off"
                 />
-                {airline2Logic.input && <button type="button" aria-label="Clear airline 2 input" onClick={() => clearInput(airline2Logic, 'airline2')} className="clear-button">×</button>}
+                {airline2Logic.input && (
+                  <button 
+                    type="button" 
+                    aria-label="Clear airline 2 input" 
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      clearInput('airline2');
+                    }} 
+                    className="clear-button"
+                    style={{
+                      position: 'absolute',
+                      right: '8px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      background: 'none',
+                      border: 'none',
+                      fontSize: '18px',
+                      cursor: 'pointer',
+                      color: '#666',
+                      zIndex: 10,
+                      padding: '4px',
+                      borderRadius: '50%',
+                      width: '24px',
+                      height: '24px',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                    onMouseEnter={(e) => {
+                      e.target.style.backgroundColor = '#f0f0f0';
+                      e.target.style.color = '#333';
+                    }}
+                    onMouseLeave={(e) => {
+                      e.target.style.backgroundColor = 'transparent';
+                      e.target.style.color = '#666';
+                    }}
+                  >
+                    ×
+                  </button>
+                )}
                 {airline2Logic.showDropdown && airline2Logic.suggestions.length > 0 && (
                   <ul className="dropdown-list">
                     {airline2Logic.suggestions.map((airline, index) => (

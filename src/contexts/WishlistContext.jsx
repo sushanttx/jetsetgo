@@ -1,5 +1,6 @@
 import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import { fetchWishlist } from '../services/wishlistService';
+import { isTokenExpired, handle403Error } from '../utils/authUtils';
 
 // Wishlist context for global state management
 const WishlistContext = createContext();
@@ -225,6 +226,12 @@ export const WishlistProvider = ({ children }) => {
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
+      // Check if token is expired
+      if (isTokenExpired(token)) {
+        console.log('WishlistContext: Token is expired, redirecting to login');
+        handle403Error({ status: 403 }, window.location.pathname);
+        return;
+      }
       fetchWishlistData();
     }
   }, []);

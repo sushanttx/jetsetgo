@@ -2,6 +2,7 @@
 // Handles all wishlist-related API calls
 
 import { getApiBaseUrl } from '../config/hosting';
+import { handle403Error, isTokenExpired } from '../utils/authUtils.js';
 
 const API_BASE_URL = getApiBaseUrl() + '/api';
 
@@ -13,21 +14,26 @@ const getAuthHeaders = () => {
   }
   
   // Check if token is expired
-  try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    const currentTime = Date.now() / 1000;
-    if (payload.exp && payload.exp < currentTime) {
-      localStorage.removeItem('token');
-      throw new Error('Authentication token has expired. Please log in again.');
-    }
-  } catch (error) {
-    console.warn('Could not parse token payload:', error);
+  if (isTokenExpired(token)) {
+    console.log('Token is expired, redirecting to login');
+    // Use handle403Error for proper cleanup and redirect
+    handle403Error({ status: 403 }, window.location.pathname);
+    return {
+      'Authorization': '',
+      'Content-Type': 'application/json'
+    };
   }
   
   return {
     'Authorization': `Bearer ${token}`,
     'Content-Type': 'application/json'
   };
+};
+
+// Helper function to check if user is authenticated
+const isUserAuthenticated = () => {
+  const token = localStorage.getItem('token');
+  return token && !isTokenExpired(token);
 };
 
 // Helper function to handle API responses
@@ -37,7 +43,9 @@ const handleApiResponse = async (response) => {
   } else if (response.status === 401) {
     throw new Error('Authentication failed. Please log in again.');
   } else if (response.status === 403) {
-    throw new Error('Access denied. You do not have permission to perform this action.');
+    // Handle 403 Forbidden (token expired/invalid)
+    handle403Error(response, window.location.pathname);
+    return; // Exit early, redirect is happening
   } else if (response.status === 404) {
     throw new Error('Wishlist item not found.');
   } else if (response.status === 409) {
@@ -52,6 +60,12 @@ const handleApiResponse = async (response) => {
 
 // Get user's wishlist with retry logic
 export const fetchWishlist = async (retryCount = 0) => {
+  // Check if user is authenticated first
+  if (!isUserAuthenticated()) {
+    console.log('fetchWishlist: User not authenticated, returning empty array');
+    return [];
+  }
+
   try {
     console.log('fetchWishlist: Starting fetch, retry count:', retryCount);
     console.log('fetchWishlist: Auth headers:', getAuthHeaders());
@@ -78,6 +92,11 @@ export const fetchWishlist = async (retryCount = 0) => {
 
 // Add item to wishlist with rich payload
 export const addToWishlist = async (itineraryId, itineraryData, userNotes = '', priority = 'normal') => {
+  // Check if user is authenticated first
+  if (!isUserAuthenticated()) {
+    throw new Error('User must be logged in to add items to wishlist');
+  }
+
   try {
     console.log('addToWishlist: Starting with itineraryId:', itineraryId);
     console.log('addToWishlist: Raw itineraryData:', itineraryData);
@@ -225,6 +244,11 @@ export const addToWishlist = async (itineraryId, itineraryData, userNotes = '', 
 
 // Remove item from wishlist
 export const removeFromWishlist = async (itineraryId, retryCount = 0) => {
+  // Check if user is authenticated first
+  if (!isUserAuthenticated()) {
+    throw new Error('User must be logged in to remove items from wishlist');
+  }
+
   try {
     const response = await fetch(`${API_BASE_URL}/wishlist/remove`, {
       method: 'POST',

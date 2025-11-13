@@ -62,7 +62,7 @@ const Header1 = () => {
 
                 <Link to="/" className="header-logo mr-20">
                   <img src="/img/general/logo-light-2.svg" alt="logo icon" />
-                  <img src="/img/general/logo-dark.svg" alt="logo icon" />
+                  <img src="/img/general/birb.png" alt="logo icon" />
                 </Link>
                 {/* End logo */}
 
@@ -96,11 +96,11 @@ const Header1 = () => {
                 <div className="d-flex items-center ml-20 is-menu-opened-hide md:d-none">
                   
                   <Link
-                   to="tel:+918882817640"
+                   to="tel:+919022864373"
                     aria-label="Call us"
-                    className="button px-30 fw-400 text-14 border-white -outline-white h-50 text-white ml-20"
+                    className="button px-15 fw-400 text-14 border-white -outline-white h-50 text-white ml-5"
                   >
-                   <FiPhone />{" "} +918882817640
+                   <FiPhone />{" "} +919022864373
                   </Link>
                 </div>
                 {/* End btn-group */}

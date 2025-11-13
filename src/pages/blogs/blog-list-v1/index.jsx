@@ -32,7 +32,7 @@ const BlogListV1 = () => {
               <div className="sectionTitle -md">
                 <h2 className="sectionTitle__title">Blogs</h2>
                 <p className=" sectionTitle__text mt-5 sm:mt-0">
-                  Lorem ipsum is placeholder text commonly used in site.
+                  Lorem ipsum is placeholder text commonly used in site
                 </p>
               </div>
             </div>

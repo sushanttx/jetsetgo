@@ -25,6 +25,13 @@ export const formatTotalDuration = (minutes) => {
     }
   
     apiResponse.FlightItinerary.forEach((itinerary, index) => {
+      // Debug: Log the raw itinerary data to see what's available
+      if (index === 0) {
+        console.log('🔍 Raw itinerary data:', itinerary);
+        console.log('🔍 ValidatingCarrierCode in raw data:', itinerary.ValidatingCarrierCode);
+        console.log('🔍 ValidatingCarrierName in raw data:', itinerary.ValidatingCarrierName);
+      }
+      
       const flightSegments = [];
       const flightSegmentsOutbound = [];
       const flightSegmentsReturn = [];
@@ -49,8 +56,8 @@ export const formatTotalDuration = (minutes) => {
             duration: formatDuration(segment.Duration),
             airline: segment.MarketingAirlineName,
             flightNumber: segment.FlightNumber,
-            avatar: `/img/flights/${segment.FlightLogoName.replace('.gif', '.png')}`,
-            avatarBase: `/img/flights/${String(segment.FlightLogoName).replace(/\.(gif|png|jpe?g)$/i, '')}`,
+            avatar: `/img/airlines/${segment.MarketingAirlineCode || segment.OperatingAirlineCode || 'default'}.png`,
+            avatarBase: segment.MarketingAirlineCode || segment.OperatingAirlineCode || 'default',
             FlightLogoName: segment.FlightLogoName, // Preserve original logo name for API calls
             operatingAirline: segment.OperatingAirlineName,
             brandName: segment.BrandName,
@@ -93,7 +100,7 @@ export const formatTotalDuration = (minutes) => {
         }
       }
   
-      transformedFlights.push({
+      const transformedFlight = {
         id: itinerary.ItineraryId,
         selectId: `flight-${index}`,
         totalDurationInMinutes,
@@ -113,9 +120,18 @@ export const formatTotalDuration = (minutes) => {
         rawFares: itinerary.Fares,
         rawBaggage: firstFare?.baggageAllowance,
         validatingCarrier: itinerary.ValidatingCarrierName,
+        validatingCarrierCode: itinerary.ValidatingCarrierCode, // Add the IATA code for airline logos
         brandName: itinerary.BrandName,
         baggageInfo: baggageInfoText,
-      });
+      };
+      
+      // Debug: Log the transformed flight data
+      if (index === 0) {
+        console.log('🔍 Transformed flight data:', transformedFlight);
+        console.log('🔍 ValidatingCarrierCode in transformed data:', transformedFlight.validatingCarrierCode);
+      }
+      
+      transformedFlights.push(transformedFlight);
     });
   
     return transformedFlights;

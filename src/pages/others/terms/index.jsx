@@ -6,8 +6,8 @@ import TermsConent from "@/components/common/TermsConent";
 import MetaComponent from "@/components/common/MetaComponent";
 
 const metadata = {
-  title: "Terms & Conditions || Flight Booking",
-  description: "Flight Booking",
+  title: "Terms & Conditions || JetSetGo",
+  description: "JetSetGo",
 };
 
 const Terms = () => {

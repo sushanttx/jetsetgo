@@ -23,8 +23,8 @@ import Hotels from "@/components/hotels/Hotels2";
 import MetaComponent from "@/components/common/MetaComponent";
 
 const metadata = {
-  title: "Destinations || Flight Booking",
-  description: "Flight Booking",
+  title: "Destinations || JetSetGo",
+  description: "JetSetGo",
 };
 
 const Destinations = () => {
@@ -323,7 +323,7 @@ const Destinations = () => {
       </section>
       {/* End testimonial Section */}
 
-      <section className="layout-pt-lg layout-pb-md">
+      {/* <section className="layout-pt-lg layout-pb-md">
         <div className="container">
           <div className="row y-gap-20">
             <div className="col-lg-4">
@@ -333,20 +333,16 @@ const Destinations = () => {
                 London
               </h2>
             </div>
-            {/* End .col */}
 
             <div className="col-lg-8">
               <div className="accordion -simple row y-gap-20 js-accordion">
                 <Faq />
               </div>
             </div>
-            {/* End .col-lg-8 */}
           </div>
-          {/* End .row */}
         </div>
-        {/* End .container */}
-      </section>
-      {/* End Faq Section */}
+      </section> */}
+
 
       <section className="layout-pt-md layout-pb-lg">
         <div className="container">

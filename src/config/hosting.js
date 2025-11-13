@@ -1,68 +1,47 @@
-// Frontend Hosting Configuration
-// This file controls how your frontend connects to the backend
+// Frontend Hosting Configuration - VERCEL DEPLOYMENT
+// This file is now simplified for Vercel deployment
 
-const HOSTING_CONFIG = {
-  // Current hosting mode - change this to switch between localhost and wifi
-  HOSTING_MODE: 'wifi', // 'localhost' or 'wifi'
-  
-  // API URLs for different modes
-  API_URLS: {
-    localhost: {
-      base: 'http://localhost:3000',
-      flights: 'http://localhost:3000/api/flights',
-      auth: 'http://localhost:3000/api/auth',
-      wishlist: 'http://localhost:3000/api/wishlist',
-      airlines: 'http://localhost:3000/api/airlines',
-      promotions: 'http://localhost:3000/api/promotions'
-    },
-    wifi: {
-      base: 'http://192.168.1.209:3000',
-      flights: 'http://192.168.1.209:3000/api/flights',
-      auth: 'http://192.168.1.209:3000/api/auth',
-      wishlist: 'http://192.168.1.209:3000/api/wishlist',
-      airlines: 'http://192.168.1.209:3000/api/airlines',
-      promotions: 'http://192.168.1.209:3000/api/promotions'
-    }
-  }
-};
+// ========================================
+// VERCEL DEPLOYMENT CONFIGURATION
+// ========================================
+// No backend calls - using faker data only
 
-// Get the current API base URL based on hosting mode
 export const getApiBaseUrl = () => {
-  const mode = HOSTING_CONFIG.HOSTING_MODE;
-  return HOSTING_CONFIG.API_URLS[mode]?.base || HOSTING_CONFIG.API_URLS.wifi.base;
+  return '/api'; // Vercel will handle this
 };
 
-// Get specific API endpoint URL
 export const getApiUrl = (endpoint) => {
-  const mode = HOSTING_CONFIG.HOSTING_MODE;
-  return HOSTING_CONFIG.API_URLS[mode]?.[endpoint] || HOSTING_CONFIG.API_URLS.wifi[endpoint];
+  return `/api/${endpoint}`; // Vercel will handle this
 };
 
-// Get all API URLs for current mode
 export const getCurrentApiUrls = () => {
-  const mode = HOSTING_CONFIG.HOSTING_MODE;
-  return HOSTING_CONFIG.API_URLS[mode] || HOSTING_CONFIG.API_URLS.wifi;
-};
-
-// Get hosting mode info
-export const getHostingInfo = () => {
-  const mode = HOSTING_CONFIG.HOSTING_MODE;
-  const urls = getCurrentApiUrls();
-  
   return {
-    mode,
-    baseUrl: urls.base,
-    isLocalhost: mode === 'localhost',
-    isWifi: mode === 'wifi',
-    accessibleFrom: mode === 'localhost' ? 'This computer only' : 'Any device on WiFi network'
+    base: '/api',
+    flights: '/api/flights',
+    auth: '/api/auth',
+    wishlist: '/api/wishlist',
+    airlines: '/api/airlines',
+    promotions: '/api/promotions'
   };
 };
 
-// Log hosting configuration on app startup
-export const logHostingInfo = () => {
-  const info = getHostingInfo();
-  console.log('🚀 Frontend Hosting Configuration:');
-  console.log(`   Mode: ${info.mode.toUpperCase()}`);
+export const getHostingInfo = () => {
+  return {
+    mode: 'vercel',
+    baseUrl: '/api',
+    isLocalhost: false,
+    isWifi: false,
+    isVercel: true,
+    accessibleFrom: 'Vercel deployment'
+  };
 };
 
-export default HOSTING_CONFIG;
+// No logging for Vercel deployment
+export const logHostingInfo = () => {
+  // No console logs for production
+};
+
+export default {
+  HOSTING_MODE: 'vercel',
+  API_URLS: getCurrentApiUrls()
+};
